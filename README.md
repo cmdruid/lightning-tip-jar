@@ -2,7 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, rename `.env.local.sample` to `.env.local`. Make sure that you have the correct port forwarded on your lightning node, and that you have the correct API key listed.
+
+Then run the development server:
 
 ```bash
 npm run dev
