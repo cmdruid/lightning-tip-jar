@@ -20,7 +20,7 @@ export default function PaymentStream() {
   return (
     <div className={styles.paymentList}>
       <h2>Latest Tips</h2>
-      {paymentList}
+      {paymentList && paymentList || <p>No payments yet!</p>}
     </div>
   )
 }
