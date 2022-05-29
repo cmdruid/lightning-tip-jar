@@ -1,6 +1,6 @@
-import getclient from 'lib/sparko-client'
+import getClient from 'lib/sparko-client'
 
-const client = getclient()
+const client = getClient()
 
 function invoiceFilter(invoice) {
   const isRelevant = invoice.local_offer_id === process.env.OFFER_ID
@@ -8,10 +8,10 @@ function invoiceFilter(invoice) {
   return isRelevant && isPaid
 }
 
-export default async function getpayments(req, res) {
-  let data = await client.call('listinvoices',{},'0-25');
+export default async function getPayments(req, res) {
+  
+  let data = await client.call('listinvoices',{},'0-50');
   let paidInvoices = data.invoices.filter((e) => invoiceFilter(e))
-
   const payments = []
 
   for (let invoice of paidInvoices) {

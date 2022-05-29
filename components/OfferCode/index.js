@@ -10,6 +10,7 @@ export default function OfferCode() {
   
   if (error) return <div>failed to load!</div>
   if (!data) return <div>loading...</div>
+  if (!data.qrcode) return <div>Unable to locate offer!</div>
 
   return (
     <div className={styles.qrcode}>
