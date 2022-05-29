@@ -4,8 +4,6 @@ import QRCode from 'qrcode'
 const client  = getclient()
 const offerId = process.env.OFFER_ID
 
-
-
 export default async function getoffer(req, res) {
   let data  = await client.call('listoffers');
   let offer = data.offers.find(({offer_id}) => offer_id == offerId)
