@@ -1,4 +1,4 @@
-import getclient from '../../lib/sparko-client'
+import getclient from 'lib/sparko-client'
 
 const client = getclient()
 
