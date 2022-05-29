@@ -16,9 +16,35 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+In order to experiment with offers, you will need to spin up two lightning nodes, open a channel, and balance the channel.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+To balance a new lightning channel, have the channel recipient generate an invoice for half the capacity, and then pay the invoice with the channel creater. For example:
+
+```
+Alice opens a channel with Bob for 5,000,000,000 millisats.
+
+Bob generates an invoice for 2,500,000,000 millisats.
+bob:~# lightning-cli invoice 2500000000 "balance invoice"
+
+Alice uses the bolt11 string to pay the invoice.
+alice:~# lightning-cli pay bolt11string
+
+You will now have a balanced channel to use for testing payments!
+```
+
+To generate an open offer, use the format **offer *amount description***.
+
+Example: `lightning-cli offer any tip-jar`
+
+You will receive a bolt12 string for the offer. To fetch an invoice, use **fetchinvoice *offer=bolt12string msatoshi=amount payer_note=note***.
+
+Example: `lightning-cli fetchinvoice offer=reallylongstring msatoshi=1500000 payer_note="Thanks for the cig!"`
+
+You will then receive a bolt12 string for an invoice with your terms. To pay the invoice, simply use **pay *bolt12invoicestring***.
+
+Example: `lightning-cli pay bolt12invoicestring`
+
+Refresh the page, and you will see the payment show up. Pretty cool!
 
 ## Learn More
 
