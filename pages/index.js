@@ -1,8 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 import LoginQrCode from '@/components/LoginQrCode'
+import Landing from 'components/Landing/index.js'
+import { FaGithub } from 'react-icons/fa'
 
 export default function Home() {
   return (
@@ -12,7 +13,6 @@ export default function Home() {
         <meta name="description" content="Just The Tip Jar" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to Just The Tip Jar
@@ -23,19 +23,16 @@ export default function Home() {
         </p>
 
         <LoginQrCode />
-
+        <Landing />
       </main>
 
       <footer className={styles.footer}>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://github.com/cmdruid/lightning-tip-jar"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+          <p>Powered by plebs</p> <FaGithub size={25}/>
         </a>
       </footer>
     </div>
