@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import OfferCode from 'components/OfferCode/index.js'
-import PaymentStream from 'components/PaymentStream/index.js'
+
+import LoginQrCode from '@/components/LoginQrCode'
 import Landing from 'components/Landing/index.js'
 import { FaGithub } from 'react-icons/fa'
 
@@ -14,9 +14,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <h1 className={styles.title}>
+          Welcome to Just The Tip Jar
+        </h1>
+
+        <p className={styles.description}>
+          Testing the API with our lightning node!
+        </p>
+
+        <LoginQrCode />
         <Landing />
-        <OfferCode />
-        <PaymentStream />
       </main>
 
       <footer className={styles.footer}>
