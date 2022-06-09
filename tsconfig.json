@@ -5,6 +5,7 @@
       "@/components/*": [ "src/components/*" ],
       "@/hooks/*": [ "src/components/*" ],
       "@/public/*": [ "public/*" ],
+      "@/styles/*": [ "styles/*" ],
       "@/lib/*": [ "src/lib/*" ]
     },
     "target": "es5",
