@@ -1,0 +1,8 @@
+.main {
+    background-color: wheat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: centerß;
+}
+
