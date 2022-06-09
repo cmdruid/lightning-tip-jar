@@ -28,7 +28,7 @@
     "./components/",
     "./pages/",
     "./lib/"
-  ],
+, "src/components/Landing"  ],
   "exclude": [
     "./lib/sparko.js"
   ]
