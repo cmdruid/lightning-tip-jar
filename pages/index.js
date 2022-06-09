@@ -2,8 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-import OfferCode from 'components/OfferCode/index.js'
-import PaymentStream from 'components/PaymentStream/index.js'
+import LoginQrCode from '@/components/LoginQrCode'
 
 export default function Home() {
   return (
@@ -23,8 +22,8 @@ export default function Home() {
           Testing the API with our lightning node!
         </p>
 
-        <OfferCode />
-        <PaymentStream />
+        <LoginQrCode />
+
       </main>
 
       <footer className={styles.footer}>
