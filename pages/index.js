@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 import OfferCode from 'components/OfferCode/index.js'
 import PaymentStream from 'components/PaymentStream/index.js'
+import Landing from 'components/Landing/index.js'
 
 export default function Home() {
   return (
@@ -13,16 +13,8 @@ export default function Home() {
         <meta name="description" content="Just The Tip Jar" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to Just The Tip Jar
-        </h1>
-
-        <p className={styles.description}>
-          Testing the API with our lightning node!
-        </p>
-
+        <Landing />
         <OfferCode />
         <PaymentStream />
       </main>
@@ -33,10 +25,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+          Powered by plebs
         </a>
       </footer>
     </div>
