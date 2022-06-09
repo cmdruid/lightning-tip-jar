@@ -4,6 +4,7 @@
     "paths": {
       "@/components/*": [ "src/components/*" ],
       "@/hooks/*": [ "src/components/*" ],
+      "@/public/*": [ "public/*" ],
       "@/lib/*": [ "src/lib/*" ]
     },
     "target": "es5",

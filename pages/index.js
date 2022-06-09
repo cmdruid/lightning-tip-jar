@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 import LoginQrCode from '@/components/LoginQrCode'
-import Landing from 'components/Landing/index.js'
+import Landing from '@/components/Landing/index.js'
 import { FaGithub } from 'react-icons/fa'
 
 export default function Home() {

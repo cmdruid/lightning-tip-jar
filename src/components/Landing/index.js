@@ -1,7 +1,7 @@
 import styles from './styles.module.css'
 import Head from 'next/head'
 import { FaBitcoin, FaNetworkWired } from 'react-icons/fa'
-import bitcoinGiving from '../../public/bitcoingiving.svg'
+import bitcoinGiving from '@/public/bitcoingiving.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 
