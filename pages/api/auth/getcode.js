@@ -2,7 +2,7 @@ import { randHex } from '@/lib/utils'
 import qr from 'qrcode'
 
 const hostUrl = process.env.VERCEL_URL;
-const getAuthStr = k1 => `https://${HOST_URL}/auth/login?tag=login&k1=${k1}&action=login`
+const getAuthStr = k1 => `https://${hostUrl}/auth/login?tag=login&k1=${k1}&action=login`
 
 export default async function getinfo(req, res) {
   const challenge = getAuthStr(randHex(32))
