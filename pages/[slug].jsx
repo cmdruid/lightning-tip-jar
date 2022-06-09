@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import useSWR from 'swr'
+import TipJarForm from '@/components/TipJarForm/index.js'
 
 const fetcher = async url => {
   const res = await fetch(url)
@@ -20,8 +21,13 @@ const fetcher = async url => {
 
 
 export default function Page() {
-
-  const { data, error } = useSWR(`/api/jar/loadjar?slug=test`, fetcher)
+  let url;
+  let jar;
+  if (typeof window !== 'undefined') {
+    url = window.location.href.split('/');
+    jar = url.pop();
+  }
+  const { data, error } = useSWR(`/api/jar/loadjar?slug=${jar}`, fetcher)
 
   switch(true) {
     case error:
@@ -29,7 +35,7 @@ export default function Page() {
     case !data:
       return <div><p>Loading...</p></div>
     case (data && !data.jar):
-      return <div>Tipjar not found!</div>
+      return <TipJarForm />
     default:
       let jarString = JSON.stringify(data.jar, null, 2)
       return <div>{jarString}</div>
