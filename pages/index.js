@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 
-import LoginQrCode from '@/components/LoginQrCode'
 import Landing from '@/components/Landing/index.js'
 import { FaGithub } from 'react-icons/fa'
 
@@ -17,12 +16,6 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to Just The Tip Jar
         </h1>
-
-        <p className={styles.description}>
-          Testing the API with our lightning node!
-        </p>
-
-        <LoginQrCode />
         <Landing />
       </main>
 

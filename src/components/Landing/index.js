@@ -4,6 +4,7 @@ import { FaBitcoin, FaNetworkWired } from 'react-icons/fa'
 import bitcoinGiving from '@/public/bitcoingiving.svg'
 import Image from 'next/image'
 import Link from 'next/link'
+import LoginQrCode from '@/components/LoginQrCode'
 
 export default function Landing() {
     return (
@@ -15,9 +16,6 @@ export default function Landing() {
         </Head>
   
         <main className={styles.landing}>
-          <h1 className={styles.title}>
-            Welcome to Just The Tip Jar
-          </h1>
           <div className={styles.callToActionContainer}>
               <div className={styles.iconContainer}>
                 <FaNetworkWired className={styles.icon} size={85} />
@@ -41,6 +39,7 @@ export default function Landing() {
                 </div>
               </div>
           </div>
+          <LoginQrCode />
           <Link href='/connect'>
             <button className={styles.connectButton}>Connect</button>
           </Link>
