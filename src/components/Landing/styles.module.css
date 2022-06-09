@@ -11,13 +11,14 @@
   }
   
   .connectButton {
-      width: 40%;
-      margin-top: 2%;
+      width: 25%;
+      margin: 3% auto;
+      margin-bottom: 1%;
       background-color: initial;
-      background-image: linear-gradient(-180deg, #FF7E31, #E62C03);
+      background-color: #fbb034;
+      background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 74%);
       border-radius: 6px;
       box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
-      color: #FFFFFF;
       cursor: pointer;
       font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
       height: 40px;
@@ -56,6 +57,10 @@
     align-items: center;
     flex-grow: 1;
     width: 30%;
+  }
+
+  .mainIcon {
+    margin: 3% auto;
   }
   
   .callToAction {

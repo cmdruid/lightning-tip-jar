@@ -14,7 +14,7 @@ export default function LoginQrCode() {
 
   return (
     <div className={styles.qrcode}>
-      <Image src={data.image} alt="Login Code" width={300} height={300} />
+      <Image className={styles.qrimage} src={data.image} alt="Login Code" width={300} height={300} />
     </div>
   )
 }

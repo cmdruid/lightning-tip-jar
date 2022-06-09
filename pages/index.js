@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '@/styles/Home.module.css'
 
 import Landing from '@/components/Landing/index.js'
+import Footer from '@/components/Footer/index.js'
 import { FaGithub } from 'react-icons/fa'
 
 export default function Home() {
@@ -18,16 +19,7 @@ export default function Home() {
         </h1>
         <Landing />
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://github.com/cmdruid/lightning-tip-jar"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <p>Powered by plebs</p> <FaGithub size={25}/>
-        </a>
-      </footer>
+      <Footer />
     </div>
   )
 }
