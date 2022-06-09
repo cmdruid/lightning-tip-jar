@@ -1,21 +1,37 @@
+import React, {useState} from 'react'
 import styles from './styles.module.css'
 import Head from 'next/head'
 import { FaBitcoin, FaNetworkWired, FaBolt } from 'react-icons/fa'
 import bitcoinGiving from '@/public/bitcoingiving.svg'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import Typed from "react-typed"
 
 export default function Landing() {
-    return (
-      <div>
-        <Head>
-          <title>Just The Tip Jar</title>
-          <meta name="description" content="Just The Tip Jar" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+  const [formData, setFormData] = useState("")
+  const router = useRouter()
   
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const regex = new RegExp(/[^\w\-\s]/, 'g')
+    let domain = formData.replace(regex, "").trim().toLowerCase().replace(" ", "-")
+    router.push(`/${domain}`)
+  }
+
+    return (
         <main className={styles.landing}>
-          <button className={styles.connectButton}>Claim your tip jar</button>
+          <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
+            <Typed
+              strings={['Shiners Saloon', 'Satoshi Steakhouse', 'Chase Bank']}
+              typeSpeed={150}
+              attr="placeholder"
+              loop
+              >
+                <input className={styles.input} type="text" value={formData} onChange={(e) => setFormData(e.target.value)}/>
+            </Typed>
+            <button type='submit' className={styles.connectButton}>Claim your tip jar</button>
+          </form>
           <div className={styles.callToActionContainer}>
               <div className={styles.iconContainer}>
                 <FaNetworkWired className={styles.icon} size={85} />
@@ -39,8 +55,6 @@ export default function Landing() {
                 </div>
               </div>
           </div>
-          <FaBolt size={225} />
         </main>
-      </div>
     )
   }
