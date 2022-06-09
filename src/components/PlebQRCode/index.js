@@ -6,12 +6,8 @@ import Image  from 'next/image'
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function PlebQrCode() {
-  
-    // const data = {
-    //     image: 'https://i.imgur.com/XqQZQZU.png',
-    // }
-  
-    const { data, error } = useSWR('/api/plebqr/qr', fetcher)
+
+    const { data, error } = useSWR('/api/merch-lnp/get-lnp', fetcher)
   
   if (error) return <div>failed to load!</div>
   if (!data) return <div>loading...</div>
