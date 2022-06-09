@@ -4,6 +4,8 @@
     "paths": {
       "@/components/*": [ "src/components/*" ],
       "@/hooks/*": [ "src/components/*" ],
+      "@/public/*": [ "public/*" ],
+      "@/styles/*": [ "styles/*" ],
       "@/lib/*": [ "src/lib/*" ]
     },
     "target": "es5",
@@ -28,7 +30,7 @@
     "./components/",
     "./pages/",
     "./lib/"
-  ],
+, "src/components/Landing"  ],
   "exclude": [
     "./lib/sparko.js"
   ]

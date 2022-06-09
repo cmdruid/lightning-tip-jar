@@ -10,11 +10,11 @@ export default function LoginQrCode() {
   
   if (error) return <div>failed to load!</div>
   if (!data) return <div>loading...</div>
-  if (!data.image) return <div>Unable to fetch QR code!</div>
+  if (data && !data.image) return <div>Unable to fetch QR code!</div>
 
   return (
     <div className={styles.qrcode}>
-      <Image src={data.image} alt="Login Code" width={300} height={300} />
+      <Image className={styles.qrimage} src={data.image} alt="Login Code" width={300} height={300} />
     </div>
   )
 }
