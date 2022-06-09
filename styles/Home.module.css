@@ -34,6 +34,12 @@
   color: white;
 }
 
+.footer a p {
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
+}
+
 .code {
   background: #fafafa;
   border-radius: 5px;

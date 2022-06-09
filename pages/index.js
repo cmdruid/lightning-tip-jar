@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-
 import OfferCode from 'components/OfferCode/index.js'
 import PaymentStream from 'components/PaymentStream/index.js'
 import Landing from 'components/Landing/index.js'
+import { FaGithub } from 'react-icons/fa'
 
 export default function Home() {
   return (
@@ -21,11 +21,11 @@ export default function Home() {
 
       <footer className={styles.footer}>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://github.com/cmdruid/lightning-tip-jar"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by plebs
+          <p>Powered by plebs</p> <FaGithub size={25}/>
         </a>
       </footer>
     </div>

@@ -20,7 +20,7 @@ export default function Landing() {
           </h1>
           <div className={styles.callToActionContainer}>
               <div className={styles.iconContainer}>
-                <FaNetworkWired className={styles.icon} size={100} />
+                <FaNetworkWired className={styles.icon} size={85} />
                 <h4 className={styles.callToAction}>Connect</h4>
                 <div className={styles.callToActionText}>
                     <p>Connect with you local Bitcoin community to get setup for recieving Bitcoin payments</p>
@@ -34,7 +34,7 @@ export default function Landing() {
                 </div>
               </div>
               <div className={styles.iconContainer}>
-                <FaBitcoin size={100} />
+                <FaBitcoin size={85} />
                 <h4 className={styles.callToAction}>HODL</h4>
                 <div className={styles.callToActionText}>
                     <p>Build up your Bitcoin stack by serving your community</p>
