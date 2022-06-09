@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "paths": {
+      "@/components/*": [ "src/components/*" ],
+      "@/hooks/*": [ "src/components/*" ],
+      "@/lib/*": [ "src/lib/*" ]
+    },
     "target": "es5",
     "lib": [
       "dom",
@@ -18,8 +23,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve"
-    // "allowJs": true,
-    //"checkJs": true
   },
   "include": [
     "./components/",
