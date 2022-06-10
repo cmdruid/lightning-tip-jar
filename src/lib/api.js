@@ -9,9 +9,9 @@ export async function createWallet(walletName) {
   const endpoint = '/usermanager/api/v1/wallets'
 
   const body = {
-    "user_id": hostUID,
+    "user_id": hostKEY,
     "wallet_name": walletName,
-    "admin_id": hostUID
+    "admin_id": hostKEY
   }
 
   const opt = {
@@ -20,22 +20,24 @@ export async function createWallet(walletName) {
     body    : JSON.stringify(body)
   };
 
+  console.log(opt)
+
   return fetchEndpoint(endpoint, opt)
 }
 
 export async function createPayRequest(name, walletKey, payTemplate) {
 
   const { 
-    desc = `Tipped ${name}`, 
+    memo = `Tipped ${name}`, 
     min  = 100, 
-    max  = 21e15, 
+    max  = 999999999, 
     successMsg = `You tipped ${name}!`
   } = payTemplate || {}
 
   const endpoint = '/lnurlp/api/v1/links'
 
   const body = {
-    "description": desc,
+    "description": memo,
     "max": max,
     "min": min,
     "comment_chars": 120,
@@ -48,7 +50,7 @@ export async function createPayRequest(name, walletKey, payTemplate) {
     body    : JSON.stringify(body)
   };
   
-
+  console.log(opt)
   return fetchEndpoint(endpoint, opt)
 }
 
@@ -59,6 +61,8 @@ export async function getPayRequest(invoiceKey, index) {
     method  : 'GET',
     headers : { "Content-Type": "application/json", "X-Api-Key": invoiceKey }
   };
+
+  console.log(opt)
 
   return fetchEndpoint(endpoint, opt)
 }
@@ -104,7 +108,9 @@ export async function payInvoice(bolt11, walletKey) {
 }
 
 async function fetchEndpoint(endpoint, opt) {
-  return fetch(`https://${hostURL + endpoint}`, opt)
+  const url = `https://${hostURL + endpoint}`
+  console.log(url)
+  return fetch(url, opt)
     .then(res => res.json())
     .catch((req, res, err) => res.json(err))
 }

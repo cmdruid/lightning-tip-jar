@@ -1,6 +1,6 @@
 import React from 'react'
 import PrevTips from '@/components/PrevTips/index.js'
-import PlebQRCode from '@/components/PlebQrCode'
+//import PlebQRCode from '@/components/PlebQrCode'
 import PrevTipHeader from '@/components/PrevTipHeader'
 // import useSWR from 'swr'
 

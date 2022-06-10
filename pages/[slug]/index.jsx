@@ -42,6 +42,6 @@ export default function Page() {
     default:
       let userString = JSON.stringify(data, null, 2)
       console.log(userString)
-      return <TipMerchant userString={userString} />
+      return //<TipMerchant userString={userString} />
   }
 }
