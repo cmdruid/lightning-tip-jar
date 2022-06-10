@@ -1,13 +1,15 @@
 import styles from './styles.module.css'
 import { useRouter } from 'next/router'
 
-export default function TipJarForm() {
+export default function TipJarForm({slug}) {
     const router = useRouter()
     async function submitForm(e) {
         e.preventDefault();
-          
-        fetch('/api/jar/createjar', { 
-          body: JSON.stringify(Object.fromEntries(new FormData(e.target))), 
+        const formData = Object.fromEntries(new FormData(e.target))
+        formData.slug=slug
+        console.log(formData)
+        fetch('/api/user/createUser', { 
+          body: JSON.stringify(formData), 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' }
         })
