@@ -29,7 +29,7 @@ export default function PlebQrCode({payRequest}) {
       <div className="payment-container">
 
         {qrImage 
-          ? <Image src={qrImage} alt="Login Code" width={250} height={250} />
+          ? <Image className={styles.qrImage} src={qrImage} alt="Login Code" width={250} height={250} />
           : null
         }
         {/* <p>{payRequest}</p> */}

@@ -147,3 +147,14 @@
     width: 60%;
   }
 }
+
+@media(max-width: 800px) {
+  .callToActionContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .iconContainer {
+    width: 100%;
+  }
+}
