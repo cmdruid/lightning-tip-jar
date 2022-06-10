@@ -6,7 +6,6 @@ import Footer from '@/components/Footer/index.js'
 // import useSWR from 'swr'
 
 function TipMe({user}) {
-  console.log(user)
   return (
     <div className={styles.container}>
       <main className={styles.main}>
