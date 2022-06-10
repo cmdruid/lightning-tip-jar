@@ -1,7 +1,6 @@
 import { errorHandler } from "@/lib/error";
 
 const hostURL = process.env.LNBITS_URL,
-      hostUID = process.env.LNBITS_UID,
       hostKEY = process.env.LNBITS_KEY
 
 export async function createWallet(walletName) {
@@ -29,7 +28,7 @@ export async function createPayRequest(name, walletKey, payTemplate) {
 
   const { 
     memo = `Tipped ${name}`, 
-    min  = 100, 
+    min  = 10, 
     max  = 999999999, 
     successMsg = `You tipped ${name}!`
   } = payTemplate || {}

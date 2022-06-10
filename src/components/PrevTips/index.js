@@ -7,7 +7,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function PrevTips({walletKey}) {
     
-    const { data, error } = useSWR(`/api/user/getTransactions?walletKey=${walletKey}`, fetcher)
+    const { data, error } = useSWR(`/api/user/getTransactions?walletKey=${walletKey}`, fetcher, { refreshInterval: 5000 })
 
     if (error) return <div>failed to load!</div>
     if (!data) return <div>loading...</div>
@@ -16,7 +16,7 @@ function PrevTips({walletKey}) {
     return (
 
         <div className={styles.prevtipsmdiv} >
-            <h3 className={styles.priortipsh3}>Tips History!</h3>
+            <h3 className={styles.priortipsh3}>Recent Tips</h3>
             {data.payments.length === 0 ?
                 <p className={styles.notips}>No Tips at the moment</p>
                 : (
@@ -29,7 +29,7 @@ function PrevTips({walletKey}) {
                             data.payments.map((tip, idx) => (
                                 <>
                                     <div className={styles.transInfo}>
-                                        <p className={styles.transpinfo}><span className={styles.transpan}>Amount in sats</span> - ₿{tip.amount}</p>
+                                        <p className={styles.transpinfo}><span className={styles.transpan}>Amount in sats</span> - ⚡{tip.amount / 1000}</p>
                                         <p className={styles.transpinfo}><span className={styles.transpan}>Note</span> - {tip.msg}</p>
                                     </div>
                                 </>
