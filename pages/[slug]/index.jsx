@@ -41,7 +41,6 @@ export default function Page() {
       return <TipJarForm slug={user} />
     default:
       let userString = JSON.stringify(data, null, 2)
-      console.log(userString)
-      return //<TipMerchant userString={userString} />
+      return <TipMerchant userString={data} />
   }
 }

@@ -27,7 +27,7 @@ export default function PlebQrCode() {
 
       <div className="payment-container">
 
-        <Image src={data.image} alt="Login Code" width={300} height={300} />
+        <Image src={data.image} alt="Login Code" width={250} height={250} />
         {/* <p>{data.lnUrl}</p> */}
 
         <div className={styles.copylnurldiv}>
