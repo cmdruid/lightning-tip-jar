@@ -10,6 +10,12 @@
     border-radius: 20px;
     padding-top: 0;
   }
+
+  .landingtitle {
+    font-family: monospace;
+    font-size: 1rem;
+
+  }
   
   .claimButton {
       width: 40%;

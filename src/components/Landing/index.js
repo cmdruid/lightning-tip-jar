@@ -21,6 +21,7 @@ export default function Landing() {
 
     return (
         <main className={styles.landing}>
+          <p className={styles.landingtitle}>Your own virtual space for collecting tips in Bitcoin.</p>
           <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
             <Typed
               style={{width: "50%"}}
@@ -41,21 +42,21 @@ export default function Landing() {
                 <FaNetworkWired className={styles.icon} size={85} />
                 <h4 className={styles.callToAction}>Connect</h4>
                 <div className={styles.callToActionText}>
-                    <p>Connect with you local Bitcoin community to get setup for recieving Bitcoin payments</p>
+                    <p>Connect with the local Bitcoin community.</p>
                 </div>
               </div>
               <div className={styles.iconContainer}>
                 <Image src={bitcoinGiving} width={100} height={100} />
                 <h4 className={styles.callToAction}>Earn tips</h4>
                 <div className={styles.callToActionText}>
-                    <p>Plug in our simple invoicing service to start accepting Bitcoin tips in addition to your current Bitcoin P.O.S.</p>
+                    <p>Start accepting tips from your favorite patrons.</p>
                 </div>
               </div>
               <div className={styles.iconContainer}>
                 <FaBitcoin size={85} />
                 <h4 className={styles.callToAction}>HODL</h4>
                 <div className={styles.callToActionText}>
-                    <p>Build up your Bitcoin stack by serving your community</p>
+                    <p>Share a single QR code and stack sats from anywhere!</p>
                 </div>
               </div>
           </div>
