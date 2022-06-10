@@ -1,3 +1,4 @@
+import { errorHandler } from "@/lib/error";
 
 const hostURL = process.env.LNBITS_URL,
       hostUID = process.env.LNBITS_UID,
@@ -105,5 +106,5 @@ export async function payInvoice(bolt11, walletKey) {
 async function fetchEndpoint(endpoint, opt) {
   return fetch(`https://${hostURL + endpoint}`, opt)
     .then(res => res.json())
-    .catch((err, res) => res.json(err))
+    .catch((req, res, err) => res.json(err))
 }
