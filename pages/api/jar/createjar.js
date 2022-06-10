@@ -1,5 +1,5 @@
 import { getCollection } from "@/lib/controller";
-import { JarModel }      from '@/model/jar'
+import { JarModel }      from '@/models/jar'
 // import { string, object } from 'yup'
 import { errorHandler }   from '@/lib/error'
 

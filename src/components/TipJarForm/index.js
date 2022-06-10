@@ -1,20 +1,27 @@
 import styles from './styles.module.css'
+import { useRouter } from 'next/router'
 
 export default function TipJarForm() {
-
+    const router = useRouter()
     async function submitForm(e) {
         // Set status to 100 - loading.
         e.preventDefault();
-        setStatus(100);
           
         // Post form data to server.
-        fetch('/api/submit', { 
+        fetch('/api/jar/createjar', { 
           body: JSON.stringify(Object.fromEntries(new FormData(e.target))), 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' }
         })
-        .then(res => setStatus(res.status))
-        .catch(err => setStatus(400));
+        .then(res => {
+            if (res.status === 200) {
+                window.location.reload();
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            router.push('/error');
+        });
       }
 
     return (
