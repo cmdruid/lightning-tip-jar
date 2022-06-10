@@ -7,39 +7,30 @@ import { errorHandler }   from '@/lib/error'
 
 const schema = object().shape({
   slug : string().trim().matches(/^[\w\-]+$/i),
-  url  : string().trim().url().required() 
+  url  : string().trim().url().required()
 });
 
-export default async (req, res) => {
+export default async function createJar(req, res) {
 
   // Reject all methods other than POST.
   if (req.method !== 'POST') res.status(400).end();
 
   // Grab the slug and url from the post body.
-  let { slug, url } = req.body;
+  let { slug, title, description, ...opts } = req.body;
 
   try {
-    // If protocol is missing, prepend to url.
-    if (!url.startsWith('http')) url = 'https://' + url;
-    
     // Validate our inputs!
-    const isValid = await schema.isValid({ slug, url });
-    if (!isValid) return res.status(400).end();
+    // const isValid = await schema.isValid({ slug, url });
+    // if (!isValid) return res.status(400).end();
 
-    // Prevents host url from being forwarded to itself.
-    const hostname = req.headers.hostname;
-    if (url.includes(hostname)) return res.status(400).end();
+    // Generate a wallet.
 
-    // If protocol info missing, add it to the url.
-    if (!url.startsWith('http')) url = 'https://' + url;
-
-    // Generates a random slug if none is provided.
-    slug = (slug)
-      ? slug.toLowerCase()
-      : nanoid(5).toLowerCase();
+    // Generate lnbits Pay Code
+    
+    // Generate unique url
 
     // Fetches the collection, and checks if the slug exists.
-    const urls   = await getCollection(SlugModel),
+    const urls   = await getCollection(JarModel),
           exists = await urls.findOne({ slug });
     if (exists) return res.status(409).end();
 
