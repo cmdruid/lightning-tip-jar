@@ -9,7 +9,7 @@ const schema = {
   properties: {
     slug: {
       bsonType: "string",
-      maxLength: 120,
+      maxLength: 32,
       description: "Must be a string and is required."
     },
     title: {
@@ -32,6 +32,21 @@ const schema = {
       maxLength: 3000,
       description: "Must be a string and is required."
     },
+    walletKey: {
+      bsonType: "string",
+      maxLength: 3000,
+      description: "Must be a string and is required."
+    },
+    invoiceKey: {
+      bsonType: "string",
+      maxLength: 3000,
+      description: "Must be a string and is required."
+    },
+    withdrawKey: {
+      bsonType: "string",
+      maxLength: 3000,
+      description: "Must be a string and is required."
+    },
   }
 }
 
@@ -48,10 +63,10 @@ export const UserModel = {
       key: { slug: 1 },
       unique: true
     }
-  ],
-  options: {
-    validator: { $jsonSchema: schema },
-    validationLevel: "strict",
-    validationAction: "error"
-  }
+  ]
+  // options: {
+  //   validator: { $jsonSchema: schema },
+  //   validationLevel: "strict",
+  //   validationAction: "error"
+  // }
 }

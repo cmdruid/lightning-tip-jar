@@ -15,6 +15,8 @@ export default async function loadUser(req, res) {
     const users = await getCollection(UserModel),
           user  = await users.findOne({ slug });
 
+    console.log(user)
+    
     if (!user) return res.status(200).json({});
 
     return res.status(200).json(user)

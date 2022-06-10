@@ -5,9 +5,10 @@
 }
 
 .prevtipsmdiv {
+    margin: 1% auto;
+    width: 60%;
     border: 3px solid black;
-    margin-bottom: 20px;
-    margin-top: 40px;
+    border-radius: 15px;
     background-color: white;
     box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 }

@@ -35,17 +35,24 @@ export default async function createPage(req, res) {
     // Create a wallet.
     const { adminkey: walletKey, inkey: invoiceKey } = await createWallet(slug);
 
+    console.log(slug, walletKey, opts)
+
     // Generate a static pay
-    const { id } = createPayRequest(slug, walletKey, { slug, ...opts });
-    const { lnurl }  = getPayRequest(invoiceKey, id)
+    const payRequest = await createPayRequest(slug, walletKey, opts);
+    const { id } = payRequest
+    const { lnurl } = await getPayRequest(invoiceKey, id)
+
+    console.log(id, lnurl)
 
     // Generate random access key.
     const withdrawKey = webcrypto.randomUUID();
 
+    const newUser = { slug, payRequest: lnurl, walletKey, invoiceKey, withdrawKey, ...opts }
+
+    console.log(newUser)
+
     // // Insert new slug and URL into the collection.
-    const created = await pages.insertOne({ 
-      slug, payRequest: lnurl, walletKey, invoiceKey, withdrawKey, ...opts
-    });
+    const created = await users.insertOne(newUser);
 
     if (!created) throw new Error('No response from db.');
 

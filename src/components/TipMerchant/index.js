@@ -1,28 +1,27 @@
-import React from 'react'
+import styles from "./styles.module.css"
 import PrevTips from '@/components/PrevTips/index.js'
 import PlebQRCode from '@/components/PlebQrCode'
 import PrevTipHeader from '@/components/PrevTipHeader'
+import Footer from '@/components/Footer/index.js'
 // import useSWR from 'swr'
 
-function TipMe() {
-
-
+function TipMe({userString}) {
   return (
-    <>
-      <main className="main-tip-me-container">
-        {/* header prop */}
+    <div className={styles.container}>
+      <main className={styles.main}>
         <PrevTipHeader
-        title={"Shinners"}
-        desc={"Hello we are shinenrs a local bar in austin who likes buying that corn, please support us with some corn!"}
-         />
+        title={userString.title}
+        desc={userString.description}
+        />
         {/* qrcode */}
         <PlebQRCode />
         {/* recent tips */}
         <PrevTips
+          walletKey={userString.walletKey}
          />
       </main>
-    </>
-
+      <Footer />
+    </div>
   )
 }
 

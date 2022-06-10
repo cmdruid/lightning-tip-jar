@@ -1,5 +1,9 @@
 .container {
-    height: 85vh;
+    padding: 0 2rem;
+  }
+
+.main {
+    height: 90vh;
     margin: 2% auto;
     margin-top: 1%;
     padding: 1%;

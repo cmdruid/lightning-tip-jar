@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import TipJarForm from '@/components/TipJarForm/index.js'
 import Loading from '@/components/Loading/index.js'
 import Error from '@/components/Error/index.js'
+import TipMerchant from '@/components/TipMerchant/index.js'
 
 const fetcher = async url => {
   const res = await fetch(url)
@@ -37,9 +38,8 @@ export default function Page() {
     case !data:
       return <Loading />
     case (data && !data.slug):
-      return <TipJarForm />
+      return <TipJarForm slug={user} />
     default:
-      let userString = JSON.stringify(data, null, 2)
-      return <div>{userString}</div>
+      return <TipMerchant userString={data} />
   }
 }
