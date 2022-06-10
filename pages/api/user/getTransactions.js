@@ -10,5 +10,7 @@ export default async function getTransactions(req, res) {
 
   if (!walletKey) res.status(400).end();
 
-  return listPayments(walletKey)
+  let transactions = await listPayments(walletKey)
+
+  return res.status(200).json(transactions)
 }
