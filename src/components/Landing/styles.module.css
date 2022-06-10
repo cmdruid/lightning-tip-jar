@@ -130,6 +130,11 @@
     width: 80%;
     text-align: center;
   }
+
+  .callToActionText p {
+    font-family: monospace;
+    font-weight: bold;
+  }
   
   .icon {
     margin: 0 auto;
