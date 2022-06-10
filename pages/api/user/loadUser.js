@@ -8,16 +8,16 @@ export default async function loadUser(req, res) {
   if (req.method !== 'GET') res.status(400).end();
 
   // Grab the slug and url from the post body.
-  let { invoiceKey } = req.query;
+  let { slug } = req.query;
 
   try {
     // Fetches the collection, and checks if the slug exists.
-    if (user) return res.status(200).json(user);
+    const users = await getCollection(UserModel),
+          user  = await users.findOne({ slug });
 
-    return res.status(200).json({})
+    if (!user) return res.status(200).json({});
 
-  } catch(err) { 
-    console.log(err)
-    errorHandler(req, res, err) 
-  }
+    return res.status(200).json(user)
+
+  } catch(err) { errorHandler(req, res, err) }
 }
