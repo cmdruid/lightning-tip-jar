@@ -2,39 +2,49 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from './styles.module.css'
 import React from 'react'
-import PlebQRCode from '@/components/PlebQRCode'
+import useSWR from 'swr'
+
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function index() {
+    const { data, error } = useSWR('/api/merch-txs/get-recent-txs', fetcher)
+    if (error) return <div>failed to load!</div>
+    if (!data) return <div>loading...</div>
+    if (!data.payments) return <div>Unable to fetch Recent Tips</div>
+
+    // {
+    //     data.payments.length === 0 ?
+    //         <p>Joe Tips So far</p>
+    //         : (
+    //             data.payments.map((payment, index) => (
+    //                 <div className="payment-container" key={index}>
+    //                     <span>
+    //                         {payment.amount} |
+    //                         {payment.msg} |
+    //                         {payment.date}
+    //                     </span>
+    //                 </div>
+    //             ))
+    //         )
+
+
     return (
-        <div className={styles.main}>
-            <Head>
-                <title></title>
-            </Head>
-            <main>
-                <div className={styles.divtext}>
-                    <h1 className={styles.tipeh1}>Resturant Title</h1>
-                    <p>This is the resurant info the will be in the desc</p>
-                </div>
 
-                <div className={styles.qrcode}>
-                    <PlebQRCode />
-                </div>
-
-                <div className={styles.prevtipsmdiv}>
-                    <h3 className={styles.priortipsh3}>Prior Tips</h3>
-                    <div className={styles.transInfo}>
-                        <p className={styles.transpinfo}><span className={styles.transpan}>Amount</span> - 100 sats</p>
-                        <p className={styles.transpinfo}><span className={styles.transpan}>Date</span> - 100 sats</p>
-                        <p className={styles.transpinfo}><span className={styles.transpan}>Note</span> - 100 sats</p>
-                    </div>
-                    <div className={styles.transInfo}>
-                        <p className={styles.transpinfo}><span className={styles.transpan}>Amount</span> - 100 sats</p>
-                        <p className={styles.transpinfo}><span className={styles.transpan}>Amount</span> - 100 sats</p>
-                        <p className={styles.transpinfo}><span className={styles.transpan}>Amount</span> - 100 sats</p>
-                    </div>
-                </div>
-
-            </main>
+        <div className={styles.prevtipsmdiv} >
+            <h3 className={styles.priortipsh3}>Tips History!</h3>
+            {data.payments.length === 0 ?
+                <p className={styles.notips}>No Tips at the moment</p>
+                : (
+                    data.payments.map((tip, idx) => (
+                        <>
+                            <div className={styles.transInfo}>
+                                <p className={styles.transpinfo}><span className={styles.transpan}>Amount in sats</span> - ₿{tip.amount}</p>
+                                <p className={styles.transpinfo}><span className={styles.transpan}>Note</span> - {tip.msg}</p>
+                            </div>
+                        </>
+                    ))
+                )
+            }
         </div>
     )
 }

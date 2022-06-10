@@ -1,0 +1,26 @@
+.copylnurldiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.copylnurl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    background-color: rgb(84, 193, 84);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+}
+
+.qrcode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
