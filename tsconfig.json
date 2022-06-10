@@ -31,6 +31,6 @@
     "./components/",
     "./pages/",
     "./lib/"
-, "src/components/Landing"  ],
+, "src/components/Landing", "pages/api/withdraw/.js"  ],
   "exclude": []
 }
