@@ -14,7 +14,9 @@ function TipMe({userString}) {
         desc={userString.description}
         />
         {/* qrcode */}
-        <PlebQRCode />
+        <PlebQRCode 
+          payRequest={userString.payRequest}
+        />
         {/* recent tips */}
         <PrevTips
           walletKey={userString.walletKey}
