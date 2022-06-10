@@ -5,21 +5,22 @@ import PrevTipHeader from '@/components/PrevTipHeader'
 import Footer from '@/components/Footer/index.js'
 // import useSWR from 'swr'
 
-function TipMe({userString}) {
+function TipMe({user}) {
+  console.log(user)
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <PrevTipHeader
-        title={userString.title}
-        desc={userString.description}
+          title={user.title}
+          desc={user.description}
         />
         {/* qrcode */}
         <PlebQRCode 
-          payRequest={userString.payRequest}
+          payRequest={user.payRequest}
         />
         {/* recent tips */}
         <PrevTips
-          walletKey={userString.walletKey}
+          invoiceKey={user.invoiceKey}
          />
       </main>
       <Footer />

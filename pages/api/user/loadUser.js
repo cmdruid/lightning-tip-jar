@@ -14,12 +14,12 @@ export default async function loadUser(req, res) {
     // Fetches the collection, and checks if the slug exists.
     const users = await getCollection(UserModel),
           user  = await users.findOne({ slug });
-
-    console.log(user)
     
     if (!user) return res.status(200).json({});
 
-    return res.status(200).json(user)
+    const { walletKey, withdrawKey, ...userObj } = user
+
+    return res.status(200).json(userObj)
 
   } catch(err) { errorHandler(req, res, err) }
 }

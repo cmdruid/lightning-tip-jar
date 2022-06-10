@@ -41,6 +41,6 @@ export default function Page() {
     case (data && !data.slug):
       return <TempDisabled />//<TipJarForm slug={user} /><
     default:
-      return <TipMerchant userString={data} />
+      return <TipMerchant user={data} />
   }
 }
