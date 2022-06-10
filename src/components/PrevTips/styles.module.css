@@ -1,0 +1,38 @@
+
+.divtext {
+    text-align: center;
+    font-weight: bolder;
+}
+
+.prevtipsmdiv {
+    margin: 1% auto;
+    width: 60%;
+    border: 3px solid black;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+.transInfo {
+    padding: 20px;
+    flex-direction: column;
+    border-bottom: 1px solid #9a9da1;
+    margin: 1rem;
+}
+
+.priortipsh3 {
+    text-align: center;
+    font-weight: bolder;
+    border-bottom: 2px solid;
+    font-size: larger;
+}
+
+.transpan {
+    font-weight: bolder;
+    color: green;
+}
+
+.notips {
+    padding: 20px;
+    font-size: large;
+}

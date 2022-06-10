@@ -1,9 +1,6 @@
-import { randHex } from '@/lib/utils'
-import qr from 'qrcode'
-
-export default async function getinfo(req, res) {
-  const qrimage = await qr.toDataURL(randHex(32))
-  res.status(200).json({image: qrimage})
+export default async function login(req, res) {
+  console.log(req)
+  res.status(200).json({response: "ok!"})
 }
 
 // LNURL Authentication Spec

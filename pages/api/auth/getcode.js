@@ -1,12 +1,14 @@
-import { randHex } from '@/lib/utils'
+import { randHex, encodeLnurl } from '@/lib/utils'
 import qr from 'qrcode'
 
-const hostUrl = process.env.VERCEL_URL;
-const getAuthStr = k1 => `https://${HOST_URL}/auth/login?tag=login&k1=${k1}&action=login`
+const hostUrl = 'sats4tips-cmdruid.vercel.app'
+const getAuthStr = k1 => `https://${hostUrl}/api/auth/login?tag=login&k1=${k1}&action=login`
 
-export default async function getinfo(req, res) {
+export default async function login(req, res) {
   const challenge = getAuthStr(randHex(32))
-  const qrimage = await qr.toDataURL(challenge)
+  const lnurl = encodeLnurl(challenge)
+  console.log(lnurl)
+  const qrimage = await qr.toDataURL(lnurl)
   res.status(200).json({image: qrimage})
 }
 

@@ -4,6 +4,9 @@
     "paths": {
       "@/components/*": [ "src/components/*" ],
       "@/hooks/*": [ "src/components/*" ],
+      "@/public/*": [ "public/*" ],
+      "@/styles/*": [ "styles/*" ],
+      "@/models/*": [ "src/models/*" ],
       "@/lib/*": [ "src/lib/*" ]
     },
     "target": "es5",
@@ -28,8 +31,6 @@
     "./components/",
     "./pages/",
     "./lib/"
-  ],
-  "exclude": [
-    "./lib/sparko.js"
-  ]
+, "src/components/Landing", "pages/api/withdraw/.js"  ],
+  "exclude": []
 }

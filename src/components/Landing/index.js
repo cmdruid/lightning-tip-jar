@@ -1,23 +1,41 @@
+import React, {useState} from 'react'
 import styles from './styles.module.css'
 import Head from 'next/head'
-import { FaBitcoin, FaNetworkWired } from 'react-icons/fa'
-import bitcoinGiving from '../../public/bitcoingiving.svg'
+import { FaBitcoin, FaNetworkWired, FaBolt } from 'react-icons/fa'
+import bitcoinGiving from '@/public/bitcoingiving.svg'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import Typed from "react-typed"
 
 export default function Landing() {
-    return (
-      <div>
-        <Head>
-          <title>Just The Tip Jar</title>
-          <meta name="description" content="Just The Tip Jar" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+  const [formData, setFormData] = useState("")
+  const router = useRouter()
   
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const regex = new RegExp(/[^\w\-\s]/, 'g')
+    let domain = formData.replace(regex, "").trim().toLowerCase().replace(" ", "-")
+    router.push(`/${domain}`)
+  }
+
+    return (
         <main className={styles.landing}>
-          <h1 className={styles.title}>
-            Welcome to Just The Tip Jar
-          </h1>
+          <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
+            <Typed
+              style={{width: "50%"}}
+              strings={['Shiners Saloon', 'Satoshi Steakhouse', 'Chase Bank']}
+              typeSpeed={150}
+              attr="placeholder"
+              loop
+              >
+                <input className={styles.input} type="text" value={formData} onChange={(e) => setFormData(e.target.value)}/>
+            </Typed>
+            <div className={styles.buttonContainer}>
+              <button type='submit' className={styles.claimButton}>Claim your tip jar</button>
+              <button type='submit' className={styles.visitButton}>Visit a tip jar</button>
+            </div>
+          </form>
           <div className={styles.callToActionContainer}>
               <div className={styles.iconContainer}>
                 <FaNetworkWired className={styles.icon} size={85} />
@@ -41,10 +59,6 @@ export default function Landing() {
                 </div>
               </div>
           </div>
-          <Link href='/connect'>
-            <button className={styles.connectButton}>Connect</button>
-          </Link>
         </main>
-      </div>
     )
   }
