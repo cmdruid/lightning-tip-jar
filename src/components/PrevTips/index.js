@@ -7,7 +7,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function PrevTips({walletKey}) {
     
-    const { data, error } = useSWR(`/api/user/getTransactions?walletKey=${walletKey}`, fetcher)
+    const { data, error } = useSWR(`/api/user/getTransactions?walletKey=${walletKey}`, fetcher, { refreshInterval: 5000 })
 
     if (error) return <div>failed to load!</div>
     if (!data) return <div>loading...</div>
