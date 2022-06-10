@@ -1,9 +1,10 @@
 import React from 'react'
-// import PrevTips from '@/components/PrevTips.js/index'
-import useSWR from 'swr'
+import PrevTips from '@/components/PrevTips/index.js'
 import PlebQRCode from '@/components/PlebQrCode'
 import PrevTipHeader from '@/components/PrevTipHeader'
-function tipme() {
+// import useSWR from 'swr'
+
+function TipMe() {
 
 
   return (
@@ -17,12 +18,12 @@ function tipme() {
         {/* qrcode */}
         <PlebQRCode />
         {/* recent tips */}
-        {/* <PrevTips
-         /> */}
+        <PrevTips
+         />
       </main>
     </>
 
   )
 }
 
-export default tipme
+export default TipMe

@@ -6,27 +6,11 @@ import useSWR from 'swr'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-function index() {
+function PrevTips() {
     const { data, error } = useSWR('/api/merch-txs/get-recent-txs', fetcher)
     if (error) return <div>failed to load!</div>
     if (!data) return <div>loading...</div>
     if (!data.payments) return <div>Unable to fetch Recent Tips</div>
-
-    // {
-    //     data.payments.length === 0 ?
-    //         <p>Joe Tips So far</p>
-    //         : (
-    //             data.payments.map((payment, index) => (
-    //                 <div className="payment-container" key={index}>
-    //                     <span>
-    //                         {payment.amount} |
-    //                         {payment.msg} |
-    //                         {payment.date}
-    //                     </span>
-    //                 </div>
-    //             ))
-    //         )
-
 
     return (
 
@@ -49,4 +33,4 @@ function index() {
     )
 }
 
-export default index
+export default PrevTips
