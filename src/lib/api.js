@@ -74,8 +74,36 @@ export async function listPayments(walletKey) {
   return fetchEndpoint(endpoint, opt)
 }
 
+export async function getBalance(invoiceKey) {
+
+  const endpoint = '/api/v1/wallet'
+
+  const opt = {
+    method  : 'GET',
+    headers : { "Content-Type": "application/json", "X-Api-Key": invoiceKey }
+  };
+
+  return fetchEndpoint(endpoint, opt)
+}
+
+export async function payInvoice(bolt11, walletKey) {
+
+  const endpoint = '/api/v1/payments'
+
+  const body = { "out": true, "bolt11": bolt11 }
+
+  const opt = {
+    method  : 'POST',
+    headers : { "Content-Type": "application/json", "X-Api-Key": walletKey },
+    body    : JSON.stringify(body)
+  };
+  
+
+  return fetchEndpoint(endpoint, opt)
+}
+
 async function fetchEndpoint(endpoint, opt) {
   return fetch(`https://${hostURL + endpoint}`, opt)
-    .then(res => res.setStatus(200).json())
-    .catch((err, res) => res.setStatus(500).json(err))
+    .then(res => res.json())
+    .catch((err, res) => res.json(err))
 }
