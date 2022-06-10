@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import useSWR from 'swr'
-import TipJarForm from '@/components/TipJarForm/index.js'
+import TipJarForm from '@/components/TipJarForm'
+import TempDisabled from '@/components/TempDisabled'
 import Loading from '@/components/Loading/index.js'
 import Error from '@/components/Error/index.js'
 import TipMerchant from '@/components/TipMerchant/index.js'
@@ -38,7 +39,7 @@ export default function Page() {
     case !data:
       return <Loading />
     case (data && !data.slug):
-      return <TipJarForm slug={user} />
+      return <TempDisabled />//<TipJarForm slug={user} /><
     default:
       return <TipMerchant userString={data} />
   }
