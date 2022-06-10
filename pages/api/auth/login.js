@@ -1,6 +1,6 @@
 export default async function login(req, res) {
   console.log(req)
-  res.status(200).json()
+  res.status(200).json({response: "ok!"})
 }
 
 // LNURL Authentication Spec
