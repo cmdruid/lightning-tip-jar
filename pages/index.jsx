@@ -1,7 +1,7 @@
 import Head from 'next/head'
+import LogoHeader from '@/components/LogoHeader'
 import Landing from '@/components/Landing/index.js'
 import Footer from '@/components/Footer/index.js'
-import { FaBolt } from 'react-icons/fa'
 import styles from '@/styles/index.module.css'
 
 export default function Home() {
@@ -13,10 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <FaBolt size={100} />
-        <h1 className={styles.title}>
-          Sats4Tips
-        </h1>
+        <LogoHeader />
         <Landing />
       </main>
       <Footer />

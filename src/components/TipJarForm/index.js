@@ -28,8 +28,8 @@ export default function TipJarForm({slug}) {
     return (
         <div className={styles.container}>
             <main className={styles.main}>
-                <h1 className={styles.title}>You have succesfully claimed your tip jar!</h1>
-                <p className={styles.description}>Fill out the form below to finalize your public tipping page</p>
+                <h1 className={styles.title}>This space is available!</h1>
+                <p className={styles.description}>Fill out the form below to claim this space and setup your tip jar.</p>
                 <form onSubmit={submitForm} className={styles.form}>
                     <label className={styles.label}>Title</label>
                     <input className={styles.input} type="text" name="title" placeholder="Enter your tip jar page title" />
