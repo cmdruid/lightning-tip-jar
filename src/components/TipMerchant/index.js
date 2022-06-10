@@ -4,8 +4,8 @@ import PlebQRCode from '@/components/PlebQrCode'
 import PrevTipHeader from '@/components/PrevTipHeader'
 // import useSWR from 'swr'
 
-function TipMe() {
-
+function TipMe({userString}) {
+console.log(userString)
 
   return (
     <>
