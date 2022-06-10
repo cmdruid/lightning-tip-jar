@@ -2,8 +2,6 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import useSWR from 'swr'
 import TipJarForm from '@/components/TipJarForm/index.js'
-import Loading from '@/components/Loading/index.js'
-import Error from '@/components/Error/index.js'
 
 const fetcher = async url => {
   const res = await fetch(url)
@@ -29,13 +27,13 @@ export default function Page() {
     url = window.location.href.split('/');
     jar = url.pop();
   }
-  const { data, error } = useSWR(`/api/jar/loadjar?slug=${jar}`, fetcher)
+  const { data, error } = useSWR(`/api/user/loadUser?slug=${jar}`, fetcher)
 
   switch(true) {
     case error:
-      return <Error />
+      return <div>Error: {error}</div>
     case !data:
-      return <Loading />
+      return <div><p>Loading...</p></div>
     case (data && !data.jar):
       return <TipJarForm />
     default:

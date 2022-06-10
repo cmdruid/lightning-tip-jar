@@ -35,9 +35,9 @@ const schema = {
   }
 }
 
-export const JarModel = {
+export const UserModel = {
   // Name of the collection.
-  name: 'pages', 
+  name: 'users', 
 
   indexes: [
     /** Configure the collection's indexes.

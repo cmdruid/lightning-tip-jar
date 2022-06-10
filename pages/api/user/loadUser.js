@@ -1,8 +1,8 @@
 import { getCollection } from "@/lib/controller";
-import { JarModel }      from '@/models/jar'
+import { UserModel }     from '@/models/user'
 import { errorHandler }  from '@/lib/error'
 
-export default async function LoadJar(req, res) {
+export default async function loadUser(req, res) {
 
   // Reject all methods other than GET.
   if (req.method !== 'GET') res.status(400).end();
@@ -12,12 +12,10 @@ export default async function LoadJar(req, res) {
 
   try {
     // Fetches the collection, and checks if the slug exists.
-    const jars   = await getCollection(JarModel),
-          tipjar = await jars.findOne({ slug });
+    const users = await getCollection(UserModel),
+          user  = await users.findOne({ slug });
 
-    if (tipjar) {
-      return res.status(200).json({jar: tipjar});
-    }
+    if (user) return res.status(200).json(user);
 
     return res.status(200).json({})
 
