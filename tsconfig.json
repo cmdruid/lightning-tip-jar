@@ -6,6 +6,7 @@
       "@/hooks/*": [ "src/components/*" ],
       "@/public/*": [ "public/*" ],
       "@/styles/*": [ "styles/*" ],
+      "@/models/*": [ "src/models/*" ],
       "@/lib/*": [ "src/lib/*" ]
     },
     "target": "es5",
@@ -30,8 +31,6 @@
     "./components/",
     "./pages/",
     "./lib/"
-, "src/components/Landing"  ],
-  "exclude": [
-    "./lib/sparko.js"
-  ]
+, "src/components/Landing", "pages/api/withdraw/.js"  ],
+  "exclude": []
 }
