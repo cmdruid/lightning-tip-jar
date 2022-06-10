@@ -5,8 +5,10 @@ import useSWR from 'swr'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-function PrevTips() {
-    const { data, error } = useSWR('/api/merch-txs/get-recent-txs', fetcher)
+function PrevTips({walletKey}) {
+    
+    const { data, error } = useSWR(`/api/user/getTransactions?walletKey=${walletKey}`, fetcher)
+
     if (error) return <div>failed to load!</div>
     if (!data) return <div>loading...</div>
     if (!data.payments) return <div>Unable to fetch Recent Tips</div>

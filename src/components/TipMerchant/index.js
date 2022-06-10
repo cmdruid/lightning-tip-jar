@@ -13,8 +13,12 @@ function TipMe({userString}) {
         title={userString.title}
         desc={userString.description}
         />
+        {/* qrcode */}
         <PlebQRCode />
-        <PrevTips />
+        {/* recent tips */}
+        <PrevTips
+          walletKey={userString.walletKey}
+         />
       </main>
       <Footer />
     </div>

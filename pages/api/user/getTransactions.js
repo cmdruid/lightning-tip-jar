@@ -12,5 +12,14 @@ export default async function getTransactions(req, res) {
 
   let transactions = await listPayments(walletKey)
 
-  return res.status(200).json(transactions)
+  const payments = transactions.map(item => {
+    return {
+      amount: item.amount,
+      msg: item.extra.comment,
+      date: item.time,
+      txid: null,
+    }
+  })
+  
+  return res.status(200).json({payments: payments})
 }

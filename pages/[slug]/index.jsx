@@ -40,7 +40,6 @@ export default function Page() {
     case (data && !data.slug):
       return <TipJarForm slug={user} />
     default:
-      let userString = JSON.stringify(data, null, 2)
       return <TipMerchant userString={data} />
   }
 }
