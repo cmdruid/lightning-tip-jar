@@ -6,9 +6,9 @@ import moment from 'moment'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-function PrevTips({ walletKey }) {
+function PrevTips({ invoiceKey }) {
 
-    const { data, error } = useSWR(`/api/user/getTransactions?walletKey=${walletKey}`, fetcher, { refreshInterval: 5000 })
+    const { data, error } = useSWR(`/api/user/getTransactions?invoiceKey=${invoiceKey}`, fetcher, { refreshInterval: 5000 })
 
     if (error) return <div>failed to load!</div>
     if (!data) return <div>loading...</div>
@@ -17,7 +17,6 @@ function PrevTips({ walletKey }) {
     const unixToString = (date) => moment.unix(date);
 
     return (
-
         <div className={styles.prevtipsmdiv} >
             <h3 className={styles.priortipsh3}>Recent Tips</h3>
             {data.payments.length === 0 ?
