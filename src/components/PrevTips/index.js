@@ -1,4 +1,3 @@
-import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from './styles.module.css'
 import React from 'react'
 import useSWR from 'swr'
@@ -24,26 +23,18 @@ function PrevTips({ walletKey }) {
             {data.payments.length === 0 ?
                 <p className={styles.notips}>No Tips at the moment</p>
                 : (
-                    <InfiniteScroll
-                        dataLength={data.payments.length} //This is important field to render the next data
-                        loader={<h4>Loading...</h4>}
-                        height={'35vh'}
-                    >
-                        {
-                            data.payments.map((tip, idx) => (
-                                <>
-                                    <div className={styles.transInfo}>
-                                        <p className={styles.transpinfo}><span className={styles.transpan}>Amount in sats</span> - ⚡{tip.amount / 1000}</p>
-                                        <p className={styles.transpinfo}><span className={styles.transpan}>Note</span> - {tip.msg}</p>
-                                        {tip.date && (
-                                            
-                                            <p className={styles.transpinfo}><span className={styles.transpan}>Date</span> - <TimeAgo date={unixToString(tip.date)} /></p>
-                                        )}
-                                    </div>
-                                </>
-                            ))
-                        }
-                    </InfiniteScroll>
+                    data.payments.map((tip, idx) => (
+                        <>
+                            <div className={styles.transInfo}>
+                                <p className={styles.transpinfo}><span className={styles.transpan}>Amount in sats</span> - ⚡{tip.amount / 1000}</p>
+                                <p className={styles.transpinfo}><span className={styles.transpan}>Note</span> - {tip.msg}</p>
+                                {tip.date && (
+                                    
+                                    <p className={styles.transpinfo}><span className={styles.transpan}>Date</span> - <TimeAgo date={unixToString(tip.date)} /></p>
+                                )}
+                            </div>
+                        </>
+                    ))   
                 )
             }
         </div>
