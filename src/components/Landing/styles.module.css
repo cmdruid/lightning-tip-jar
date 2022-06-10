@@ -80,7 +80,7 @@
 
   .form {
     margin: 1% auto;
-    width: 40%;
+    width: 60%;
     height: 40%;
     display: flex;
     flex-direction: column;
@@ -134,3 +134,16 @@
   .icon {
     margin: 0 auto;
   }
+
+
+@media (max-width: 800px) {
+  .buttonContainer {
+    flex-direction: column;
+  }
+  .visitButton {
+    width: 60%;
+  }
+  .claimButton {
+    width: 60%;
+  }
+}
