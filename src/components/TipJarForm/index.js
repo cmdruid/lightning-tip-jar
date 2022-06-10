@@ -1,5 +1,6 @@
 import styles from './styles.module.css'
 import Footer from '@/components/Footer/index.js'
+import LogoHeader from '@/components/LogoHeader'
 import { useRouter } from 'next/router'
 
 export default function TipJarForm({slug}) {
@@ -28,6 +29,7 @@ export default function TipJarForm({slug}) {
     return (
         <div className={styles.container}>
             <main className={styles.main}>
+                <LogoHeader />
                 <h1 className={styles.title}>This space is available!</h1>
                 <p className={styles.description}>Fill out the form below to claim this space and setup your tip jar.</p>
                 <form onSubmit={submitForm} className={styles.form}>
