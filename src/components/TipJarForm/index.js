@@ -4,10 +4,8 @@ import { useRouter } from 'next/router'
 export default function TipJarForm() {
     const router = useRouter()
     async function submitForm(e) {
-        // Set status to 100 - loading.
         e.preventDefault();
           
-        // Post form data to server.
         fetch('/api/jar/createjar', { 
           body: JSON.stringify(Object.fromEntries(new FormData(e.target))), 
           method: 'POST',
@@ -27,7 +25,7 @@ export default function TipJarForm() {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>You have succesfully claimed your tip jar!</h1>
-            <p className={styles.description}>Fill out the form below to customize your public tipping page</p>
+            <p className={styles.description}>Fill out the form below to finalize your public tipping page</p>
             <form onSubmit={submitForm} className={styles.form}>
                 <label className={styles.label}>Title</label>
                 <input className={styles.input} type="text" name="title" placeholder="Enter your tip jar page title" />

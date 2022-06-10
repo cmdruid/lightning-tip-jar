@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react';
 import useSWR from 'swr'
 import TipJarForm from '@/components/TipJarForm/index.js'
+import Loading from '@/components/Loading/index.js'
 
 const fetcher = async url => {
   const res = await fetch(url)
@@ -33,7 +34,7 @@ export default function Page() {
     case error:
       return <div>Error: {error}</div>
     case !data:
-      return <div><p>Loading...</p></div>
+      return <Loading />
     case (data && !data.jar):
       return <TipJarForm />
     default:

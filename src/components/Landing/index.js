@@ -23,6 +23,7 @@ export default function Landing() {
         <main className={styles.landing}>
           <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
             <Typed
+              style={{width: "50%"}}
               strings={['Shiners Saloon', 'Satoshi Steakhouse', 'Chase Bank']}
               typeSpeed={150}
               attr="placeholder"
@@ -30,7 +31,10 @@ export default function Landing() {
               >
                 <input className={styles.input} type="text" value={formData} onChange={(e) => setFormData(e.target.value)}/>
             </Typed>
-            <button type='submit' className={styles.connectButton}>Claim your tip jar</button>
+            <div className={styles.buttonContainer}>
+              <button type='submit' className={styles.claimButton}>Claim your tip jar</button>
+              <button type='submit' className={styles.visitButton}>Visit a tip jar</button>
+            </div>
           </form>
           <div className={styles.callToActionContainer}>
               <div className={styles.iconContainer}>
