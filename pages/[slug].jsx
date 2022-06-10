@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import useSWR from 'swr'
 import TipJarForm from '@/components/TipJarForm/index.js'
 import Loading from '@/components/Loading/index.js'
+import Error from '@/components/Error/index.js'
 
 const fetcher = async url => {
   const res = await fetch(url)
@@ -32,7 +33,7 @@ export default function Page() {
 
   switch(true) {
     case error:
-      return <div>Error: {error}</div>
+      return <Error />
     case !data:
       return <Loading />
     case (data && !data.jar):
