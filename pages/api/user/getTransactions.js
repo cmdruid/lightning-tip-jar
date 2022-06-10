@@ -6,9 +6,11 @@ export default async function getTransactions(req, res) {
   if (req.method !== 'GET') res.status(400).end();
 
   // Grab the slug and url from the post body.
-  let { invoiceKey } = req.query;
+  let { walletKey } = req.query;
 
-  if (!invoiceKey) res.status(400).end();
+  if (!walletKey) res.status(400).end();
 
-  return listPayments(walletKey)
+  let transactions = await listPayments(walletKey)
+
+  return res.status(200).json(transactions)
 }
