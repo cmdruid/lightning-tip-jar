@@ -118,7 +118,7 @@
   }
   
 
-  @media(max-width: 800px) and (max-height: 800px) {
+  @media(max-width: 800px) and (max-height: 896px) {
     .container {
       padding: 0;
     }
