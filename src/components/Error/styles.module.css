@@ -59,3 +59,16 @@
     box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
     opacity: 0.7;
   }
+
+  @media(max-width: 800px) and (max-height: 800px) {
+    .container {
+      padding: 0;
+    }
+    .error {
+      border: none;
+      margin: none;
+      margin-top: 0;
+      border-radius: 0;
+      height: 90vh;
+    }
+  }
