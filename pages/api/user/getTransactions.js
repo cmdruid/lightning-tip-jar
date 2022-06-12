@@ -1,4 +1,6 @@
 import { listPayments } from '@/lib/api'
+import { decrypt }      from '@/lib/crypto';
+import { errorHandler } from '@/lib/error';
 
 export default async function getTransactions(req, res) {
 
@@ -10,16 +12,19 @@ export default async function getTransactions(req, res) {
 
   if (!invoiceKey) res.status(400).end();
 
-  let transactions = await listPayments(invoiceKey)
-
-  const payments = transactions.map(item => {
-    return {
-      amount: item.amount,
-      msg: item.extra.comment,
-      date: item.time,
-      txid: null,
-    }
-  })
-  
-  return res.status(200).json({payments: payments})
+  try {
+    const decryptedKey = await decrypt(invoiceKey),
+          transactions = await listPayments(decryptedKey);
+    
+    const payments = transactions.map(item => {
+      return {
+        amount: item.amount,
+        msg: item.extra.comment,
+        date: item.time,
+        txid: null,
+      }
+    })
+    
+    return res.status(200).json({payments: payments})
+  } catch(err) { errorHandler(req, res, err) }
 }

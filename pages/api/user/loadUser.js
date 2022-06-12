@@ -1,6 +1,7 @@
-import { getCollection } from "@/lib/controller";
+import { getCollection } from '@/lib/controller'
 import { UserModel }     from '@/models/user'
 import { errorHandler }  from '@/lib/error'
+import { encrypt }       from '@/lib/crypto'
 
 export default async function loadUser(req, res) {
 
@@ -17,7 +18,11 @@ export default async function loadUser(req, res) {
     
     if (!user) return res.status(200).json({});
 
-    const { walletKey, withdrawKey, ...userObj } = user
+    const { invoiceKey, walletKey, withdrawKey, ...userObj } = user
+
+    userObj.invoiceKey  = await encrypt(invoiceKey)
+    userObj.walletKey   = await encrypt(walletKey)
+    userObj.withdrawKey = await encrypt(withdrawKey)
 
     return res.status(200).json(userObj)
 
