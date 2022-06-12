@@ -17,14 +17,14 @@ function PrevTips({ invoiceKey }) {
     const unixToString = (date) => moment.unix(date);
 
     return (
-        <div className={styles.prevtipsmdiv} >
+        <div className={styles.prevtipsmdiv}>
             <h3 className={styles.priortipsh3}>Recent Tips</h3>
             {data.payments.length === 0 ?
                 <p className={styles.notips}>No Tips at the moment</p>
                 : (
                     data.payments.map((tip, idx) => (
                         <>
-                            <div className={styles.transInfo}>
+                            <div id={idx} className={styles.transInfo}>
                                 <p className={styles.transpinfo}><span className={styles.transpan}>Amount in sats</span> - ⚡{tip.amount / 1000}</p>
                                 <p className={styles.transpinfo}><span className={styles.transpan}>Note</span> - {tip.msg}</p>
                                 {tip.date && (
