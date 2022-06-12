@@ -39,7 +39,7 @@ export default function Landing() {
           </form>
           <div className={styles.callToActionContainer}>
               <div className={styles.iconContainer}>
-                <FaNetworkWired className={styles.icon} size={85} />
+                <FaNetworkWired style={{marginBottom: -1, marginTop: '1%'}} size={90} className={styles.icon} />
                 <h4 className={styles.callToAction}>Connect</h4>
                 <div className={styles.callToActionText}>
                     <p>Connect with the local Bitcoin community.</p>
@@ -53,7 +53,7 @@ export default function Landing() {
                 </div>
               </div>
               <div className={styles.iconContainer}>
-                <FaBitcoin size={85} />
+                <FaBitcoin style={{marginBottom: -1, marginTop: '2%'}} size={90} />
                 <h4 className={styles.callToAction}>HODL</h4>
                 <div className={styles.callToActionText}>
                     <p>Share a single QR code and stack sats from anywhere!</p>

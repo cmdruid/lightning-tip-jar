@@ -16,10 +16,7 @@ export default function PlebQrCode({payRequest}) {
   }
   // const { data, error } = useSWR('/api/merch-lnp/get-lnp', fetcher)
 
-  const [isCopied, setCopied] = useClipboard(
-    payRequest ? payRequest : "oops",
-    { successDuration: 1000 },
-  )
+  const [isCopied, setCopied] = useClipboard(payRequest);
 
   makeQr(payRequest)
 
@@ -32,11 +29,10 @@ export default function PlebQrCode({payRequest}) {
           ? <Image className={styles.qrImage} src={qrImage} alt="Login Code" width={250} height={250} />
           : null
         }
-        {/* <p>{payRequest}</p> */}
 
         <div className={styles.copylnurldiv}>
           <button className={styles.copylnurl} onClick={setCopied}>
-            {isCopied ? "Copied!" : "Copy LN-URL"}
+            { isCopied ? "Copied!" : "Copy LN-URL"}
           </button>
         </div>
       </div>
