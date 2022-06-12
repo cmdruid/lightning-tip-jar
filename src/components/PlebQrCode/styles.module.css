@@ -11,18 +11,22 @@
     justify-content: center;
     font-size: large;
     background-color: rgb(84, 193, 84);
-    border: none;
+    border: 2px solid transparent;
     border-radius: 8px;
     cursor: pointer;
     color: white;
     padding: 10px;
 }
 
+.copylnurl:hover {
+    background-color: rgb(84, 213, 24);
+}
+
 .qrcode {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 0;
+    margin: 2% auto;
 }
 
 .qrImage {
