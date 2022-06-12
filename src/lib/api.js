@@ -1,4 +1,4 @@
-import { errorHandler } from "@/lib/error";
+import { resHandler, APIError } from '@/lib/error';
 
 const hostURL = process.env.LNBITS_URL,
       hostKEY = process.env.LNBITS_KEY
@@ -19,8 +19,6 @@ export async function createWallet(walletName) {
     body    : JSON.stringify(body)
   };
 
-  console.log(opt)
-
   return fetchEndpoint(endpoint, opt)
 }
 
@@ -29,7 +27,7 @@ export async function createPayRequest(name, walletKey, payTemplate) {
   const { 
     memo = `Tipped ${name}`, 
     min  = 10, 
-    max  = 999999999, 
+    max  = 21e15, 
     successMsg = `You tipped ${name}!`
   } = payTemplate || {}
 
@@ -48,8 +46,7 @@ export async function createPayRequest(name, walletKey, payTemplate) {
     headers : { "Content-Type": "application/json", "X-Api-Key": walletKey },
     body    : JSON.stringify(body)
   };
-  
-  console.log(opt)
+
   return fetchEndpoint(endpoint, opt)
 }
 
@@ -61,18 +58,16 @@ export async function getPayRequest(invoiceKey, index) {
     headers : { "Content-Type": "application/json", "X-Api-Key": invoiceKey }
   };
 
-  console.log(opt)
-
   return fetchEndpoint(endpoint, opt)
 }
 
-export async function listPayments(walletKey) {
+export async function listPayments(invoiceKey) {
 
-  const endpoint = '/api/v1/payments'
+  const endpoint = '/api/v1/payments';
 
   const opt = {
     method  : 'GET',
-    headers : { "Content-Type": "application/json", "X-Api-Key": walletKey }
+    headers : { "Content-Type": "application/json", "X-Api-Key": invoiceKey }
   };
 
   return fetchEndpoint(endpoint, opt)
@@ -101,15 +96,14 @@ export async function payInvoice(bolt11, invoiceKey) {
     headers : { "Content-Type": "application/json", "X-Api-Key": invoiceKey },
     body    : JSON.stringify(body)
   };
-  
 
   return fetchEndpoint(endpoint, opt)
 }
 
 async function fetchEndpoint(endpoint, opt) {
   const url = `https://${hostURL + endpoint}`
-  console.log(url)
   return fetch(url, opt)
+    .then(resHandler)
     .then(res => res.json())
-    .catch((req, res, err) => res.json(err))
+    .catch((err => { throw new APIError(endpoint, opt, err) }))
 }
