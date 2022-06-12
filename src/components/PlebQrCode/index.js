@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useClipboard from "react-use-clipboard";
 import qr from 'qrcode'
 import styles from './styles.module.css'
@@ -9,17 +9,20 @@ import styles from './styles.module.css'
 export default function PlebQrCode({payRequest}) {
   
   const [qrImage, setQrImage] = useState('')
- 
-  async function makeQr(payRequest) {
-    const qrimage = await qr.toDataURL(payRequest)
-    setQrImage(qrimage)
-  }
-  // const { data, error } = useSWR('/api/merch-lnp/get-lnp', fetcher)
+  
+  const [isCopied, setCopied] = useClipboard(payRequest, {
+    successDuration: 1000,
+  });
+  
+  useEffect(() => {
+    qr.toDataURL(payRequest, {}, (err,data) => {
+      if (!err) {
+        setQrImage(data)
+      }
+    })
+  }, [payRequest])
 
-  const [isCopied, setCopied] = useClipboard(payRequest);
-
-  makeQr(payRequest)
-
+  
   return (
     <div className={styles.qrcode}>
 
@@ -34,6 +37,7 @@ export default function PlebQrCode({payRequest}) {
           <button className={styles.copylnurl} onClick={setCopied}>
             { isCopied ? "Copied!" : "Copy LN-URL"}
           </button>
+
         </div>
       </div>
     </div>
