@@ -24,6 +24,7 @@ export async function getCollection(schema) {
   // Update collection options if model has changed.
   // Note: Requies dbAdmin privileges.
   if (devMode && isDiff(cache.options, options)) try {
+    console.log(`Schema for collection ${name} has changed! Updating...`)
     await db.command({ collMod: name, ...options });
   } catch(err) { console.error(err) };
 
