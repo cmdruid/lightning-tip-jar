@@ -27,7 +27,7 @@ export async function createPayRequest(name, walletKey, payTemplate) {
   const { 
     memo = `Tipped ${name}`, 
     min  = 10, 
-    max  = 21e15, 
+    max  = 999999999, // If this is too high, LNBits gets mad.
     successMsg = `You tipped ${name}!`
   } = payTemplate || {}
 
@@ -104,6 +104,5 @@ async function fetchEndpoint(endpoint, opt) {
   const url = `https://${hostURL + endpoint}`
   return fetch(url, opt)
     .then(resHandler)
-    .then(res => res.json())
     .catch((err => { throw new APIError(endpoint, opt, err) }))
 }

@@ -6,7 +6,7 @@ const schema = {
    */
   bsonType: "object",
   required: [ 
-    "slug", "title", "description", "payRequest", "sessionKey", 
+    "slug", "title", "description", "payRequest", 
     "walletKey", "invoiceKey" 
   ],
   properties: {
@@ -38,6 +38,11 @@ const schema = {
     phone: {
       bsonType: "string",
       maxLength: 12,
+      description: "Must be a string and is required."
+    },
+    location: {
+      bsonType: "string",
+      maxLength: 240,
       description: "Must be a string and is required."
     },
     fgcolor: {

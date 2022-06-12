@@ -13,7 +13,8 @@ import { webcrypto } from 'crypto'
 
 export default async function createPage(req, res) {
 
-  return res.status(200).json({})
+  // If you want to disable account creating, uncomment this.
+  // return res.status(200).json({})
 
   // Reject all methods other than POST.
   if (req.method !== 'POST') res.status(400).end();
