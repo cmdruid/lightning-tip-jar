@@ -87,3 +87,16 @@
       width: 100%;
   }
 }
+
+@media(max-width: 800px) and (max-height: 896px) {
+  .container {
+    padding: 0;
+  }
+  .main {
+    border: none;
+    margin: none;
+    margin-top: 0;
+    border-radius: 0;
+    height: auto;
+  }
+}
