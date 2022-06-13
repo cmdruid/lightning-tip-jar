@@ -1,6 +1,7 @@
 import { listPayments } from '@/lib/api'
 import { decrypt }      from '@/lib/crypto';
 import { errorHandler } from '@/lib/error';
+import { mockPayments } from '@/lib/mockdata';
 
 export default async function getTransactions(req, res) {
 
@@ -16,7 +17,7 @@ export default async function getTransactions(req, res) {
     const decryptedKey = await decrypt(invoiceKey),
           transactions = await listPayments(decryptedKey);
     
-    const payments = transactions.map(item => {
+    let payments = transactions.map(item => {
       return {
         amount: item.amount,
         msg: item.extra.comment,
@@ -24,6 +25,10 @@ export default async function getTransactions(req, res) {
         txid: null,
       }
     })
+
+    if (process.env.MOCK_PAYMENTS === 'true') payments = mockPayments()
+
+    // add sort and filter here
     
     return res.status(200).json({payments: payments})
   } catch(err) { errorHandler(req, res, err) }
