@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './styles.module.css'
 
 
-function PrevTipsHeader({title, desc}) {
+function MerchantHeader({title, desc}) {
     return (
         <div className={styles.header}>
             <h1 className={styles.title}>{title}</h1>
@@ -11,4 +11,4 @@ function PrevTipsHeader({title, desc}) {
     )
 }
 
-export default PrevTipsHeader
+export default MerchantHeader

@@ -6,7 +6,7 @@ import moment from 'moment'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-function PrevTips({ invoiceKey }) {
+function RecentTipsBox({ invoiceKey }) {
 
     const { data, error } = useSWR(`/api/user/getTransactions?invoiceKey=${invoiceKey}`, fetcher, { refreshInterval: 5000 })
 
