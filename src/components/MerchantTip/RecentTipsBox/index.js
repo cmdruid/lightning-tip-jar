@@ -38,4 +38,4 @@ function RecentTipsBox({ invoiceKey }) {
     )
 }
 
-export default PrevTips
+export default RecentTipsBox
