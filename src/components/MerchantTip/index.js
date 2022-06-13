@@ -1,24 +1,24 @@
 import styles from "./styles.module.css"
-import PrevTips from './PrevTips/index.js'
-import PlebQRCode from './PlebQrCode/index.js'
-import PrevTipHeader from './PrevTipHeader/index.js'
 import Footer from '@/components/Footer/index.js'
 import HomeButton from '@/components/HomeButton/index.js'
-// import useSWR from 'swr'
+import MerchantHeader from './MerchantHeader/index.js'
+import PayUrlQr from './PayUrlQr/index.js'
+import RecentTips from './RecentTips/index.js'
+
 
 function MerchantTip({user}) {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <HomeButton />
-        <PrevTipHeader
+        <MerchantHeader
           title={user.title}
           desc={user.description}
         />
-        <PlebQRCode 
+        <PayUrlQr 
           payRequest={user.payRequest}
         />
-        <PrevTips
+        <RecentTips
           invoiceKey={user.invoiceKey}
          />
       </main>
