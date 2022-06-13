@@ -1,7 +1,7 @@
 import styles from "./styles.module.css"
-import PrevTips from '@/components/PrevTips/index.js'
-import PlebQRCode from '@/components/PlebQrCode'
-import PrevTipHeader from '@/components/PrevTipHeader'
+import PrevTips from './PrevTips/index.js'
+import PlebQRCode from './PlebQrCode/index.js'
+import PrevTipHeader from './PrevTipHeader/index.js'
 import Footer from '@/components/Footer/index.js'
 import HomeButton from '@/components/HomeButton/index.js'
 // import useSWR from 'swr'
