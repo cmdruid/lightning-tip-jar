@@ -1,5 +1,4 @@
 import { utils, verify } from '@noble/secp256k1'
-import { getPending } from "@/lib/cache";
 import { withSessionRoute } from "@/lib/session";
 
 const pending = new Map();
