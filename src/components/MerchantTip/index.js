@@ -1,26 +1,24 @@
 import styles from "./styles.module.css"
-import PrevTips from '@/components/PrevTips/index.js'
-import PlebQRCode from '@/components/PlebQrCode'
-import PrevTipHeader from '@/components/PrevTipHeader'
 import Footer from '@/components/Footer/index.js'
 import HomeButton from '@/components/HomeButton/index.js'
-// import useSWR from 'swr'
+import MerchantHeader from './MerchantHeader/index.js'
+import PayUrlQr from './PayUrlQr/index.js'
+import RecentTipsBox from './RecentTipsBox/index.js'
 
-function TipMe({user}) {
+
+function MerchantTip({user}) {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <HomeButton />
-        <PrevTipHeader
+        <MerchantHeader
           title={user.title}
           desc={user.description}
         />
-        {/* qrcode */}
-        <PlebQRCode 
+        <PayUrlQr 
           payRequest={user.payRequest}
         />
-        {/* recent tips */}
-        <PrevTips
+        <RecentTipsBox
           invoiceKey={user.invoiceKey}
          />
       </main>
@@ -29,4 +27,4 @@ function TipMe({user}) {
   )
 }
 
-export default TipMe
+export default MerchantTip

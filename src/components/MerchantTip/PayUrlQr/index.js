@@ -6,7 +6,7 @@ import qr from 'qrcode'
 import styles from './styles.module.css'
 
 
-export default function PlebQrCode({payRequest}) {
+export default function PayUrlQr({payRequest}) {
   
   const [qrImage, setQrImage] = useState('')
   
