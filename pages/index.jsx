@@ -4,7 +4,7 @@ import Landing from '@/components/Landing/index.js'
 import Footer from '@/components/Footer/index.js'
 import styles from '@/styles/index.module.css'
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className={styles.container}>
       <Head>

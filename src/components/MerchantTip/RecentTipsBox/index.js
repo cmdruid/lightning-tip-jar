@@ -8,7 +8,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function RecentTipsBox({ invoiceKey }) {
 
-    const { data, error } = useSWR(`/api/user/getTransactions?invoiceKey=${invoiceKey}`, fetcher, { refreshInterval: 5000 })
+    const { data, error } = useSWR(`/api/account/getTransactions?invoiceKey=${invoiceKey}`, fetcher, { refreshInterval: 5000 })
 
     const unixToString = (date) => moment.unix(date);
 

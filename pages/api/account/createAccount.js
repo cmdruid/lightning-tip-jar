@@ -1,17 +1,19 @@
 import { getCollection } from "@/lib/controller";
-import { UserModel }     from '@/models/user'
+import { AccountModel }     from '@/models/account'
 // import { string, object } from 'yup'
 import { errorHandler }  from '@/lib/error'
+import { webcrypto }     from 'crypto'
+import { withSessionRoute } from "@/lib/session";
 import { createWallet, createPayRequest, getPayRequest } from "@/lib/api";
 
-import { webcrypto } from 'crypto'
+export default withSessionRoute(createAccount);
 
 // const schema = object().shape({
 //   slug : string().trim().matches(/^[\w\-]+$/i),
 //   url  : string().trim().url().required()
 // });
 
-export default async function createPage(req, res) {
+async function createAccount(req, res) {
 
   // If you want to disable account creating, uncomment this.
   // return res.status(200).json({})
@@ -27,8 +29,8 @@ export default async function createPage(req, res) {
   try {
 
     // Fetches the collection, and checks if the slug exists.
-    const users  = await getCollection(UserModel),
-          exists = await users.findOne({ slug });
+    const accounts = await getCollection(AccountModel),
+          exists   = await accounts.findOne({ slug });
     if (exists) return res.status(409).end();
 
     // Validate our inputs!
@@ -50,12 +52,12 @@ export default async function createPage(req, res) {
     // Generate random access key.
     const withdrawKey = webcrypto.randomUUID();
 
-    const newUser = { slug, payRequest: lnurl, walletKey, invoiceKey, withdrawKey, ...opts }
+    const newAccount = { slug, payRequest: lnurl, walletKey, invoiceKey, withdrawKey, ...opts }
 
-    console.log(newUser)
+    console.log(newAccount)
 
     // // Insert new slug and URL into the collection.
-    const created = await users.insertOne(newUser);
+    const created = await accounts.insertOne(newAccount);
 
     if (!created) throw new Error('No response from db.');
 

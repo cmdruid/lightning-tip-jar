@@ -10,7 +10,7 @@ export default function TipJarForm({slug}) {
         const formData = Object.fromEntries(new FormData(e.target))
         formData.slug=slug
         console.log(formData)
-        fetch('/api/user/createUser', { 
+        fetch('/api/account/createAccount', { 
           body: JSON.stringify(formData), 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' }

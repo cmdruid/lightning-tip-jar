@@ -25,13 +25,12 @@ const fetcher = async url => {
 
 
 export default function Page() {
-  let url;
-  let user;
+  let url, account;
   if (typeof window !== 'undefined') {
     url = window.location.href.split('/');
-    user = url.pop();
+    account = url.pop();
   }
-  const { data, error } = useSWR(`/api/user/loadUser?slug=${user}`, fetcher)
+  const { data, error } = useSWR(`/api/account/loadAccount?slug=${account}`, fetcher)
 
   switch(true) {
     case error:
@@ -39,8 +38,8 @@ export default function Page() {
     case !data:
       return <Loading />
     case (data && !data.slug):
-      return <TipJarForm slug={user} /> // <TempDisabled />
+      return <TipJarForm slug={account} /> // <TempDisabled />
     default:
-      return <MerchantTip user={data} />
+      return <MerchantTip account={data} />
   }
 }

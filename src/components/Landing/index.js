@@ -25,7 +25,7 @@ export default function Landing() {
           <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
             <Typed
               style={{width: "50%"}}
-              strings={['Shiners Saloon', 'Satoshi Steakhouse', 'Chase Bank']}
+              strings={['Shiners Saloon', 'Satoshi Steakhouse', 'Nakamoto Bank']}
               typeSpeed={150}
               attr="placeholder"
               loop
