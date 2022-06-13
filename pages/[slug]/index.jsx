@@ -5,7 +5,7 @@ import TipJarForm from '@/components/TipJarForm'
 import TempDisabled from '@/components/TempDisabled'
 import Loading from '@/components/Loading/index.js'
 import Error from '@/components/Error/index.js'
-import TipMerchant from '@/components/TipMerchant/index.js'
+import MerchantTip from '@/components/MerchantTip/index.js'
 
 const fetcher = async url => {
   const res = await fetch(url)
@@ -41,6 +41,6 @@ export default function Page() {
     case (data && !data.slug):
       return <TipJarForm slug={user} /> // <TempDisabled />
     default:
-      return <TipMerchant user={data} />
+      return <MerchantTip user={data} />
   }
 }

@@ -6,7 +6,7 @@ import Footer from '@/components/Footer/index.js'
 import HomeButton from '@/components/HomeButton/index.js'
 // import useSWR from 'swr'
 
-function TipMerchant({user}) {
+function MerchantTip({user}) {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -27,4 +27,4 @@ function TipMerchant({user}) {
   )
 }
 
-export default TipMerchant
+export default MerchantTip
