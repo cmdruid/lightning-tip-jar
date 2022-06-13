@@ -15,11 +15,9 @@ function TipMe({user}) {
           title={user.title}
           desc={user.description}
         />
-        {/* qrcode */}
         <PlebQRCode 
           payRequest={user.payRequest}
         />
-        {/* recent tips */}
         <PrevTips
           invoiceKey={user.invoiceKey}
          />
