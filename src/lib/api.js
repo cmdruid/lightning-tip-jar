@@ -85,14 +85,14 @@ export async function getBalance(invoiceKey) {
   return fetchEndpoint(endpoint, opt)
 }
 
-export async function createInvoice(name, amt, invoiceKey) {
+export async function createInvoice(name, amt, invoiceKey, memo) {
 
   const endpoint = '/api/v1/payments'
 
   const body = {
-    'out': false, 
-    'amount': amt, 
-    'memo': `Tipped ${name}`, 
+    'out': false,
+    'amount': amt,
+    'memo': memo || `Tipped ${name}@sats4.tips`,
     'unit': 'sat'
   }
 

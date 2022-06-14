@@ -1,17 +1,17 @@
-import { getCollection } from "@/lib/controller";
+import { getCollection } from '@/lib/controller'
 import { AccountModel }  from '@/models/account'
+import { createInvoice } from '@/lib/api'
 import { errorHandler }  from '@/lib/error'
 
 export default async function payName(req, res) {
-
-  console.log(req.headers)
-  console.log(req.url)
 
   // Reject all methods other than GET.
   if (req.method !== 'GET') res.status(400).end();
 
   // Grab the slug and url from the post body.
-  let { slug, amount } = req.query;
+  const { url }  = req;
+  const { host } = req.headers;
+  const { slug, amount } = req.query;
 
   try {
   // Fetches the collection, and checks if the slug exists.
@@ -20,17 +20,22 @@ export default async function payName(req, res) {
 
     if (account) {
       if (amount) {
-        const request = createInvoice(slug, amount)
-        console.log(request)
-        return res.status(200).json({ pr: '', routes: [] })
+        const { invoiceKey } = account;
+        const memo = getMetaData(slug, host),
+              msat = amount / 1000;
+        const { payment_request } = await createInvoice(slug, msat, invoiceKey, memo);
+        console.log(payment_request)
+        return res.status(200).json({ pr: payment_request, routes: [] })
       } else {
-        return res.status(200).json({
-          "callback": `${url}?slug=${slug}`,
+        let response = {
+          "callback": `https://${host}${url}`,
           "maxSendable": 999999999,
           "minSendable": 10,
-          "metadata": getMetaData(text, desc),
+          "metadata": getMetaData(slug, host),
           "tag": "payRequest"
-        })
+        }
+        console.log(response)
+        return res.status(200).json(response);
       }
     }
 
@@ -39,12 +44,12 @@ export default async function payName(req, res) {
   } catch(err) { errorHandler(req, res, err) }
 }
 
-function getMetaData(text, desc, url = 'localhost') {
+function getMetaData(name, host = 'localhost') {
   return JSON.stringify([
-    [ "text/plain", text ],
-    [ "text/long-desc", desc ],
+    [ "text/plain", `Tipped ${name}@sats4.tips` ],
+    // [ "text/long-desc", '' ],
     // [ "image/png;base64", string ],
     // [ "image/jpeg;base64", string ],
-    [ "text/identifier", `${slug}@${url}`]
+    [ "text/identifier", `${name}@${host}`]
   ])
 }
