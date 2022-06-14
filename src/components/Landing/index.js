@@ -21,7 +21,7 @@ export default function Landing() {
 
     return (
         <main className={styles.landing}>
-          <p className={styles.landingtitle}>Your own virtual space for collecting tips in Bitcoin.</p>
+          <p className={styles.landingtitle}>Your own personalized space for collecting tips in Bitcoin.</p>
           <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
             <Typed
               style={{width: "50%"}}

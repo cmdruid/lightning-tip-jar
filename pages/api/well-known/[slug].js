@@ -1,44 +1,50 @@
-// import { getCollection } from "@/lib/controller";
-// import { UserModel }     from '@/models/user'
-// import { errorHandler }  from '@/lib/error'
+import { getCollection } from "@/lib/controller";
+import { AccountModel }  from '@/models/account'
+import { errorHandler }  from '@/lib/error'
 
-// export default async function loadUser(req, res) {
+export default async function payName(req, res) {
 
-//   // Reject all methods other than GET.
-//   if (req.method !== 'GET') res.status(400).end();
+  console.log(req.headers)
+  console.log(req.url)
 
-//   // Grab the slug and url from the post body.
-//   let { slug } = req.query;
+  // Reject all methods other than GET.
+  if (req.method !== 'GET') res.status(400).end();
 
-//   let errResponse = msg => { return { "status": "ERROR", "reason": msg } }
+  // Grab the slug and url from the post body.
+  let { slug, amount } = req.query;
 
-//   try {
-//   // Fetches the collection, and checks if the slug exists.
-//     const users = await getCollection(UserModel),
-//           user  = await users.findOne({ slug });
+  try {
+  // Fetches the collection, and checks if the slug exists.
+    const accounts = await getCollection(AccountModel),
+          account  = await accounts.findOne({ slug });
 
-//     if (user) return res.status(200).json(errResponse("Account not found!"));
+    if (account) {
+      if (amount) {
+        const request = createInvoice(slug, amount)
+        console.log(request)
+        return res.status(200).json({ pr: '', routes: [] })
+      } else {
+        return res.status(200).json({
+          "callback": `${url}?slug=${slug}`,
+          "maxSendable": 999999999,
+          "minSendable": 10,
+          "metadata": getMetaData(text, desc),
+          "tag": "payRequest"
+        })
+      }
+    }
 
-//     return res.status(200).json({
-//       "callback": string,
-//       "maxSendable": 21e15,
-//       "minSendable": 100,
-//       "metadata": getMetaData(text, desc),
-//       "tag": "payRequest"
-//     })
+    return res.status(200).json({ "status": "ERROR", "reason": "Account does not exist!" });
 
-//   } catch(err) { 
-//     console.log(err)
-//     errorHandler(req, res, err) 
-//   }
-// }
+  } catch(err) { errorHandler(req, res, err) }
+}
 
-// function getMetaData(text, desc) {
-//   return JSON.stringify([
-//     [ "text/plain", text ],
-//     [ "text/long-desc", desc ],
-//     // [ "image/png;base64", string ],
-//     // [ "image/jpeg;base64", string ],
-//     [ "text/identifier", `${slug}@${process.env.HOST_URL}`]
-//   ])
-// }
+function getMetaData(text, desc, url = 'localhost') {
+  return JSON.stringify([
+    [ "text/plain", text ],
+    [ "text/long-desc", desc ],
+    // [ "image/png;base64", string ],
+    // [ "image/jpeg;base64", string ],
+    [ "text/identifier", `${slug}@${url}`]
+  ])
+}

@@ -85,6 +85,26 @@ export async function getBalance(invoiceKey) {
   return fetchEndpoint(endpoint, opt)
 }
 
+export async function createInvoice(name, amt, invoiceKey) {
+
+  const endpoint = '/api/v1/payments'
+
+  const body = {
+    'out': false, 
+    'amount': amt, 
+    'memo': `Tipped ${name}`, 
+    'unit': 'sat'
+  }
+
+  const opt = {
+    method  : 'POST',
+    headers : { "Content-Type": "application/json", "X-Api-Key": invoiceKey },
+    body    : JSON.stringify(body)
+  };
+
+  return fetchEndpoint(endpoint, opt)
+}
+
 export async function payInvoice(bolt11, invoiceKey) {
 
   const endpoint = '/api/v1/payments'
