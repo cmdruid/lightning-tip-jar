@@ -3,6 +3,7 @@ import Footer from '@/components/Footer/index.js'
 import HomeButton     from '@/components/HomeButton/index.js'
 import MerchantHeader from './MerchantHeader/index.js'
 import PayUrlQr       from './PayUrlQr/index.js'
+import PrintVersion   from './PrintVersion/index.js'
 import RecentTipsBox  from './RecentTipsBox/index.js'
 
 
@@ -17,6 +18,9 @@ function MerchantTip({ account }) {
         />
         <PayUrlQr 
           payRequest={account.payRequest}
+        />
+        <PrintVersion
+          slug={account.slug}
         />
         <RecentTipsBox
           invoiceKey={account.invoiceKey}

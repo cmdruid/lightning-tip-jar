@@ -43,3 +43,9 @@
         width: 100%;
     }
 }
+
+@media print {
+    .prevtipsmdiv {
+        display: none;
+    }
+}
