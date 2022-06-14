@@ -78,3 +78,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 Feel free to fork this project and contribute to the source code! We are currently still in the process of setting up tests for all the features, and could use some help!
 
 ## Resources
+
+**LNUrl Reference Specification**  
+https://github.com/fiatjaf/lnurl-rfc
+
+**LNUrl Playground**  
+https://lnurl.fiatjaf.com
+
+**LNUrl Decoder** 
+https://lnurl.fiatjaf.com/codec
+
+**Lightning Invoice Decoder**  
+https://lightningdecoder.com
+
+
+
