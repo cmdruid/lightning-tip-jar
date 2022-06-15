@@ -1,7 +1,7 @@
-import { getCollection } from '@/lib/controller'
+import { getCollection }    from '@/lib/controller'
 import { AccountModel }     from '@/models/account'
-import { errorHandler }  from '@/lib/error'
-import { encrypt }       from '@/lib/crypto'
+import { errorHandler }     from '@/lib/error'
+import { encrypt }          from '@/lib/crypto'
 import { withSessionRoute } from "@/lib/session";
 
 export default withSessionRoute(loadAccount);
@@ -21,11 +21,10 @@ async function loadAccount(req, res) {
     
     if (!account) return res.status(200).json({});
 
-    const { invoiceKey, walletKey, withdrawKey, ...accObj } = account
+    const { invoiceKey, walletKey, ...accObj } = account
 
     accObj.invoiceKey  = await encrypt(invoiceKey)
     accObj.walletKey   = await encrypt(walletKey)
-    accObj.withdrawKey = await encrypt(withdrawKey)
 
     return res.status(200).json(accObj)
 
