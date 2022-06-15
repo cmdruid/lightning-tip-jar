@@ -1,10 +1,13 @@
-import { getCollection } from "@/lib/controller";
+import { getCollection }    from "@/lib/controller";
 import { AccountModel }     from '@/models/account'
 // import { string, object } from 'yup'
-import { errorHandler }  from '@/lib/error'
-import { webcrypto }     from 'crypto'
+import { errorHandler }     from '@/lib/error'
 import { withSessionRoute } from "@/lib/session";
-import { createWallet, createPayRequest, getPayRequest } from "@/lib/api";
+import { 
+  createWallet, 
+  createPayRequest, 
+  getPayRequest 
+} from "@/lib/api";
 
 export default withSessionRoute(createAccount);
 
@@ -19,12 +22,15 @@ async function createAccount(req, res) {
   // return res.status(200).json({})
 
   // Reject all methods other than POST.
-  if (req.method !== 'POST') res.status(400).end();
+  if (req.method !== 'POST') res.status(405).end();
 
   // Grab the slug and url from the post body.
-  let { slug, ...opts } = req.body;
+  const { slug, ...opts } = req.body;
+  const { session } = req
 
-  console.log(req.body);
+  if (!session?.user?.key) {
+    return res.status(403).json({ err: 'Need to be logged in!' })
+  }
 
   try {
 
@@ -40,27 +46,26 @@ async function createAccount(req, res) {
     // Create a wallet.
     const { adminkey: walletKey, inkey: invoiceKey } = await createWallet(slug);
 
-    console.log(slug, walletKey, opts)
-
-    // Generate a static pay
-    const payRequest = await createPayRequest(slug, walletKey, opts);
-    const { id } = payRequest
+    // Generate a static payRequest.
+    const { id }    = await createPayRequest(slug, walletKey, opts);
     const { lnurl } = await getPayRequest(invoiceKey, id)
 
-    console.log(id, lnurl)
+    const newAccount = { 
+      slug, 
+      payRequest : lnurl,
+      adminKey   : session.user.key,
+      walletKey,
+      invoiceKey,
+      ...opts 
+    }
 
-    // Generate random access key.
-    const withdrawKey = webcrypto.randomUUID();
-
-    const newAccount = { slug, payRequest: lnurl, walletKey, invoiceKey, withdrawKey, ...opts }
-
-    console.log(newAccount)
+    console.log('New Account:', newAccount)
 
     // // Insert new slug and URL into the collection.
     const created = await accounts.insertOne(newAccount);
 
     if (!created) throw new Error('No response from db.');
 
-    return res.status(200).json(created);
+    return res.status(200).json({ status: 200 });
   } catch(err) { errorHandler(req, res, err) }
 }
