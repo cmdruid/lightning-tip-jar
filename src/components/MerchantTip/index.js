@@ -27,7 +27,6 @@ function MerchantTip({ account }) {
         <RecentTipsBox
           invoiceKey={account.invoiceKey}
          />
-      </main>
     </div>
   )
 }
