@@ -76,8 +76,8 @@ export default async function claimWithdraw(req, res) {
       'callback': `https://${host}/api/withdraw/claim?ref=${ref}`,
       'k1': msg,
       'defaultDescription': `Withdraw from ${slug} on sats4.tips`,
-      'minWithdrawable': 10,
-      'maxWithdrawable': balance - 10
+      'minWithdrawable': 10000,
+      'maxWithdrawable': balance - 10000
     });
 
   } catch(err) { errorHandler(req, res, err) }
