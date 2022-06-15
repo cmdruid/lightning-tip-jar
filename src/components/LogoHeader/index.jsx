@@ -3,10 +3,10 @@ import styles from './styles.module.css'
 
 export default function LogoHeader() {
   return (
-    <div className={styles.logoheader}>
+    <div className={styles.logo}>
       <FaBolt size={100} />
       <h1 className={styles.title}>
-        Sats4Tips
+        sats4.tips
       </h1>
     </div>
   )

@@ -1,3 +1,28 @@
 .topbar {
+  display: flex;
+  padding: 0.5rem 1rem;
   color: white;
+}
+
+.logoIcon {
+  color: yellow;
+  padding-right: 0.5rem;
+}
+
+.menuIcon {
+   padding-left: 0.5rem;
+}
+
+.start {
+  display: flex;
+  align-items: center;
+}
+
+.mid {
+  flex-grow: 1;
+}
+
+.end {
+  display: flex;
+  align-items: center;
 }

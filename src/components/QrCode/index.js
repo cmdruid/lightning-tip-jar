@@ -1,6 +1,7 @@
 import qr     from 'qrcode'
 import Image  from 'next/image'
-import styles from '@/styles/index.module.css'
+import styles from './styles.module.css'
+import useClipboard from "react-use-clipboard";
 import { useEffect, useState } from 'react'
 
 export default function LnurlQRCode({ data }) {
@@ -10,22 +11,35 @@ export default function LnurlQRCode({ data }) {
     if (data) {
       (async function() { 
         setImgData(await qr.toDataURL(data))
-        console.log('qrdata:', data)
+        console.log('qrcode:', data)
       })()
     }
   }, [ data ])
 
   return (
-    <div className={styles.qrcode}>
-      {imgData &&
-        <Image
-          className={styles.qrimage}
-          src={imgData}
-          alt="QR Code"
-          width={300} 
-          height={300} 
-        />
-      }
+    <div className={styles.qrCode}>
+      {imgData && <QrComponent data={ data } imgData={ imgData }/>}
+    </div>
+  )
+}
+
+function QrComponent({ data, imgData }) {
+  const [isCopied, setCopied] = useClipboard(data, { successDuration: 1000 });
+
+  return (
+    <div>
+      <Image
+        className={styles.qrImage}
+        src={imgData}
+        alt="QR Code"
+        width={300} 
+        height={300} 
+      />
+      <div className={styles.copyBtn}>
+        <button onClick={setCopied}>
+          { isCopied ? "Copied!" : "Copy LNURL"}
+        </button>
+      </div>
     </div>
   )
 }

@@ -18,15 +18,9 @@ function MerchantTip({ account }) {
       <RecentTipsBox
         invoiceKey={account.invoiceKey}
         />
-        <PayUrlQr 
-          payRequest={account.payRequest}
-        />
-        <PrintVersion
-          slug={account.slug}
-        />
-        <RecentTipsBox
-          invoiceKey={account.invoiceKey}
-         />
+      <PrintVersion
+        slug={account.slug}
+      />
     </div>
   )
 }

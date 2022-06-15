@@ -1,27 +1,27 @@
 .footer {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .footer a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    color: white;
-  }
-  
-  .footer a p {
-    display: flex;
-    align-items: center;
-    margin-right: 1%;
-  }
-  
-  .printfooter {
-    display:none;
-  }
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  color: white;
+}
+
+.footer a p {
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
+}
+
+.printfooter {
+  display:none;
+}
   
     
 @media print {

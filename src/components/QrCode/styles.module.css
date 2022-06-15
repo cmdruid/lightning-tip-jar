@@ -1,8 +1,41 @@
-.logo {
-  margin: auto;
+
+.copyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
 }
 
-.qrimage {
-  border: 2px solid white;
+.copyBtn button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
+  background-color: rgb(84, 193, 84);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  padding: 10px;
+}
+
+.copyBtn button:hover {
+  background-color: rgb(84, 213, 24);
+}
+
+.qrCode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2% auto;
+}
+
+.qrImage {
   border-radius: 10px;
+}
+
+@media print {
+  .copylnurldiv {
+    display: none;
+  }
 }

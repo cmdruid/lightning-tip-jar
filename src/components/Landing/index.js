@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import Typed from "react-typed"
 
 export default function Landing() {
-  const [formData, setFormData] = useState("")
+  const [ formData, setFormData ] = useState()
   const router = useRouter()
   
   const handleSubmit = (e) => {
@@ -21,7 +21,7 @@ export default function Landing() {
 
     return (
         <main className={styles.landing}>
-          <p className={styles.landingtitle}>Your own personalized space for collecting tips in Bitcoin.</p>
+          <p className={styles.title}>Your own personalized space for collecting tips in Bitcoin.</p>
           <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
             <Typed
               style={{width: "50%"}}
@@ -46,7 +46,7 @@ export default function Landing() {
                 </div>
               </div>
               <div className={styles.iconContainer}>
-                <Image src={bitcoinGiving} width={100} height={100} />
+                <Image alt='Bitcoin giving' src={bitcoinGiving} width={100} height={100} />
                 <h4 className={styles.callToAction}>Earn tips</h4>
                 <div className={styles.callToActionText}>
                     <p>Start accepting tips from your favorite patrons.</p>

@@ -3,14 +3,14 @@ import useSWR             from 'swr'
 import { useRouter }      from 'next/router';
 import { fetcher }        from '@/lib/utils'
 
-import styles  from '@/styles/index.module.css'
+import styles  from './styles.module.css'
 import QrCode  from '@/components/QrCode'
 import { siteTitle } from '@/components/layout'
 
 export default function WithdrawPage() {
-  const router          = useRouter();
-  const { account }     = router.query;
-  const { data, error } = useSWR(`/api/withdraw/create?slug=${account}`, fetcher);
+  const router   = useRouter();
+  const { slug } = router.query;
+  const { data, error } = useSWR(`/api/withdraw/create?slug=${slug}`, fetcher);
 
   return (
     <>
