@@ -18,3 +18,35 @@
     align-items: center;
     margin-right: 1%;
   }
+  
+  .printfooter {
+    display:none;
+  }
+  
+    
+@media print {
+  
+  .footer a {
+    display: none;
+    }
+  
+  .printfooter {
+    display: block;
+    display: inline-flex;
+    justify-content: center;
+    flex-grow: 1;
+    color: white;
+    }
+  
+  .printfooter p {
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-right: 2%;
+    }
+
+  .printfooter_link {
+    text-decoration: underline;
+    }
+    
+  }

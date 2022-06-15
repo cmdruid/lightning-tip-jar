@@ -12,6 +12,14 @@ export default function Footer() {
         >
           <p>Powered by plebs</p> <FaGithub size={25}/>
         </a>
+        <div className={styles.printfooter}>
+          <p className={styles.printfooter__headline}>
+            Powered by sats4.tips
+          </p>
+          <p className={styles.printfooter__subheadline}>
+            Visit <span className={styles.printfooter_link}>https://sats4.tips</span> to get your own tip jar.
+          </p>
+        </div>
       </footer>
   )
 }

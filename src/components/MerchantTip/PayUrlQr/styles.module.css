@@ -32,3 +32,9 @@
 .qrImage {
     border-radius: 10px;
 }
+
+@media print {
+    .copylnurldiv {
+      display: none;
+    }
+  }

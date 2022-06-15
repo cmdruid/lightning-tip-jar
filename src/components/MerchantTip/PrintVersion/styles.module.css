@@ -1,0 +1,57 @@
+.printurlsection {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+.printwalletssection {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem;
+  }
+
+.url {
+  margin: 1% auto;
+  line-height: 1.15;
+  font-size: 2rem;
+  margin-top: 1rem;
+  text-align: center;
+  font-family: monospace;
+  }
+
+.walletcard {
+    margin: 1% auto;
+    line-height: 1.15;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    text-align: center;
+    font-family: monospace;
+  }
+
+.printurlsection p {
+    margin: 1% auto;
+    line-height: 1.15;
+    font-size: 1.5rem;
+    font-family: monospace;
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+.printwalletssection p {
+    margin: 1% auto;
+    line-height: 1.15;
+    font-size: 1.2rem;
+    font-family: monospace;
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+@media print {
+  .printurlsection {
+    display: flex;
+    }
+  .printwalletssection {
+    display: flex;
+    }
+  }
