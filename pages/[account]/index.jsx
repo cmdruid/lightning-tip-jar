@@ -11,7 +11,6 @@ import NewAccountForm from '@/components/NewAccountForm'
 import TempDisabled   from '@/components/TempDisabled'
 import { useUserContext } from "@/context/UserContext";
 
-
 export default function AccountPage() {
   const [ user, setUser ] = useUserContext();
 
