@@ -29,9 +29,12 @@
     "jsx": "preserve"
   },
   "include": [
-    "./components/",
-    "./pages/",
-    "./lib/"
-, "src/components/Landing", "pages/api/withdraw/.js", "src/components/LoginWidget/login.jsx"  ],
+    // "./components/",
+    // "./pages/",
+    // "./lib/", 
+    // "src/components/Landing", 
+    // "pages/api/withdraw/.js", 
+    // "src/components/LoginWidget/login.jsx"  
+  ],
   "exclude": []
 }
