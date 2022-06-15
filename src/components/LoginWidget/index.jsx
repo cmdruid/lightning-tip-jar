@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import styles from './styles.module.css'
-import LoginQrCode   from './LoginQrCode'
+import QrCode from '@/components/QrCode'
 import { fetcher }   from '@/lib/utils'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -19,7 +19,7 @@ export default function LoginWidget() {
       { 
         error && <div>Error fetching data!</div>
         || !data && <div>loading...</div>
-        || data.auth && <LoginQrCode authData={data.auth}/>
+        || data.lnurl && <QrCode data={data.lnurl}/>
         || <div>failed to load!</div>
       }
     </div>
