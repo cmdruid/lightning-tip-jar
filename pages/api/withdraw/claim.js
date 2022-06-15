@@ -1,15 +1,11 @@
-/**
+/** withdraw/claim.js
  * Receive a claim for withdraw that contains an encrypted json object.
- * The decrypted object should contain the user key, plus the account name 
+ * The decrypted contents should contain the user key, plus the account name 
  * and timestamp. All information should be verified before processing the
- * withdraw request. A k1 challenge should be generated and stored, then
- * returned to wallet for a response. The response will contain an invoice 
+ * withdraw request. A k1 challenge should be generated, then returned to wallet 
+ * for a response. This challenge will also be stored with the account's wallet
+ * key in order to make the payment. The wallet's response will contain an invoice 
  * that is decoded and verified, then sent for payment.
- */
-
-/**
- * Authenticate the user, then return an lnurl containing the withdraw endpoint, 
- * plus an encrypted json object with the account name, user's key, and timestamp.
  */
 
 import { getCollection } from '@/lib/controller'
