@@ -3,7 +3,9 @@ const schema = {
    * https://docs.mongodb.com/manual/core/schema-validation/
    */
   bsonType: 'object',
-  required: [ 'slug', 'title', 'description', 'payRequest', 'walletKey', 'invoiceKey' ],
+  required: [ 
+    'slug', 'title', 'description', 'payRequest', 'adminKey', 'walletKey', 'invoiceKey'
+  ],
   properties: {
     slug: {
       bsonType: "string",

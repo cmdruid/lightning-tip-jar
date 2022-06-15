@@ -22,13 +22,15 @@ export default async function getTransactions(req, res) {
     if (process.env.MOCK_PAYMENTS === 'true') {
       payments = mockPayments()
     } else {
-      payments = transactions.map(item => {
-        return {
-          amount: item.amount,
-          msg: item.extra.comment,
-          date: item.time,
-          txid: null,
-        }
+      payments = transactions
+        .filter(t => !t.pending)
+        .map(item => {
+          return {
+            amount: item.amount,
+            msg: item.extra.comment,
+            date: item.time,
+            txid: null,
+          }
       })
     }
     

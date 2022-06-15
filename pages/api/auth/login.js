@@ -1,4 +1,5 @@
-import { utils, verify } from '@noble/secp256k1'
+import { encodeLnurl }      from '@/lib/utils';
+import { utils, verify }    from '@noble/secp256k1'
 import { withSessionRoute } from "@/lib/session";
 
 const pending = new Map();
@@ -8,7 +9,9 @@ export default withSessionRoute(login);
 async function login(req, res) {
   /* Authentication and login controller.
    */
-  const { tag } = req.query;
+  const { url }  = req,
+        { host } = req.headers,
+        { tag }  = req.query;
 
   if (tag && tag === 'login') {
     /* If login tag is present, forward to signature resolver. */
@@ -49,8 +52,11 @@ async function login(req, res) {
     /* If reference to auth session does not exist, create it. */
     pending.set(ref, { msg })
   }
+  
+  const fullUrl = `https://${host}${url}`,
+        lnurl   = generateLnurl(fullUrl, ref, msg);
 
-  res.status(200).json(session);
+  res.status(200).json({ lnurl });
 }
 
 async function sign(req, res) {
@@ -71,6 +77,11 @@ async function sign(req, res) {
 
   return res.status(200).json({ 'status': 'ERROR', 'reason': 'Login process failed!' })
 }
+
+function generateLnurl(url, ref, msg) {
+  return encodeLnurl(`${url}?ref=${ref}&tag=login&k1=${msg}&action=login`)
+}
+
 
 function verifySig(sig, msg, key) {
   /* Verify a secp256k1 signature.

@@ -105,7 +105,7 @@ export async function createInvoice(name, amt, invoiceKey, memo) {
   return fetchEndpoint(endpoint, opt)
 }
 
-export async function payInvoice(bolt11, invoiceKey) {
+export async function payInvoice(bolt11, walletKey) {
 
   const endpoint = '/api/v1/payments'
 
@@ -113,7 +113,7 @@ export async function payInvoice(bolt11, invoiceKey) {
 
   const opt = {
     method  : 'POST',
-    headers : { "Content-Type": "application/json", "X-Api-Key": invoiceKey },
+    headers : { "Content-Type": "application/json", "X-Api-Key": walletKey },
     body    : JSON.stringify(body)
   };
 
