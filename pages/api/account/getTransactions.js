@@ -17,8 +17,6 @@ export default async function getTransactions(req, res) {
     const decryptedKey = await decrypt(invoiceKey),
           transactions = await listPayments(decryptedKey);
 
-    console.log(transactions)
-
     let payments;
     
     if (process.env.MOCK_PAYMENTS === 'true') {
