@@ -23,7 +23,7 @@ function RecentTipsBox({ invoiceKey }) {
                         data.payments.map((tip, idx) => (
                             <>
                                 <div id={idx} className={styles.transInfo}>
-                                    <p className={styles.transpinfo}><span className={styles.transpan}>Amount in sats</span> - ⚡{tip.amount / 1000}</p>
+                                    <p className={styles.transpinfo}><span className={styles.transpan}>Amount</span> - {tip.amount / 1000} sats ⚡</p>
                                     <p className={styles.transpinfo}><span className={styles.transpan}>Note</span> - {tip.msg}</p>
                                     {tip.date && (
                                         
