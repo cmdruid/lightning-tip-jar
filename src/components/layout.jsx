@@ -20,6 +20,7 @@ export default function Layout({ children, home }) {
           name="description"
           content="Your own personalized space for collecting tips in Bitcoin."
         />
+        <title>{siteTitle}</title>
       </Head>
 
       <header className={styles.header}>

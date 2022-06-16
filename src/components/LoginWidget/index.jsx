@@ -1,8 +1,9 @@
 import useSWR from 'swr'
 import styles from './styles.module.css'
-import QrCode from '@/components/QrCode'
+import Loading from '@/components/Loading'
+import Error   from '@/components/Error'
+import QrCode  from '@/components/QrCode'
 import { fetcher }   from '@/lib/utils'
-import { useEffect } from 'react'
 
 export default function LoginWidget() {
   const { data, error } = useSWR('/api/auth/login', fetcher, { refreshInterval: 5000 })
@@ -14,10 +15,9 @@ export default function LoginWidget() {
   return (
     <div className={styles.container}>
       { 
-        error && <div>Error fetching data!</div>
-        || !data && <div>loading...</div>
+        error && <Error error={ error } />
+        || !data && <Loading error={ error }/>
         || data.lnurl && <QrCode data={data.lnurl}/>
-        || <div>failed to load!</div>
       }
     </div>
   )

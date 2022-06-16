@@ -1,10 +1,8 @@
 import React, {useState} from 'react'
 import styles from './styles.module.css'
-import Head from 'next/head'
-import { FaBitcoin, FaNetworkWired, FaBolt } from 'react-icons/fa'
+import { FaBitcoin, FaNetworkWired } from 'react-icons/fa'
 import bitcoinGiving from '@/public/bitcoingiving.svg'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Typed from "react-typed"
 
@@ -24,16 +22,15 @@ export default function Landing() {
           <p className={styles.title}>Your own personalized space for collecting tips in Bitcoin.</p>
           <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
             <Typed
-              style={{width: "50%"}}
+              style={{width: "100%"}}
               strings={['Shiners Saloon', 'Satoshi Steakhouse', 'Nakamoto Bank']}
               typeSpeed={150}
               attr="placeholder"
               loop
-              >
-                <input className={styles.input} type="text" value={formData} onChange={(e) => setFormData(e.target.value)}/>
+            >
+              <input className={styles.input} type="text" value={formData} onChange={(e) => setFormData(e.target.value)}/>
             </Typed>
             <div className={styles.buttonContainer}>
-              <button type='submit' className={styles.claimButton}>Claim your tip jar</button>
               <button type='submit' className={styles.visitButton}>Visit a tip jar</button>
             </div>
           </form>

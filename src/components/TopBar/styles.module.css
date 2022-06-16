@@ -1,11 +1,12 @@
 .topbar {
+  width: 100%;
   display: flex;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   color: white;
 }
 
 .logoIcon {
-  color: yellow;
+  color: #ffdd00;
   padding-right: 0.5rem;
 }
 
@@ -14,15 +15,57 @@
 }
 
 .start {
+  flex-shrink: 1;
   display: flex;
   align-items: center;
+  padding: 0 0.5rem;
 }
 
 .mid {
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .end {
+  flex-shrink: 1;
   display: flex;
   align-items: center;
+  padding: 0 0.5rem;
+}
+
+.connectBtn {
+  background-color: initial;
+  background-color: #fbb034;
+  background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 74%);
+}
+  
+.connectBtn:hover {
+  font-weight: 500;
+  box-shadow: rgba(255, 251, 0, 0.5) 0 3px 8px;
+  opacity: 1.0;
+}
+
+.searchContainer {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchInput {
+  
+  border-radius: 10px 0px 0px 10px;
+}
+
+.searchBtn {
+  padding: 0.6rem 1rem 0.22rem 0.8rem;
+  border-radius: 0px 10px 10px 0px;
+}
+
+.searchIcon {
+  margin: 0;
+  padding: 0;
+  
 }

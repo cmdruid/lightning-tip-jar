@@ -1,21 +1,21 @@
 import styles from './styles.module.css'
 import { useRouter } from 'next/router'
-import LogoHeader from '@/components/LogoHeader'
 
-export default function Error() {
+export default function Error({ error, msg }) {
   const router = useRouter()
 
+  if (!msg) msg = 'Failed to load!'
+
+  console.error('Error:', error)
+
   return (
-    <div>
-      <main>
-        <LogoHeader />
-        <h2 className={styles.subTitle}>Something went wrong...</h2>
-        <button 
-          onClick={() => router.push(`/`)} 
-          className={styles.homeButton}>
-            Home
-        </button>
-      </main>
+    <div className={styles.container}>
+      <h2 className={styles.title}>{msg}</h2>
+      <p className={styles.description}>Click below to refresh the page.</p>
+      <button className={styles.button}
+        onClick={() => router.reload(window.location.pathname)}>
+          Refresh
+      </button>
     </div>
   )
 }
