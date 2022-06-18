@@ -1,117 +1,54 @@
-.landing {
+.container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 3%;
-  width: 100%;
-  flex: 1;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  border-radius: 20px;
-  padding-top: 0;
+  width: 100%;
 }
 
 .title {
   font-family: monospace;
   font-size: 1rem;
   text-align: center;
+  padding: 0 1.5rem;
 }
 
-.claimButton {
-  width: 40%;
-  margin: 2% auto;
-  background-color: initial;
-  background-color: #fbb034;
-  background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 74%);
-  border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
-  cursor: pointer;
-  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
-  height: 40px;
-  line-height: 40px;
-  outline: 0;
-  overflow: hidden;
-  padding: 0 20px;
-  pointer-events: auto;
-  text-align: center;
-  touch-action: manipulation;
-  user-select: none;
-  -webkit-user-select: none;
-  white-space: nowrap;
-  border: 0;
-  transition: opacity 0.4s ease-in;
-}
-  
-.claimButton:hover {
-  box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
-  opacity: 0.7;
-}
-
-.visitButton {
-  width: 40%;
-  margin: 2% auto;
-  background-color: initial;
+.submitButton {
+  margin: 1rem;
   background-color: #0abcf9;
   background-image: linear-gradient(315deg, #0abcf9 0%, #2c69d1 74%);
-  border-radius: 6px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
-  cursor: pointer;
-  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
-  height: 40px;
-  line-height: 40px;
-  outline: 0;
-  overflow: hidden;
-  padding: 0 20px;
-  pointer-events: auto;
-  text-align: center;
-  touch-action: manipulation;
-  user-select: none;
-  -webkit-user-select: none;
-  white-space: nowrap;
-  border: 0;
   transition: opacity 0.4s ease-in;
 }
 
-.visitButton:hover {
+.submitButton:hover {
   box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
   opacity: 0.7;
-}
-
-.buttonContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
 
 .form {
-  margin: 1% auto;
-  width: 60%;
-  height: 40%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-}
-
-.typed {
   width: 100%;
+  max-width: 15rem;
 }
 
 .input {
-  width: 100%;
-  margin: 1% auto;
-  padding: 4%;
   border: 2px solid black;
   border-radius: 10px;
+  width: auto;
 }
 
-.callToActionContainer {
+.ctaContainer {
   display: flex;
   justify-content: space-between;
-  margin: 1% auto;
-  padding: 1%;
-  width: 100%;
+  align-items: flex-start;
+  text-align: center;
+  max-width: 100rem;
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: rgba(55, 55, 55, 0.85);
 }
 
 .iconContainer {
@@ -119,53 +56,53 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-grow: 1;
-  width: 30%;
+  padding: 1rem;
+  width: 33%;
 }
 
 .mainIcon {
-  margin: 3% auto;
+
 }
 
 .callToAction {
+  background-image: linear-gradient( 135deg, #F6D242 10%, #FF52E5 100%);
+  background-clip: text;
+  color: transparent;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
   text-align: center;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .callToActionText {
-  width: 80%;
-  text-align: center;
-}
-
-.callToActionText p {
+  margin: 0;
+  color: white;
   font-family: monospace;
   font-weight: bold;
+  font-size: 1rem;
 }
 
 .icon {
-  margin: 0 auto;
+  filter: invert(75%) sepia(97%) saturate(773%) hue-rotate(358deg) brightness(102%) contrast(102%);
 }
 
-
-@media (max-width: 800px) {
-  .buttonContainer {
-    flex-direction: column;
-  }
-  .visitButton {
-    width: 60%;
-  }
-  .claimButton {
-    width: 60%;
-  }
-}
-
-@media(max-width: 800px) {
-  .callToActionContainer {
+@media(max-width: 900px) {
+  .ctaContainer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
+    margin-bottom: 2rem;
   }
   .iconContainer {
     width: 100%;
+  }
+}
+
+@media(max-width: 650px) {
+  .ctaContainer {
+    width: 100vw;
+    border-radius: 0;
+    margin-bottom:0;
   }
 }

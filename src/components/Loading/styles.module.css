@@ -1,15 +1,10 @@
 .loadContainer {
-    height: 70vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 3%;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 20px;
-    padding-top: 0;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem;
+}
 
 .loadText {
   color: white;

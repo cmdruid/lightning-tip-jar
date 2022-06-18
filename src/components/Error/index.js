@@ -11,7 +11,7 @@ export default function Error({ error, msg }) {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{msg}</h2>
-      <p className={styles.description}>Click below to refresh the page.</p>
+      <p className={styles.description}>Click to refresh the page.</p>
       <button className={styles.button}
         onClick={() => router.reload(window.location.pathname)}>
           Refresh

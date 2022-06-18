@@ -1,11 +1,14 @@
 import LogoHeader  from '@/components/LogoHeader'
 import LoginWidget from '@/components/LoginWidget'
+import styles from '@/styles/page.module.css'
 
-export default function HomePage() {
+export default function LoginPage() {
   return (
-    <section>
+    <div className={styles.container}>
       <LogoHeader />
-      <LoginWidget />
-    </section>
+      <main className={styles.main} >
+        <LoginWidget />
+      </main>
+    </div>
   )
 }

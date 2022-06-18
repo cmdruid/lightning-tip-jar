@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 
 export default function LogoHeader() {
   return (
-    <div className={styles.logo}>
+    <div className={styles.container}>
       <FaBolt size={100} />
       <h1 className={styles.title}>
         sats4.tips

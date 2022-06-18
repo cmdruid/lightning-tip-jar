@@ -27,19 +27,19 @@ function QrComponent({ data, imgData }) {
   const [isCopied, setCopied] = useClipboard(data, { successDuration: 1000 });
 
   return (
-    <div>
+    <>
       <Image
         className={styles.qrImage}
         src={imgData}
         alt="QR Code"
-        width={300} 
-        height={300} 
+        width={300}
+        height={300}
       />
-      <div className={styles.copyBtn}>
-        <button onClick={setCopied}>
-          { isCopied ? "Copied!" : "Copy LNURL"}
-        </button>
+      <div
+        className={styles.copyBtn}
+        onClick={setCopied}>
+          { isCopied ? "Copied to clipboard!" : "Copy Lightning-URL Code"}
       </div>
-    </div>
+    </>
   )
 }

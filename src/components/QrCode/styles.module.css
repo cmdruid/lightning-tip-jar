@@ -1,41 +1,29 @@
-
-.copyBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.copyBtn button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: large;
-  background-color: rgb(84, 193, 84);
-  border: 2px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  color: white;
-  padding: 10px;
-}
-
-.copyBtn button:hover {
-  background-color: rgb(84, 213, 24);
-}
-
 .qrCode {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2% auto;
+  flex-direction: column;
+  margin: 2rem;
 }
 
 .qrImage {
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
+}
+
+.copyBtn {
+  background-color: #ffdd00;
+  width: 100%;
+  cursor: pointer;
+  color: #373737ff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 0 0 10px 10px;
+}
+
+.copyBtn:hover {
+  background-color: #ffec6e;
 }
 
 @media print {
-  .copylnurldiv {
+  .copyBtn {
     display: none;
   }
 }

@@ -1,0 +1,17 @@
+.container {
+  display: block;
+  text-align: center;
+}
+
+.main {
+  font-family: monospace;
+}
+
+.title {
+  font-family: monospace;
+  font-size: 6rem;
+}
+
+.description {
+  font-size: 2rem;
+}

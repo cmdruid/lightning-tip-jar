@@ -1,11 +1,14 @@
 import LogoHeader from '@/components/LogoHeader'
 import Landing    from '@/components/Landing/index.js'
+import styles from '@/styles/page.module.css'
 
 export default function HomePage() {
   return (
-    <section>
+    <div className={styles.container}>
       <LogoHeader />
-      <Landing />
-    </section>
+      <main className={styles.main} >
+        <Landing />
+      </main>
+    </div>
   )
 }

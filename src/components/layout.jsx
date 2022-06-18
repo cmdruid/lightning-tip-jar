@@ -3,10 +3,10 @@
  *  HTML for other pages will be wrapped within this layout component.
  */
 
-import Head   from 'next/head'
-import TopBar from './TopBar'
-import Footer from './Footer'
-import styles from './layout.module.css'
+import Head    from 'next/head'
+import TopBar  from './TopBar'
+import FootBar from './FootBar'
+import styles  from './layout.module.css'
 
 export const siteTitle = 'sats4tips'
  
@@ -31,7 +31,9 @@ export default function Layout({ children, home }) {
         {children}
       </main>
 
-      <Footer />
+      <footer className={styles.footer}>
+         <FootBar />
+      </footer>
 
     </div>
   )

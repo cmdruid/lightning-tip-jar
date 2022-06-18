@@ -17,5 +17,5 @@ async function fakeLogin(req, res) {
     }
     await req.session.save();
   }
-  res.status(200).json(session);
+  res.redirect('/');
 }
