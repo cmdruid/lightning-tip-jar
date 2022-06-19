@@ -1,4 +1,4 @@
-import Loading from '@/components/Loading'
+import Loading from '@/components/Widgets/Loading'
 
 export default function TestPage() {
   return (

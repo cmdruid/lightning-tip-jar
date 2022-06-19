@@ -1,14 +1,21 @@
-import LogoHeader  from '@/components/LogoHeader'
-import LoginWidget from '@/components/LoginWidget'
-import styles from '@/styles/page.module.css'
+import { useRouter } from 'next/router'
+
+import styles      from '@/styles/page.module.css'
+import LogoHeader  from '@/components/Widgets/LogoHeader'
+import LoginWidget from '@/components/Widgets/LoginWidget'
+import { useUserContext } from '@/context/UserContext'
 
 export default function LoginPage() {
+  const router    = useRouter();
+  const [ state ] = useUserContext();
+  const user      = state.data || {}
+
+  if (user.key) router.push('/profile');
+
   return (
     <div className={styles.container}>
       <LogoHeader />
-      <main className={styles.main} >
-        <LoginWidget />
-      </main>
+      <LoginWidget user={ user }/>
     </div>
   )
 }

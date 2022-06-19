@@ -1,33 +1,63 @@
-import useSWR      from 'swr'
-import { fetcher } from '@/lib/utils'
+import { initialState, dataReducer } from '@/reducers/dataReducer'
 
 import { 
   createContext, 
   useContext, 
-  useState, 
-  useMemo 
-} from "react";
+  useReducer, 
+  useMemo, 
+  useEffect
+} from 'react';
 
 const UserContext = createContext();
 
 export function UserWrapper({ children }) {
-   const [ user, setUser ] = useState({});
+  const [ state, dispatch ] = useReducer(dataReducer, initialState);
 
-   const { data, error } = useSWR('/api/auth/user', fetcher)
+  console.log('UserContext', state)
 
-   if (data?.user && data.user !== user) setUser(data.user)
+  useEffect(() => {
+    if (!state?.init) {
+      dispatch({ type: 'init' })
+      getData({ 
+        endpoint:'/api/user/read',
+        dispatch 
+      })
+    }
+  }, [ state?.init ])
 
-   const contextValue = useMemo(() => {
-      return [ user, setUser ];
-   }, [ user, setUser ]);
+  const contextValue = useMemo(() => {
+    return [ state, dispatch ];
+  }, [ state, dispatch ]);
 
-   return (
+  return (
     <UserContext.Provider value={contextValue}>
-        {children}
+      {children}
     </UserContext.Provider>
-   );
+  );
 }
 
 export function useUserContext() {
    return useContext(UserContext);
+}
+
+export async function getData({ endpoint, dispatch }) {
+  let data, status, err = false;
+
+  try {
+    if (!(endpoint && dispatch)) {
+      throw new Error('Missing params!')
+    }
+    const response = await fetch(endpoint)
+    status = response.status
+    data   = await response.json()
+  }
+
+  catch(e) { err = e }
+
+  finally { 
+    dispatch({ 
+      type: 'set_data', 
+      value: { data, status, err }
+    })
+  }
 }

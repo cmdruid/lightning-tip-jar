@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  padding-top: 2rem;
+  width: 25rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgba(55, 55, 55, 0.85);
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.description {
+  margin: 0;
+  padding-top: 2rem;
+  font-size: 1rem;
+  font-family: monospace;
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding-top: 0rem;
+  }
+  .title {
+    border-radius: 0;
+    width: 100vw;
+  }
+}

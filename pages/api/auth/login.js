@@ -1,6 +1,7 @@
-import { encodeLnurl }      from '@/lib/utils';
+import { encrypt }          from '@/lib/crypto'
+import { encodeLnurl }      from '@/lib/utils'
 import { utils, verify }    from '@noble/secp256k1'
-import { withSessionRoute } from "@/lib/session";
+import { withSessionRoute } from '@/lib/session'
 
 const pending = new Map();
 
@@ -21,8 +22,8 @@ async function login(req, res) {
   const { session } = req;
 
   if (session?.user?.key) {
-    /* If client has a current user session, return it.*/
-    return res.status(200).json(session)
+    /* If client has a current user session, return error.*/
+    return res.status(403).json({ status: 'authorized' })
   }
 
   if (!session.auth) {
@@ -42,10 +43,10 @@ async function login(req, res) {
 
     if (key) {
       /* If key has been provided, add to user data. */
-      session.user = { key, ...session.user }
+      session.user = { key: encrypt(key), ...session.user }
       await req.session.save();
       pending.delete(ref)
-      return res.status(200).json(session)
+      return res.status(200).json({ status: 'authorized' })
     }
 
   } else {
@@ -56,7 +57,7 @@ async function login(req, res) {
   const fullUrl = `https://${host}${url}`,
         lnurl   = generateLnurl(fullUrl, ref, msg);
 
-  res.status(200).json({ lnurl });
+  res.status(200).json({ status: 'unauthorized', lnurl });
 }
 
 async function sign(req, res) {
@@ -82,7 +83,6 @@ function generateLnurl(url, ref, msg) {
   return encodeLnurl(`${url}?ref=${ref}&tag=login&k1=${msg}&action=login`)
 }
 
-
 function verifySig(sig, msg, key) {
   /* Verify a secp256k1 signature.
    */
@@ -90,4 +90,3 @@ function verifySig(sig, msg, key) {
         msgB = utils.hexToBytes(msg);
   return verify(sigB, msgB, key)
 }
-

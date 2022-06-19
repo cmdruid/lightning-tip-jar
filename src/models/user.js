@@ -3,14 +3,14 @@ const schema = {
    * https://docs.mongodb.com/manual/core/schema-validation/
    */
   bsonType: 'object',
-  required: [ 'userKey' ],
+  required: [ 'key', 'username', 'email' ],
   properties: {
-    userKey: {
+    key: {
       bsonType: 'string',
       maxLength: 32,
       description: 'Must be a string and is required.'
     },
-    userName: {
+    username: {
       bsonType: 'string',
       maxLength: 32,
       description: 'Must be a string and is required.'

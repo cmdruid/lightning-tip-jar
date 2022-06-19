@@ -1,21 +1,41 @@
 import '@/styles/normalize.css'
 import '@/styles/globals.css'
-import Layout from '@/components/layout'
-import { StrictMode }  from 'react'
-import { UserWrapper } from '@/context/UserContext'
+import { StrictMode, useEffect } from 'react'
 
-function MyApp({ Component, pageProps }) {
+import Layout             from '@/components/Layout'
+import { UserWrapper }    from '@/context/UserContext'
+import { AccountWrapper } from '@/context/AccountContext'
+
+export default function App({ Component, pageProps }) {
+
+  useEffect(() => {
+    // enableWebLn()
+  })
+
   return (
     <>
       <StrictMode>
         <UserWrapper>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <AccountWrapper>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </AccountWrapper>
         </UserWrapper>
       </StrictMode>
     </>
   )
 }
 
-export default MyApp
+async function enableWebLn() {
+  try {
+    if(typeof window.webln !== 'undefined') {
+      await window.webln.enable();
+      const info = await webln.getInfo();
+      console.log(info)
+    }
+  } catch(error) {
+    // User denied permission or cancelled 
+    console.error(error);
+  }
+}

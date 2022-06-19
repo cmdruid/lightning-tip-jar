@@ -1,17 +1,29 @@
 .container {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   text-align: center;
-}
-
-.main {
+  height: 100%;
+  width: 100%;
   font-family: monospace;
 }
 
 .title {
-  font-family: monospace;
+  margin: 0;
+  padding: 1rem;
   font-size: 6rem;
+  
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 3rem;
+  padding-bottom: 1rem;
 }
 
 .description {
-  font-size: 2rem;
+  margin: 0;
+  padding: 1rem;
+  font-size: 1.5rem;
 }
