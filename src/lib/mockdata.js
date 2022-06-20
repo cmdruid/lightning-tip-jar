@@ -89,3 +89,39 @@ export function mockPayments() {
   return payments;
 }
 
+export function mockWithdraws() {
+  /*
+    same as mockPayments() but for withdraws
+  */
+    let withdraw = null;
+    let withdraws = [];
+
+    withdraw = {
+      amount: 8000 * 1000,
+      msg: "carol cashing out",
+      date: createUnixTime(0,2,0,0),
+    }
+    withdraws.push(withdraw)
+
+    withdraw = {
+      amount: 8000 * 1000,
+      msg: "alice 4pm - 10pm cash out",
+      date: createUnixTime(0,3,0,0),
+    }
+    withdraws.push(withdraw)
+
+    withdraw = {
+      amount: 8000 * 1000,
+      msg: "carol cash out",
+      date: createUnixTime(0,3,1,0),
+    }
+    withdraws.push(withdraw)
+
+    withdraw = {
+      amount: 8000 * 1000,
+      msg: "bob tips",
+      date: createUnixTime(0,4,1,0),
+    }
+    withdraws.push(withdraw)
+
+}

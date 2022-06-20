@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 
-async function fetcher(...args) {
+export async function fetcher(...args) {
   return fetch(...args).then(res => res.json())
 }
 
