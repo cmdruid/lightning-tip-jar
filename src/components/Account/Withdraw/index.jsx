@@ -3,7 +3,7 @@ import useSWR        from 'swr'
 import { useRouter } from 'next/router';
 
 import styles      from './styles.module.css'
-import { fetcher } from '@/lib/utils'
+import { fetcher } from '@/hooks/useAPI'
 import QrCode      from '@/components/Widgets/QrCode'
 
 export default function AccountWithdraw() {
