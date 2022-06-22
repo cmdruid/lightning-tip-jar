@@ -1,10 +1,13 @@
 import styles from './styles.module.css'
 
-export default function AccountProfile({ data, editMode }) {
+export default function AccountProfile({ info }) {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{data.title}</h1>
-      <p className={styles.description}>{data.desc}</p>
+      <h1 className={styles.title}>{info.title}</h1>
+      <p className={styles.description}>{info.description}</p>
+      { info.location
+        && <p className={styles.location}>{info.location}</p>
+      }
     </div>
   )
 }

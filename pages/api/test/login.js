@@ -1,4 +1,5 @@
 import { utils } from '@noble/secp256k1'
+import { encrypt } from '@/lib/crypto'
 import { withSessionRoute } from "@/lib/session";
 import { getCollection }    from '@/lib/controller'
 import { AccountModel }     from '@/models/account'
@@ -14,25 +15,23 @@ async function fakeLogin(req, res) {
   const { session } = req;
   const { slug }    = req.query
 
-  if (!session.user) {
-    let key;
+  let key;
 
-    if (slug) {
-      try {
-        // Fetches the collection, and checks if the slug exists.
-        const accounts = await getCollection(AccountModel),
-              account  = await accounts.findOne({ slug });   
-        if (!account) throw new Error('account does not exist!')
-        key = account.adminKey
-      } catch(err) { console.error(err) }
-    } else {
-      key = utils.bytesToHex(utils.randomBytes(32))
-    }
-
-    /* Generate a new user for browser. */
-    session.user = { key }
-    await req.session.save();
+  if (slug) {
+    try {
+      // Fetches the collection, and checks if the slug exists.
+      const accounts = await getCollection(AccountModel),
+            account  = await accounts.findOne({ slug });   
+      if (!account) throw new Error('account does not exist!')
+      key = account.keys.adminKey
+    } catch(err) { console.error(err) }
+  } else {
+    key = await encrypt(utils.bytesToHex(utils.randomBytes(32)))
   }
 
-  res.status(200).json({ session });
+  /* Generate a new user for browser. */
+  session.user = { key }
+  await session.save();
+
+  res.status(200).json(session);
 }

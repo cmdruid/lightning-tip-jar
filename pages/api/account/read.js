@@ -1,8 +1,12 @@
 import { getCollection }    from '@/lib/controller'
 import { AccountModel }     from '@/models/account'
 import { errorHandler }     from '@/lib/error'
-import { encrypt }          from '@/lib/crypto'
-import { withSessionRoute } from "@/lib/session";
+import { withSessionRoute } from '@/lib/session'
+
+import { 
+  authenticateUser,
+  stripAccountKeys 
+} from '@/lib/auth'
 
 export default withSessionRoute(readAccount);
 
@@ -11,22 +15,22 @@ async function readAccount(req, res) {
   // Reject all methods other than GET.
   if (req.method !== 'GET') res.status(400).end();
 
-  // Grab the slug and url from the post body.
-  let { slug } = req.query;
+  const { session } = req
+  const { slug }    = req.query;
+
+  if (!slug) return res.status(400).end()
 
   try {
     // Fetches the collection, and checks if the slug exists.
     const accounts = await getCollection(AccountModel),
           account  = await accounts.findOne({ slug });
     
-    if (!account) return res.status(200).json({});
+    // If account not present, return isAvailable.
+    if (!account) return res.status(200).json({ isAvailable: true });
 
-    const { invoiceKey, walletKey, ...accObj } = account
+    await authenticateUser(session, account)
 
-    accObj.invoiceKey  = await encrypt(invoiceKey)
-    accObj.walletKey   = await encrypt(walletKey)
-
-    return res.status(200).json(accObj)
+    return res.status(200).json(stripAccountKeys(account));
 
   } catch(err) { errorHandler(req, res, err) }
 }

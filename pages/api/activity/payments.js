@@ -9,12 +9,12 @@ export default async function getPayments(req, res) {
   if (req.method !== 'GET') res.status(400).end();
 
   // Grab access key from the query.
-  let { invoiceKey } = req.query;
+  let { apikey } = req.query;
 
-  if (!invoiceKey) res.status(400).end();
+  if (!apikey) res.status(400).end();
 
   try {
-    const decryptedKey = await decrypt(invoiceKey),
+    const decryptedKey = await decrypt(apikey),
           transactions = await listPayments(decryptedKey);
 
     let payments;
@@ -25,12 +25,11 @@ export default async function getPayments(req, res) {
       payments = transactions
         .filter(t => !t.pending)
         .filter(t => t.amount > 0)
-        .map(item => {
+        .map(t => {
           return {
-            amount: item.amount,
-            msg: item.extra.comment,
-            date: item.time,
-            txid: null,
+            amt  : t.amount,
+            msg  : t.extra.comment,
+            date : t.time
           }
         })
     }

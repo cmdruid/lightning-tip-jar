@@ -6,13 +6,13 @@ import { FaTwitter } from 'react-icons/fa'
 import styles  from './styles.module.css'
 import Loading from '@/components/Widgets/Loading'
 import Error   from '@/components/Widgets/Error'
-import { useTransactions } from '@/hooks/useAPI'
+import { useRecentPayments } from '@/hooks/useAPI'
 
 dayjs.extend(relativeTime)
 
-export default function RecentTipsBox({ invoiceKey }) {
+export default function RecentPayments({ viewKey }) {
 
-  const { data, error } = useTransactions(invoiceKey)
+  const { data, error } = useRecentPayments(viewKey)
 
   return (
     <div className={styles.container}>
@@ -40,7 +40,7 @@ function Transaction({ tip }) {
       }
       <div className={styles.meta}>
         <div className={styles.metaData}>
-          <p className={styles.amt}>{tip.amount / 1000} sats ⚡</p>
+          <p className={styles.amt}>{tip.amt / 1000} sats ⚡</p>
           <p className={styles.date}>{timeAgo}</p>
         </div>
       </div>

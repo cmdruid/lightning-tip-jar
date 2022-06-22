@@ -5,7 +5,9 @@ export function errorHandler(req, res, err) {
 
   switch(err.name) {
     case 'MongoServerError':
-      console.error(err?.errInfo?.details?.schemaRulesNotSatisfied); break
+      const schemaErr = err?.errInfo?.details?.schemaRulesNotSatisfied
+      if (schemaErr) console.error(JSON.stringify(schemaErr, null, 2))
+      break
     default:
       break
   }

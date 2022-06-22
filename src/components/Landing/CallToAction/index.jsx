@@ -25,7 +25,7 @@ export default function CallToAction() {
           src={bitcoinGiving}
           width={90} height={90} 
         />
-        <h4 className={styles.callToAction}>Earn Tips</h4>
+        <h4 className={styles.callToAction}>Receive Tips</h4>
         <div className={styles.callToActionText}>
           <p>Start collecting Bitcoin from your favorite patrons.</p>
         </div>
@@ -36,7 +36,7 @@ export default function CallToAction() {
           size={90}
           style={{paddingBottom: '0.5rem'}}
         />
-        <h4 className={styles.callToAction}>Split Withdraws</h4>
+        <h4 className={styles.callToAction}>Split With Others</h4>
         <div className={styles.callToActionText}>
           <p>Split and withdraw funds to any compatible wallet.</p>
         </div>

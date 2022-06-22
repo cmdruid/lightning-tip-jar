@@ -15,9 +15,9 @@ export default async function checkAccount(req, res) {
     const accounts = await getCollection(AccountModel),
           account  = await accounts.findOne({ slug });
     
-    if (!account) return res.status(200).json({available: true});
+    if (!account) return res.status(200).json({isAvailable: true})
 
-    return res.status(200).json({available: false})
+    return res.status(200).json({isAvailable: false})
 
   } catch(err) { errorHandler(req, res, err) }
 }

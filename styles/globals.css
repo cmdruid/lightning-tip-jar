@@ -25,15 +25,20 @@ a {
   text-decoration: none;
 }
 
-input {
-  all: unset;
+input, textarea {
+  border: none;
   width: 100%;
   color: black;
   background-color: white;
   padding: 0.75rem;
 }
 
-input:placeholder-shown {
+textarea:focus, input:focus {
+  outline: none;
+}
+
+input:placeholder-shown,
+textarea:placeholder-shown {
    font-style: italic;
 }
 

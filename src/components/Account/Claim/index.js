@@ -1,8 +1,15 @@
 import styles from './styles.module.css'
 import LogoHeader  from '@/components/Widgets/LogoHeader'
 import LoginWidget from '@/components/Widgets/LoginWidget';
+import { submitData } from '@/lib/utils' 
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useUserContext } from '@/context/UserContext';
 
-export default function AccountClaim({ slug, user }) {
+export default function AccountClaim({ setAccount }) {
+  const router   = useRouter();
+  const { slug } = router.query;
+  const [ user ] = useUserContext();
 
   return (
     <div>
@@ -25,7 +32,11 @@ export default function AccountClaim({ slug, user }) {
             <p className={styles.description}>
               Fill out the form below to claim this space and setup your tip jar.
             </p>
-            <FormComponent user={ user } slug={ slug }/>
+            <FormComponent 
+              slug={ slug } 
+              router={ router } 
+              setAccount={ setAccount }
+            />
           </>
         }
 
@@ -34,33 +45,58 @@ export default function AccountClaim({ slug, user }) {
   )
 }
 
-function FormComponent({ user, slug }) {
+function FormComponent({ slug, router, setAccount }) {
+  const [ statusMsg, setStatus ] = useState('');
 
-  async function submitForm(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const formData = Object.fromEntries(new FormData(e.target))
 
-    formData.slug  = slug
-    formData.adminKey = user.key
+    const data = Object.fromEntries(new FormData(e.target))
 
-    console.log(formData)
-
-    fetch('/api/account/createAccount', { 
-      body: JSON.stringify(formData), 
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
+    submitData(data, '/api/account/create', data => {
+      if (data.error) {
+        console.error(err)
+        return setStatus('Something went wrong! Please try again.')
+      }
+      
+      setAccount(data)
+      return router.push(`/${slug}`)
     })
-    .then(res => { if (res.status === 200) window.location.reload(); })
-    .catch(err => { console.log(err); router.push('/error'); })
   }
 
   return (
-    <form onSubmit={submitForm} className={styles.form}>
-      <label className={styles.label}>Title</label>
-      <input className={styles.input} type="text" name="title" placeholder="Enter your tip jar page title" />
-      <label className={styles.label}>Description</label>
-      <input className={styles.input} type='text' name="description" placeholder="Enter your tip jar page description" />
-      <button type="submit" className={styles.submitButton}>Submit</button>
-    </form>
+    <div className={styles.formContainter}>
+      <div className={styles.statusBox}>
+        <p className={styles.statusMsg}>
+          {statusMsg}
+        </p>
+      </div>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label className={styles.label}>Title</label>
+        <input 
+          className={styles.input} 
+          type="text" 
+          name="title" 
+          placeholder="Enter your tip jar page title." 
+        />
+        <label className={styles.label}>Description</label>
+        <textarea 
+          className={styles.input} 
+          type='text' 
+          name="description"
+          rows="4" cols="30"
+          placeholder="Enter your tip jar page description." 
+        />
+        <label className={styles.label}>Email</label>
+        <input 
+          className={styles.input} 
+          type='email' 
+          name='email' 
+          placeholder="Email to use for account recovery." 
+        />
+        <input type='hidden' name='slug' value={slug} />
+        <button type="submit" className={styles.submitButton}>Submit</button>
+      </form>
+    </div>
   )
 }

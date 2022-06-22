@@ -23,9 +23,7 @@ export default function SlugForm() {
       .then(res => res.json())
       .catch(e => setStatus('Something went wrong! please try again.'))
 
-    console.log(data)
-
-    if (data?.available) {
+    if (data?.isAvailable) {
       return router.push(`/${slug}`)
     }
 

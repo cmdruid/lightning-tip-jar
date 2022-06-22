@@ -6,11 +6,10 @@ import LoginWidget from '@/components/Widgets/LoginWidget'
 import { useUserContext } from '@/context/UserContext'
 
 export default function LoginPage() {
-  const router    = useRouter();
-  const [ state ] = useUserContext();
-  const user      = state.data || {}
+  const router   = useRouter();
+  const { user } = useUserContext();
 
-  if (user.key) router.push('/profile');
+  if (user?.key) router.push('/profile');
 
   return (
     <div className={styles.container}>

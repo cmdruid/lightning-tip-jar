@@ -1,33 +1,27 @@
-import { initialState, dataReducer } from '@/reducers/dataReducer'
-
 import { 
-  createContext, 
-  useContext, 
-  useReducer, 
-  useMemo, 
-  useEffect
+  createContext,
+  useContext,
+  useState,
+  useEffect, 
+  useMemo
 } from 'react';
 
 const UserContext = createContext();
 
 export function UserWrapper({ children }) {
-  const [ state, dispatch ] = useReducer(dataReducer, initialState);
-
-  console.log('UserContext', state)
+  /* Construct a wrapper that provides the user object store. */
+  const [ user, setUser ] = useState({ load: true });
 
   useEffect(() => {
-    if (!state?.init) {
-      dispatch({ type: 'init' })
-      getData({ 
-        endpoint:'/api/user/read',
-        dispatch 
-      })
+    if (user.load) {
+      getUser((data) => setUser(data))
     }
-  }, [ state?.init ])
+  })
 
   const contextValue = useMemo(() => {
-    return [ state, dispatch ];
-  }, [ state, dispatch ]);
+    /* Format and cache our user object for the Provider. */
+    return [ user, setUser ]
+  }, [ user, setUser ]);
 
   return (
     <UserContext.Provider value={contextValue}>
@@ -37,27 +31,21 @@ export function UserWrapper({ children }) {
 }
 
 export function useUserContext() {
-   return useContext(UserContext);
+  /* Components can import this method 
+   * in order to access our user store.
+   */
+  return useContext(UserContext);
 }
 
-export async function getData({ endpoint, dispatch }) {
-  let data, status, err = false;
-
+async function getUser(callback) {
   try {
-    if (!(endpoint && dispatch)) {
-      throw new Error('Missing params!')
+    const res  = await fetch('/api/user/read')
+
+    if (res.status === 401) {
+      return callback({ load: false })
     }
-    const response = await fetch(endpoint)
-    status = response.status
-    data   = await response.json()
-  }
 
-  catch(e) { err = e }
-
-  finally { 
-    dispatch({ 
-      type: 'set_data', 
-      value: { data, status, err }
-    })
-  }
+    const json = await res.json()
+    return callback(json)
+  } catch(e) { console.error(e) }
 }

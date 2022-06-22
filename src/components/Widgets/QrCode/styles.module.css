@@ -1,29 +1,33 @@
-.qrCode {
+.qrcode {
   display: flex;
   flex-direction: column;
-  margin: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto;
+  max-width: 300px;
 }
 
-.qrImage {
+.image {
   border-radius: 10px 10px 0 0;
+  width: 100%;
 }
 
-.copyBtn {
+.button {
   background-color: #ffdd00;
-  width: 100%;
   cursor: pointer;
   color: #373737ff;
   text-align: center;
   padding: 10px;
   border-radius: 0 0 10px 10px;
+  width: 100%;
 }
 
-.copyBtn:hover {
+.button:hover {
   background-color: #ffec6e;
 }
 
 @media print {
-  .copyBtn {
+  .button {
     display: none;
   }
 }

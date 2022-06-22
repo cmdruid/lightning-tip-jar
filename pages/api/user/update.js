@@ -12,8 +12,13 @@ async function userInfo(req, res) {
   // If user session does not exist, return error.
   if (!req?.session?.user) res.status(401).end();
 
-  req.session.user = { ...req.session.user, username, email }
+  req.session.user = { 
+    ...req.session.user, 
+    username, 
+    email 
+  }
+
   await req.session.save()
 
-  res.status(200).json(req.session.user);
+  return res.status(200).json(req.session.user);
 }

@@ -8,6 +8,7 @@
  * that is decoded and verified, then sent for payment.
  */
 
+import bolt11            from 'bolt11'
 import { getCollection } from '@/lib/controller'
 import { AccountModel }  from '@/models/account'
 import { utils }         from '@noble/secp256k1'
@@ -28,7 +29,7 @@ export default async function claimWithdraw(req, res) {
   const { host } = req.headers;
   const { s, ref, k1, pr } = req.query;
 
-  if (ref && k1 && pr) return processWithdraw(req, res)
+  if (ref && k1 && pr) return processWithdraw(req, res);
 
   if (!s) {
     return res.status(400).json({
@@ -39,7 +40,7 @@ export default async function claimWithdraw(req, res) {
   try {
     // Fetches the collection, and checks if the slug exists.
 
-    const { slug, key } = JSON.parse(await decrypt(s));
+    const { slug, key, memo, amt = 10000 } = JSON.parse(await decrypt(s));
 
     const accounts = await getCollection(AccountModel),
           account  = await accounts.findOne({ slug });
@@ -67,17 +68,18 @@ export default async function claimWithdraw(req, res) {
     }
 
     const ref = Buffer.from(utils.randomBytes(5)).toString('base64url'),
-          msg = utils.bytesToHex(utils.randomBytes(32));
+          msg = utils.bytesToHex(utils.randomBytes(32)),
+          withdrawAmt = Math.min(amt, balance - 10000);
 
-    pending.set(ref, { msg, walletKey })
+    pending.set(ref, { msg, walletKey, minWithdraw, maxWithdraw })
         
     return res.status(200).json({
-      'tag': 'withdrawRequest', // type of LNURL
+      'tag': 'withdrawRequest',
       'callback': `https://${host}/api/withdraw/claim?ref=${ref}`,
       'k1': msg,
-      'defaultDescription': `Withdraw from ${slug} on sats4.tips`,
-      'minWithdrawable': 10000,
-      'maxWithdrawable': balance - 10000
+      'defaultDescription': `s4t/${slug} withdraw: ${memo}`,
+      'minWithdrawable': withdrawAmt,
+      'maxWithdrawable': withdrawAmt
     });
 
   } catch(err) { errorHandler(req, res, err) }
@@ -85,6 +87,9 @@ export default async function claimWithdraw(req, res) {
 
 async function processWithdraw(req, res) {
   const { ref, k1, pr } = req.query;
+
+  const invoice = bolt11.decode(pr);
+  console.log(invoice)
 
   if (pending.has(ref)) {
     const { msg, walletKey } = pending.get(ref)

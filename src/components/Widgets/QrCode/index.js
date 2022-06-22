@@ -17,30 +17,28 @@ export default function LnurlQRCode({ data }) {
     }
   }, [ data ])
 
-  return (
-    <div className={styles.qrCode}>
-      {imgData && <QrComponent data={ data } imgData={ imgData }/>}
-    </div>
-  )
+  return imgData && <QrComponent data={ data } imgData={ imgData }/>
 }
 
 function QrComponent({ data, imgData }) {
-  const [isCopied, setCopied] = useClipboard(data, { successDuration: 1000 });
+  const [isCopied, setCopied] = useClipboard(
+    data, { successDuration: 1000 }
+  );
 
   return (
-    <>
+    <div className={styles.qrcode}>
       <Image
-        className={styles.qrImage}
+        className={styles.image}
         src={imgData}
         alt="QR Code"
         width={300}
         height={300}
       />
       <div
-        className={styles.copyBtn}
+        className={styles.button}
         onClick={setCopied}>
           { isCopied ? "Copied to clipboard!" : "Copy Lightning-URL Code"}
       </div>
-    </>
+    </div>
   )
 }

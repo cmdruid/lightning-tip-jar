@@ -5,11 +5,11 @@ const IV_LENGTH  = 16,  // Length of init vector.
 
 let cryptoKey;  // Cached CryptoKey object.
 
-export async function encrypt(plaintext) {
+export async function encrypt(plaintext, exportedKey) {
   /* Encrypt a string using the server's encryption key. */
   const ec  = new TextEncoder(),
         iv  = crypto.getRandomValues(new Uint8Array(IV_LENGTH)),
-        key = await getKey();
+        key = await getKey(exportedKey);
 
   const ciphertext = await crypto.subtle.encrypt({
     name: 'AES-CBC',
@@ -21,10 +21,10 @@ export async function encrypt(plaintext) {
   return Buffer.from(dataArr).toString('base64url')
 }
 
-export async function decrypt(encodedtext) {
+export async function decrypt(encodedtext, exportedKey) {
   /* Decrypt a string using the server's encryption key. */
   const dec  = new TextDecoder(),
-        key  = await getKey(),
+        key  = await getKey(exportedKey),
         data = new Uint8Array(Buffer.from(encodedtext, 'base64url'));
   const { arr1: iv, arr2: cipherArray } = splitArray(data, IV_LENGTH)
 

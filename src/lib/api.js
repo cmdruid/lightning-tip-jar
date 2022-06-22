@@ -23,12 +23,13 @@ export async function createWallet(walletName) {
 }
 
 export async function createPayRequest(name, walletKey, payTemplate) {
+  const memoText = `Tipped ${name} on sats4.tips`;
 
   const { 
-    memo = `Tipped ${name}`, 
+    memo = memoText, 
     min  = 10, 
     max  = 999999999, // If this is too high, LNBits gets mad.
-    successMsg = `You tipped ${name}!`
+    successMsg = memoText
   } = payTemplate || {}
 
   const endpoint = '/lnurlp/api/v1/links'

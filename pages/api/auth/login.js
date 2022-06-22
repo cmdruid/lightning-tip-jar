@@ -43,7 +43,10 @@ async function login(req, res) {
 
     if (key) {
       /* If key has been provided, add to user data. */
-      session.user = { key: encrypt(key), ...session.user }
+      session.user = { 
+        key: await encrypt(key), 
+        ...session.user 
+      }
       await req.session.save();
       pending.delete(ref)
       return res.status(200).json({ status: 'authorized' })
@@ -57,7 +60,7 @@ async function login(req, res) {
   const fullUrl = `https://${host}${url}`,
         lnurl   = generateLnurl(fullUrl, ref, msg);
 
-  res.status(200).json({ status: 'unauthorized', lnurl });
+  return res.status(200).json({ status: 'unauthorized', lnurl });
 }
 
 async function sign(req, res) {

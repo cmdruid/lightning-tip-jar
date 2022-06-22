@@ -1,13 +1,21 @@
-import { getCollection }    from "@/lib/controller";
+import { getCollection }    from '@/lib/controller'
 import { AccountModel }     from '@/models/account'
-// import { string, object } from 'yup'
 import { errorHandler }     from '@/lib/error'
-import { withSessionRoute } from "@/lib/session";
+import { withSessionRoute } from '@/lib/session'
+import { encrypt }          from '@/lib/crypto'
+
+import { 
+  authenticateUser,
+  stripAccountKeys 
+} from '@/lib/auth'
+
 import { 
   createWallet, 
   createPayRequest, 
   getPayRequest 
-} from "@/lib/api";
+} from '@/lib/api'
+
+// import { string, object } from 'yup'
 
 export default withSessionRoute(createAccount);
 
@@ -24,8 +32,8 @@ async function createAccount(req, res) {
   // Reject all methods other than POST.
   if (req.method !== 'POST') res.status(405).end();
 
-  // Grab the slug and url from the post body.
-  const { slug, ...opts } = req.body;
+  // Grab the slug and account info from the post body.
+  const { slug, ...info } = req.body;
   const { session } = req
 
   if (!session?.user?.key) {
@@ -33,7 +41,6 @@ async function createAccount(req, res) {
   }
 
   try {
-
     // Fetches the collection, and checks if the slug exists.
     const accounts = await getCollection(AccountModel),
           exists   = await accounts.findOne({ slug });
@@ -47,25 +54,30 @@ async function createAccount(req, res) {
     const { adminkey: walletKey, inkey: invoiceKey } = await createWallet(slug);
 
     // Generate a static payRequest.
-    const { id }    = await createPayRequest(slug, walletKey, opts);
+    const { id }    = await createPayRequest(slug, walletKey);
     const { lnurl } = await getPayRequest(invoiceKey, id)
 
     const newAccount = { 
-      slug, 
-      payRequest : lnurl,
-      adminKey   : session.user.key,
-      walletKey,
-      invoiceKey,
-      ...opts 
+      slug,
+      isVerified   : false,
+      payRequest   : lnurl,
+      info,
+      keys: {
+        adminKey   : session.user.key,
+        walletKey  : await encrypt(walletKey),
+        invoiceKey : await encrypt(invoiceKey)
+      }
     }
 
     console.log('New Account:', newAccount)
 
     // // Insert new slug and URL into the collection.
     const created = await accounts.insertOne(newAccount);
-
     if (!created) throw new Error('No response from db.');
 
-    return res.status(200).json({ status: 200 });
+    await authenticateUser(session, newAccount)
+
+    return res.status(200).json(stripAccountKeys(newAccount));
+
   } catch(err) { errorHandler(req, res, err) }
 }

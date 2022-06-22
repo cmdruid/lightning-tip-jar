@@ -4,8 +4,6 @@ import styles from './styles.module.css'
 
 export default function LogoHeader({ slug }) {
 
-  console.log('slug', slug)
-
   const title = slug ? `sats4.tips/${slug}` : 'sats4.tips'
 
   return (

@@ -13,30 +13,35 @@ async function createWithdraw(req, res) {
   /* Withdraw invoice creation.
    */
 
+  const { host } = req.headers,
+        { slug, amt, memo } = req.query;
+
   // Reject all methods other than GET.
-  if (req.method !== 'GET') res.status(400).end();
+  if (req.method !== 'GET') res.status(405).end();
 
-  // Grab our required params from host body.
-  const { session } = req,
-           { host } = req.headers,
-           { slug } = req.query;
-
-  if (!slug) {
-    return res.status(403).json({ err: 'No account provided!' })
+  if (!(slug && amt)) {
+    return res.status(400).end()
   }
 
-  if (!session?.user?.key) {
-    return res.status(403).json({ err: 'Need to be logged in!' })
+  // Reject sessions without a login or wallet.
+  if (!req?.session?.user) {
+    return res.status(401).end()
+  }
+  
+  // Reject users without a key stored for this account.
+  if (!hasAccountEntry(req.session, slug)) {
+    return res.status(403).end()
   }
 
-  const lnurl = await getClaimUrl(host, slug, session.user.key)
+  // Grab access key from the query.
+  const apikey = req.session.wallet[slug]
+
+  const lnurl = await getClaimUrl(host, { slug, amt, key })
         
-  res.status(200).json({ lnurl });
-
+  res.status(200).json({ amt, lnurl });
 }
 
-async function getClaimUrl(host, slug, key) {
-  const token  = { slug, key },
-        secret = await encrypt(JSON.stringify(token));
+async function getClaimUrl(host, token) {
+  const secret = await encrypt(JSON.stringify(token));
   return encodeLnurl(`https://${host}/api/withdraw/claim?s=${secret}`)
 }

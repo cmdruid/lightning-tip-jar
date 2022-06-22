@@ -2,19 +2,18 @@ import styles         from './styles.module.css'
 import QrCode         from '@/components/Widgets/QrCode'
 import AccountProfile from './AccountProfile'
 import PrintVersion   from './PrintVersion'
-import RecentTipsBox  from './RecentTipsBox'
+import RecentPayments from './RecentPayments'
 
-export default function AccountView({ data, editMode }) {
+export default function AccountView({ account }) {
+  const { slug, payRequest, info, viewKey } = account;
+  console.log(account)
 
   return (
     <div className={styles.container}>
-      <AccountProfile
-        editMode={ editMode }
-        data={ data }
-      />
-      <QrCode data={ data.payRequest }/>
-      <RecentTipsBox invoiceKey={ data.invoiceKey }/>
-      <PrintVersion slug={data.slug}/>
+      <AccountProfile info={ info } />
+      <QrCode data={ payRequest } />
+      <RecentPayments viewKey={ viewKey }/>
+      <PrintVersion slug={ slug }/>
     </div>
   )
 }

@@ -1,23 +1,63 @@
-import { useAccount } from '@/hooks/useAPI'
+import { useRouter } from 'next/router';
+
+import { 
+  checkUserAccess,
+  isRestrictedPath
+} from '@/lib/auth'
 
 import { 
   createContext,
   useContext,
-  useState, 
-  useMemo 
+  useState,
+  useEffect,
+  useMemo
 } from 'react';
 
-const AccountContext = createContext();
+const restrictedPaths = [ 'edit', 'withdraw' ];
+const AccountContext  = createContext();
 
 export function AccountWrapper({ children }) {
-  const [ account, setAccount ] = useState({});
+  const router = useRouter();
+  const { query, events } = router;
+  const [ account, setAccount ] = useState();
+  const { slug } = query
 
-  const { data, isLoading, isError } = useAccount()
+  useEffect(() => {
+    if (slug && slug !== account?.slug) {
+      console.log('slug', slug)
+      setAccount(null)
+      getAccount(slug, setAccount)
+    }
+  }, [ slug, account?.slug ])
 
-  if (data?.slug && data.slug !== account?.slug) setAccount(data)
+  useEffect(() => {
+    // Check that a new route is OK
+    const handleRouteChange = url => {
+      console.log('slugg', slug, account?.slug)
+      if (slug && account?.slug) {
+        if (isRestrictedPath(url, restrictedPaths)) {
+          if (!checkUserAccess(slug)) {
+            router.push(`/${slug}`)
+          }
+        }
+      }
+    }
+
+    // Monitor routes
+    events.on('routeChangeStart', handleRouteChange)
+    return () => {
+      events.off('routeChangeStart', handleRouteChange)
+    }
+  })
 
   const contextValue = useMemo(() => {
-    return [ account, setAccount ];
+    // Cache and serve custom account object.
+    return { 
+      account,
+      setAccount,
+      isError: account?.error,
+      isLoading: !account
+    }
   }, [ account, setAccount ]);
 
   return (
@@ -29,4 +69,15 @@ export function AccountWrapper({ children }) {
 
 export function useAccountContext() {
    return useContext(AccountContext);
+}
+
+async function getAccount(slug, callback) {
+  try {
+    const res  = await fetch(`/api/account/read?slug=${slug}`),
+          json = await res.json();
+    return callback(json)
+  } catch(error) {
+    console.error(error)
+    callback({ error })
+  }
 }
