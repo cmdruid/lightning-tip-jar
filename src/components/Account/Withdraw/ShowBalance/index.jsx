@@ -11,19 +11,21 @@ export default function ShowBalance({ balance, setBalance}) {
   const { data, isLoading, isError } = useBalance(slug);
 
   useEffect(() => {
-    if (balance && data && balance !== data) {
-      setBalance(data)
+    if (data?.balance && balance !== data.balance) {
+      setBalance(data.balance)
     }
-  }, [ data, balance, setBalance ])
+  }, [ data?.balance, balance, setBalance ])
   
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Account Balance</h2>
-      { isError 
+      { isError
         ? <Error /> 
         : isLoading
           ? <Loading />
-          : <p className={styles.amount}>{data.balance} sats</p>
+          : typeof(data?.balance) === 'number'
+            ? <p className={styles.amount}>{balance} sats</p>
+            : <Error />
       }
     </div>
   )

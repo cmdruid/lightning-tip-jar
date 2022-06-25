@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import styles from './styles.module.css'
 
-export default function LnurlQRCode({ data }) {
+export default function LnurlQRCode({ title, data }) {
   const [ imgData, setImgData ] = useState();
 
   useEffect(() => {
@@ -17,18 +17,26 @@ export default function LnurlQRCode({ data }) {
     }
   }, [ data ])
 
-  return imgData && <QrComponent data={ data } imgData={ imgData }/>
+  return imgData && <QrComponent title={ title } data={ data } imgData={ imgData }/>
 }
 
-function QrComponent({ data, imgData }) {
-  const [isCopied, setCopied] = useClipboard(
+function QrComponent({ title, data, imgData }) {
+  const [ isCopied, setCopied ] = useClipboard(
     data, { successDuration: 1000 }
   );
 
   return (
     <div className={styles.qrcode}>
+      { title && 
+        <div 
+          className={styles.title}
+          style={{borderRadius: title ? '10px 10px 0 0' : ''}}
+          >
+            {title}
+          </div> }
       <Image
         className={styles.image}
+        style={{borderRadius: title ? '' : '10px 10px 0 0'}}
         src={imgData}
         alt="QR Code"
         width={300}

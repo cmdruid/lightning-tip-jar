@@ -5,7 +5,7 @@ import { withSessionRoute } from '@/lib/session'
 
 import { 
   authenticateUser,
-  stripAccountKeys 
+  stripAccountData 
 } from '@/lib/auth'
 
 export default withSessionRoute(readAccount);
@@ -13,7 +13,7 @@ export default withSessionRoute(readAccount);
 async function readAccount(req, res) {
 
   // Reject all methods other than GET.
-  if (req.method !== 'GET') res.status(400).end();
+  if (req.method !== 'GET') return res.status(400).end();
 
   const { session } = req
   const { slug }    = req.query;
@@ -30,7 +30,7 @@ async function readAccount(req, res) {
 
     await authenticateUser(session, account)
 
-    return res.status(200).json(stripAccountKeys(account));
+    return res.status(200).json(stripAccountData(session, account));
 
   } catch(err) { errorHandler(req, res, err) }
 }

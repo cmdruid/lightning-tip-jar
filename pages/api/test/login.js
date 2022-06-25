@@ -12,8 +12,13 @@ async function fakeLogin(req, res) {
   /* Fake login for testing. Do not push this to production.
    */
 
-  const { session } = req;
-  const { slug }    = req.query
+  const { slug } = req.query
+
+  console.log(slug)
+
+  if (req.session) {
+    await req.session.destroy();
+  }
 
   let key;
 
@@ -21,7 +26,7 @@ async function fakeLogin(req, res) {
     try {
       // Fetches the collection, and checks if the slug exists.
       const accounts = await getCollection(AccountModel),
-            account  = await accounts.findOne({ slug });   
+            account  = await accounts.findOne({ slug });
       if (!account) throw new Error('account does not exist!')
       key = account.keys.adminKey
     } catch(err) { console.error(err) }
@@ -30,8 +35,8 @@ async function fakeLogin(req, res) {
   }
 
   /* Generate a new user for browser. */
-  session.user = { key }
-  await session.save();
+  req.session.user = { key }
+  await req.session.save();
 
-  res.status(200).json(session);
+  res.status(200).json(req.session);
 }

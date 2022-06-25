@@ -10,9 +10,9 @@ export default withSessionRoute(login);
 async function login(req, res) {
   /* Authentication and login controller.
    */
-  const { url }  = req,
-        { host } = req.headers,
-        { tag }  = req.query;
+  const { host } = req.headers
+  
+  const { tag, slug = '' } = req.query;
 
   if (tag && tag === 'login') {
     /* If login tag is present, forward to signature resolver. */
@@ -23,7 +23,7 @@ async function login(req, res) {
 
   if (session?.user?.key) {
     /* If client has a current user session, return error.*/
-    return res.status(403).json({ status: 'authorized' })
+    return res.status(200).json({ authorized: true })
   }
 
   if (!session.auth) {
@@ -44,12 +44,12 @@ async function login(req, res) {
     if (key) {
       /* If key has been provided, add to user data. */
       session.user = { 
-        key: await encrypt(key), 
+        key: await encrypt(key),
         ...session.user 
       }
       await req.session.save();
-      pending.delete(ref)
-      return res.status(200).json({ status: 'authorized' })
+      pending.delete(ref);
+      return res.redirect(`/${slug}`)
     }
 
   } else {
@@ -57,10 +57,10 @@ async function login(req, res) {
     pending.set(ref, { msg })
   }
   
-  const fullUrl = `https://${host}${url}`,
-        lnurl   = generateLnurl(fullUrl, ref, msg);
+  const fullUrl = `https://${host}/api/auth/login`,
+        lnurl   = generateLnurl(fullUrl, ref, msg, slug);
 
-  return res.status(200).json({ status: 'unauthorized', lnurl });
+  return res.status(200).json({ authorized: false, lnurl });
 }
 
 async function sign(req, res) {
@@ -79,11 +79,17 @@ async function sign(req, res) {
     }
   }
 
-  return res.status(200).json({ 'status': 'ERROR', 'reason': 'Login process failed!' })
+  return res.status(200).json({ 
+    'status': 'ERROR', 
+    'reason': 'Login process failed!' 
+  })
 }
 
-function generateLnurl(url, ref, msg) {
-  return encodeLnurl(`${url}?ref=${ref}&tag=login&k1=${msg}&action=login`)
+function generateLnurl(url, ref, msg, red) {
+  const redirect = red ? `redirect=${red}&` : ''
+  return encodeLnurl(
+    `${url}?${redirect}ref=${ref}&tag=login&k1=${msg}&action=login`
+  )
 }
 
 function verifySig(sig, msg, key) {

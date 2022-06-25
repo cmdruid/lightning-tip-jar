@@ -21,7 +21,7 @@ export default function RecentWithdraws() {
         : isLoading 
           ? <Loading />
           : data.withdraws.length === 0 
-            ? <p className={styles.notips}>No recent withdraws.</p>
+            ? <p className={styles.nowithdraws}>No recent withdraws.</p>
             : <div className={styles.transactions}>
                 {data.withdraws.map((item, idx) => <Transaction item={ item } key={ idx }/> )}
               </div>
@@ -34,7 +34,7 @@ function Transaction({ item }) {
   const timeAgo = dayjs.unix(item.date).fromNow();
   return (
     <div className={styles.transaction}>
-      <p className={styles.nomsg}>Anonymous Withdraw</p>
+      <p className={styles.msg}>{item.msg}</p>
       <div className={styles.meta}>
         <div className={styles.metaData}>
           <p className={styles.amt}>{item.amt / 1000} sats ⚡</p>

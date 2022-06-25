@@ -2,8 +2,9 @@
   justify-self: flex-end;
   color: white;
   background-color: rgba(55, 55, 55, 0.85);
-  width: 100%;
+  margin: 2rem;
   padding: 1rem;
+  width: 100%;
   max-width: 500px;
   border-radius: 10px;
   margin-bottom: 2rem;
@@ -17,10 +18,6 @@
   border-bottom: 1px solid white;
 }
 
-.transactions {
-  margin-top: 1rem;
-}
-
 .transaction {
   padding-bottom: 1rem;
   display: flex;
@@ -32,6 +29,11 @@
   border-top: 1px solid white;
 }
 
+.nowithdraws {
+  text-align: center;
+  font-style: italic;
+}
+
 .msgBox {
   display: flex;
   background-color: white;
@@ -39,10 +41,6 @@
   padding: 1rem;
   margin-bottom: 0;
   border-radius: 10px 10px 0 0;
-}
-
-.msg {
-  flex-grow: 1;
 }
 
 .twitterLink {
@@ -61,10 +59,9 @@
   color: rgb(29, 155, 240);
 }
 
-.nomsg {
+.msg {
   background-color: white;
-  color: #777b81;
-  font-style: italic;
+  color: black;
   padding: 1rem;
   margin-bottom: 0;
   border-radius: 10px 10px 0 0;
@@ -103,11 +100,5 @@
     width: 100vw;
     margin-bottom: 0;
     flex-grow: 1;
-  }
-}
-
-@media print {
-  .container {
-      display: none;
   }
 }

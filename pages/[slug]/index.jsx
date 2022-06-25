@@ -5,7 +5,7 @@ import AccountClaim from '@/components/Account/Claim'
 import { useAccountContext } from "@/context/AccountContext";
 
 export default function View() {
-  const { account, setAccount, isLoading, isError } = useAccountContext();
+  const { account, isLoading, isError } = useAccountContext();
 
   return (
     <>
@@ -13,10 +13,10 @@ export default function View() {
         ? <Error />
         : isLoading
           ? <Loading />
-          : account.slug
+          : account?.slug
             ? <AccountView account={ account } />
             : account.isAvailable
-              ? <AccountClaim setAccount={ setAccount } />
+              ? <AccountClaim />
               : <Error />
       }
     </>

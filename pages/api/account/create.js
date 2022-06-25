@@ -6,7 +6,7 @@ import { encrypt }          from '@/lib/crypto'
 
 import { 
   authenticateUser,
-  stripAccountKeys 
+  stripAccountData, 
 } from '@/lib/auth'
 
 import { 
@@ -30,10 +30,10 @@ async function createAccount(req, res) {
   // return res.status(200).json({})
 
   // Reject all methods other than POST.
-  if (req.method !== 'POST') res.status(405).end();
+  if (req.method !== 'POST') return res.status(405).end();
 
   // Grab the slug and account info from the post body.
-  const { slug, ...info } = req.body;
+  const { slug, email, ...info } = req.body;
   const { session } = req
 
   if (!session?.user?.key) {
@@ -62,6 +62,7 @@ async function createAccount(req, res) {
       isVerified   : false,
       payRequest   : lnurl,
       info,
+      contact: { email },
       keys: {
         adminKey   : session.user.key,
         walletKey  : await encrypt(walletKey),
@@ -77,7 +78,7 @@ async function createAccount(req, res) {
 
     await authenticateUser(session, newAccount)
 
-    return res.status(200).json(stripAccountKeys(newAccount));
+    return res.status(200).json(stripAccountData(session, newAccount));
 
   } catch(err) { errorHandler(req, res, err) }
 }

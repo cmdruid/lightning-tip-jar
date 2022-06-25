@@ -6,7 +6,7 @@
   padding: 1rem;
   max-width: 500px;
   border-radius: 10px;
-  margin-bottom: 2rem;
+  margin: 2rem;
   overflow-y: auto;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .transactions {
-  margin-top: 1rem;
+  padding-top: 1rem;
 }
 
 .transaction {
@@ -29,7 +29,13 @@
 }
 
 .transaction + .transaction {
+  padding-top: 1rem;
   border-top: 1px solid white;
+}
+
+.notips {
+  text-align: center;
+  font-style: italic;
 }
 
 .msgBox {

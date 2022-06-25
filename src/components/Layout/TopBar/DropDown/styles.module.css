@@ -19,32 +19,69 @@
 }
 
 .dropdown ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 0.8rem;
+  padding: 0;
   position: absolute;
-  width: 100%;
-  top: 3.1rem;
-  right: -1rem;
-  min-width: 200px;
+  top: 3rem;
+  right: -1.3rem;
+  min-width: 140px;
+  height: auto;
   list-style-type: none;
   transform-origin: top right;
+  background-color: #373737;
 }
 
 .dropdown li {
-  margin-bottom: 0.25rem;
+  margin: 0rem;
   padding: 0.5rem;
-  background-color: #373737ff;
+  background-color: #373737;
+  text-align: center;
+  width: 100%;
 }
 
-.connectBtn {
-  width: 100%;
-  background-color: initial;
-  background-color: #fbb034;
-  background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 74%);
+.dropdown li + li:hover {
+  background-color: #646464;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
 }
+
+.dropdown .userbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  background-color: #646464;
+  border-radius: 5px;
+}
+
+.dropdown .userlabel {
+  background-color: #646464;
+  margin: 0;
+  width: 100%;
+  /* border-radius: 5px 5px 0 0; */
+  border-bottom: 1px solid white;
+  padding-bottom: 5px;
+}
+
+.dropdown .username {
+  background-color: #646464;
+  margin: 0;
+  width: 100%;
+  padding-top: 5px;
+  font-weight: bold;
+  /* border-radius: 0 0 5px 5px; */
+}
+
+.dropdown li button {
   
-.connectBtn:hover {
-  font-weight: 500;
-  box-shadow: rgba(255, 251, 0, 0.5) 0 3px 8px;
-  opacity: 1.0;
+  width: 100%;
 }
 
 @keyframes growDown {

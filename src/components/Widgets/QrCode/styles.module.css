@@ -3,12 +3,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 2rem auto;
+  margin: 0 auto;
   max-width: 300px;
+  text-align: center;
+}
+
+.title {
+  color: white;
+  background-color: rgba(55, 55, 55, 0.85);
+  padding: 10px;
+  width: 100%;
 }
 
 .image {
-  border-radius: 10px 10px 0 0;
   width: 100%;
 }
 
@@ -16,7 +23,6 @@
   background-color: #ffdd00;
   cursor: pointer;
   color: #373737ff;
-  text-align: center;
   padding: 10px;
   border-radius: 0 0 10px 10px;
   width: 100%;

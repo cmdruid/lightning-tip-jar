@@ -7,10 +7,10 @@ async function userInfo(req, res) {
   const { username, email } = req.body
 
   // Reject all methods other than GET.
-  if (req.method !== 'POST') res.status(405).end();
+  if (req.method !== 'POST') return res.status(405).end();
 
   // If user session does not exist, return error.
-  if (!req?.session?.user) res.status(401).end();
+  if (!req?.session?.user) return res.status(401).end();
 
   req.session.user = { 
     ...req.session.user, 

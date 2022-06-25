@@ -6,13 +6,13 @@ export const infoFields = [
     class: 'info', 
     placeholder: 'enter a page title ...'
   },
-  { 
-    key: 'logo',
-    label: 'logo', 
-    type: 'file', 
-    class: 'info',
-    value: ''
-  },
+  // { 
+  //   key: 'logo',
+  //   label: 'logo', 
+  //   type: 'file', 
+  //   class: 'info',
+  //   value: ''
+  // },
   { 
     key: 'description',
     label: 'description', 
@@ -26,7 +26,10 @@ export const infoFields = [
     type: 'text', 
     class: 'info', 
     placeholder: 'place of business ...'
-  },
+  }
+]
+
+export const contactFields = [
   { 
     key: 'email',
     label: 'Email',
@@ -39,7 +42,7 @@ export const infoFields = [
     label: 'Phone',
     type: 'tel',
     class: 'contact', 
-    placeholder: 'used for account recovery'
+    placeholder: 'used for phone verification'
   }
 ]
 

@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.statusMsg {
+  background-color: rgba(255, 0, 0, 0.5);
+  color: white;
+  font-family: monospace;
+  margin: 1rem;
+  padding: 0 0.5rem;
+  border-radius: 5px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputrow {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.inputfield {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 2.6rem;
+}
+
+.inputfield label {
+  background-color: #e0e0e0;
+  min-width: 5rem;
+  text-align: right;
+  padding: 0.7rem 0.5rem 0.5rem 0.5rem;
+  height: 100%;
+}
+
+.inputfield input {
+  margin: 0;
+  padding: 0;
+  padding-left: 0.5rem;
+  min-width: 1rem;
+  height: 100%;
+}
+
+.maxBtn {
+  min-width: 5rem;
+  padding: 0.7rem 0.5rem 0.5rem 0.5rem;
+  height: 100%;
+  text-align: center;
+  background-color: #e0e0e0;
+}
+
+.form button {
+  margin: 1rem;
+}

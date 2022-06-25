@@ -22,7 +22,7 @@ const schema = {
     },
     info: {
       bsonType: "object",
-      required: [ "title", "description", "email" ],
+      required: [ "title", "description" ],
       properties: {
         title: {
           bsonType: "string",
@@ -35,18 +35,8 @@ const schema = {
           description: "Must be a string and is required."
         },
         logo: {
-          bsonType: "object",
+          bsonType: [ "object", "null" ],
           maxLength: 3000,
-          description: "Must be a string and is required."
-        },
-        email: {
-          bsonType: "string",
-          maxLength: 48,
-          description: "Must be a string and is required."
-        },
-        phone: {
-          bsonType: "string",
-          maxLength: 12,
           description: "Must be a string and is required."
         },
         location: {
@@ -79,6 +69,22 @@ const schema = {
           maxLength: 9,
           description: "Must be a string and is required."
         },
+      }
+    },
+    contact: {
+      bsonType: "object",
+      required: [ "email" ],
+      properties: {
+        email: {
+          bsonType: "string",
+          maxLength: 48,
+          description: "Must be a string and is required."
+        }
+        // phone: {
+        //   bsonType: "string",
+        //   maxLength: 12,
+        //   description: "Must be a string and is required."
+        // }
       }
     },
     keys: {

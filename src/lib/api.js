@@ -1,4 +1,4 @@
-import { resHandler, APIError } from '@/lib/error';
+import { APIError } from '@/lib/error';
 
 const hostURL = process.env.LNBITS_URL,
       hostKEY = process.env.LNBITS_KEY
@@ -123,7 +123,14 @@ export async function payInvoice(bolt11, walletKey) {
 
 async function fetchEndpoint(endpoint, opt) {
   const url = `https://${hostURL + endpoint}`
-  return fetch(url, opt)
-    .then(resHandler)
-    .catch((err => { throw new APIError(endpoint, opt, err) }))
+  try {
+
+    const res = await fetch(url, opt)
+
+    if (!res.ok) {
+      return res.json({ err: `Server response: ${res.status}` })
+    }
+
+    return res.json()
+  } catch(err) { throw new APIError(endpoint, opt, err) }
 }

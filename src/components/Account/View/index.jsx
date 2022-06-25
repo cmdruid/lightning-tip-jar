@@ -6,7 +6,6 @@ import RecentPayments from './RecentPayments'
 
 export default function AccountView({ account }) {
   const { slug, payRequest, info, viewKey } = account;
-  console.log(account)
 
   return (
     <div className={styles.container}>

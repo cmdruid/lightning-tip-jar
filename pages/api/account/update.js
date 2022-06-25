@@ -6,7 +6,7 @@ import { withSessionRoute } from '@/lib/session'
 import { 
   hasAccountEntry,
   hasAccountAccess,
-  stripAccountKeys 
+  stripAccountData 
 } from '@/lib/auth'
 
 export default withSessionRoute(updateAccount);
@@ -14,10 +14,10 @@ export default withSessionRoute(updateAccount);
 async function updateAccount(req, res) {
 
   // Reject all methods other than POST.
-  if (req.method !== 'POST') res.status(405).end();
+  if (req.method !== 'POST') return res.status(405).end();
 
   // Grab the slug and url from the post body.
-  const { slug, ...info } = req.body;
+  const { slug, email, phone, ...info } = req.body;
   const { session } = req
 
   if (!session?.user?.key) {
@@ -42,12 +42,14 @@ async function updateAccount(req, res) {
     // const isValid = await schema.isValid({ slug, url });
     // if (!isValid) return res.status(400).end();
 
+    const contact = { email, phone }
+
     info.logo = JSON.stringify(info.logo)
 
     // // Insert new slug and URL into the collection.
     const { acknowledged } = await accounts.updateOne(
       { slug }, 
-      { $set: { info } }
+      { $set: { info, styles, contact } }
     )
 
     if (!acknowledged) {
@@ -56,6 +58,6 @@ async function updateAccount(req, res) {
 
     const updatedAccount = { ...account, info }
 
-    return res.status(200).json(stripAccountKeys(updatedAccount))
+    return res.status(200).json(stripAccountData(session, updatedAccount))
   } catch(err) { errorHandler(req, res, err) }
 }

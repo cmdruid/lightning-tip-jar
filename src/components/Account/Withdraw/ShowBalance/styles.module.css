@@ -2,17 +2,29 @@
   background-color: rgba(55, 55, 55, 0.85);
   color: white;
   text-align: center;
-  margin-top: 2rem;
   padding: 1rem;
   border-radius: 5px;
+  width: 100%;
+  margin: 2rem;
 }
 
 .title {
   margin: 0;
-  font-family: monospace;
+  font-size: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid white;
 }
 
 .amount {
   margin: 0;
-  padding-top: 0.5rem;
+  padding-top: 1rem;
+  font-size: 1.5rem;
+  font-family: monospace;
+}
+
+@media (max-width: 500px) {
+  .container {
+    border-radius: 0;
+    margin-top: 0;
+  }
 }

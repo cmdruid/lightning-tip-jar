@@ -11,7 +11,7 @@ async function balance(req, res) {
   const { slug } = req.query;
 
   // Reject all methods other than GET.
-  if (req.method !== 'GET') res.status(400).end();
+  if (req.method !== 'GET') return res.status(400).end();
 
   // Reject sessions without a login or wallet.
   if (!req?.session?.user) {
@@ -28,9 +28,9 @@ async function balance(req, res) {
 
   try {
     const decryptedKey = await decrypt(apikey)
-    let { balance } = await getBalance(decryptedKey) / 1000;
+    let { balance } = await getBalance(decryptedKey);
 
-    balance = (balance > 10) ? balance : 0;
+    balance = Number(balance) / 1000
     
     return res.status(200).json({ balance })
   } catch(err) { errorHandler(req, res, err) }

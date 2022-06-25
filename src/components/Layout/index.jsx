@@ -3,14 +3,23 @@
  *  HTML for other pages will be wrapped within this layout component.
  */
 
-import Head    from 'next/head'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+
+import styles  from './layout.module.css'
 import TopBar  from '@/components/Layout/TopBar'
 import FootBar from '@/components/Layout/FootBar'
-import styles  from './layout.module.css'
+import { useAccountContext } from '@/context/AccountContext'
 
 export const siteTitle = 'sats4tips'
  
 export default function Layout({ children, home }) {
+  const { slug } = useRouter().query
+  const { account } = useAccountContext();
+  // const bgColor = account?.styles?.bgColor;
+
+  // console.log(account?.styles, bgColor)
+
   return (
     <div className={styles.container}>
 
@@ -27,7 +36,10 @@ export default function Layout({ children, home }) {
         <TopBar />
       </header>
 
-      <main className={styles.main}>
+      <main 
+        className={styles.main}
+        // style={{backgroundColor: (slug && bgColor) ? bgColor : ''}}
+      >
         {children}
       </main>
 

@@ -5,6 +5,7 @@ import { StrictMode, useEffect } from 'react'
 import Layout             from '@/components/Layout'
 import { UserWrapper }    from '@/context/UserContext'
 import { AccountWrapper } from '@/context/AccountContext'
+import { AuthWrapper }    from '@/context/AuthContext'
 
 export default function App({ Component, pageProps }) {
 
@@ -17,9 +18,11 @@ export default function App({ Component, pageProps }) {
       <StrictMode>
         <UserWrapper>
           <AccountWrapper>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <AuthWrapper>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </AuthWrapper>
           </AccountWrapper>
         </UserWrapper>
       </StrictMode>

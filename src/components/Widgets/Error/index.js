@@ -7,7 +7,7 @@ export default function Error({ error, msg }) {
 
   if (!msg) msg = 'Failed to load!'
 
-  console.error('Error:', error)
+  console.error('Error:', {error})
 
   return (
     <div className={styles.container}>

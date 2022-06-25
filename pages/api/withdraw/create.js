@@ -6,6 +6,7 @@
 import { encrypt }          from '@/lib/crypto';
 import { encodeLnurl }      from '@/lib/utils'
 import { withSessionRoute } from '@/lib/session'
+import { hasAccountEntry }  from '@/lib/auth';
 
 export default withSessionRoute(createWithdraw);
 
@@ -14,10 +15,10 @@ async function createWithdraw(req, res) {
    */
 
   const { host } = req.headers,
-        { slug, amt, memo } = req.query;
+        { slug, amt, memo } = req.body;
 
   // Reject all methods other than GET.
-  if (req.method !== 'GET') res.status(405).end();
+  if (req.method !== 'POST') return res.status(405).end();
 
   if (!(slug && amt)) {
     return res.status(400).end()
@@ -36,9 +37,9 @@ async function createWithdraw(req, res) {
   // Grab access key from the query.
   const apikey = req.session.wallet[slug]
 
-  const lnurl = await getClaimUrl(host, { slug, amt, key })
+  const lnurl = await getClaimUrl(host, { slug, amt, memo, apikey })
         
-  res.status(200).json({ amt, lnurl });
+  res.status(200).json({ amt, memo, lnurl });
 }
 
 async function getClaimUrl(host, token) {

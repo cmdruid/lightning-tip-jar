@@ -1,47 +1,80 @@
-import { useRouter }   from 'next/router'
-import { useWithdraw } from '@/hooks/useAPI'
+import { useRouter } from 'next/router'
+import { useState }  from 'react'
 
-import styles  from './styles.module.css'
-import Error   from '@/components/Widgets/Error'
-import Loading from '@/components/Widgets/Loading'
-import QrCode  from '@/components/Widgets/QrCode'
+import styles from './styles.module.css'
+import QrCode from '@/components/Widgets/QrCode'
+import { submitData } from '@/lib/utils'
 
+export default function CreateCode({ balance }) {
+  const bal = Math.floor(Math.max(0, balance - 10))
+  const minAmt = Math.min(10, bal)
 
-export default function CreateCode({ amt }) {
   const { slug } = useRouter().query;
-  const { data, isLoading, isError } = useWithdraw(slug);
+  const [ code, setCode ] = useState()
+  const [ amt, setAmt ]   = useState(minAmt);
+  const [ title, setTitle ] = useState('');
+  const [ statusMsg, setStatus ] = useState('')
 
-  return (
-    <>
-      { isError 
-        ? <Error /> 
-        : isLoading
-          ? <Loading />
-          : <CodeContainer 
-            data={ data } 
-            amt={ amt }
-            slug={ slug }
-          />
-       }
-    </>
-  )
-}
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(e.target))
 
-function CodeContainer({ data, amt, slug }) {
+    if (data.amt < 10) return setStatus('Insufficient funds! Need at least 10 sats.')
+
+    data.amt = data.amt * 1000
+
+    if (data.memo) {
+      setTitle('Memo: ' + data.memo)
+    } else { setTitle('') }
+
+    submitData(data, '/api/withdraw/create', (err, res) => {
+      if (err) {
+        return setStatus(err || 'Something happened! Please try again.')
+      } else { return setCode(res) }
+    })
+  }
 
   return (
     <div className={styles.container}>
-      <form className={styles.form}>
-        <label>Message</label>
-        <input name='msg' type='text' placeholder='enter a custom message ...' />
-        <input name='slug' type='hidden' value={slug} />
-        <div>
-          <label>Amount</label>
-          <input name='amt' type='text' value={ amt ? amt : 0 } />
-          <button>Create</button>
+      { statusMsg && 
+        <div className={styles.statusMsg}>
+          <p>{statusMsg}</p>
         </div>
+      }
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.inputrow}>
+          <div className={styles.inputfield}>
+            <label>Memo</label>
+            <input 
+              name='memo' 
+              type='text'
+              maxLength='32'
+              placeholder='enter a custom memo ...'
+            />
+          </div>
+          <div className={styles.inputfield}>
+            <label>Amount</label>
+            <input 
+              name='amt' 
+              type='number'
+              value={amt}
+              min={minAmt}
+              max={bal}
+              onChange={(e) => setAmt(e.target.value)}
+            />
+            <span></span>
+            <div 
+              className={styles.maxBtn} 
+              onClick={() => setAmt(bal)}
+              >
+                Max
+            </div>
+          </div>
+        </div>
+        <input name='slug' type='hidden' value={slug} />
+        <button type='submit'>Create Code</button>
       </form>
-      {data && data.lnurl && <QrCode data={ data.lnurl }/> }
+      { code?.lnurl && <QrCode title={ title } data={ code.lnurl } /> }
     </div>
   )
 }

@@ -4,7 +4,8 @@ import { submitData } from '@/lib/utils'
 import { useRouter }  from 'next/router';
 
 import { 
-  infoFields, 
+  infoFields,
+  contactFields,
   stylesFields 
 } from './formFields'
 
@@ -22,13 +23,12 @@ export default function AccountEdit({ account, setAccount }) {
     const data = Object.fromEntries(new FormData(e.target))
 
     submitData(data, '/api/account/update', (err, res) => {
-      if (err || !res?.slug) {
-        console.error(err, res)
-        return setStatus('Something happened! Please try again.')
+      if (err) {
+        return setStatus(err || 'Something happened! Please try again.')
+      } else { 
+        setAccount(res)
+        return router.push(`/${slug}`)
       }
-      console.log(res)
-      setAccount(res)
-      return router.push(`/${res.slug}`)
     })
   }
 
@@ -68,6 +68,15 @@ function Fields({ account }) {
             field={ field } 
             key={ field.key } 
             val={ account.info?.[field.key] }
+          />
+        })
+      }
+      {
+        contactFields.map(field => {
+          return <FormField 
+            field={ field } 
+            key={ field.key } 
+            val={ account.contact?.[field.key] }
           />
         })
       }

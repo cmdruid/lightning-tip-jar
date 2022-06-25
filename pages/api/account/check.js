@@ -5,7 +5,7 @@ import { errorHandler }     from '@/lib/error'
 export default async function checkAccount(req, res) {
 
   // Reject all methods other than GET.
-  if (req.method !== 'GET') res.status(405).end();
+  if (req.method !== 'GET') return res.status(405).end();
 
   // Grab the slug and url from the post body.
   let { slug } = req.query;

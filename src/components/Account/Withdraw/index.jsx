@@ -11,7 +11,7 @@ export default function AccountWithdraw() {
   const [ balance, setBalance ] = useState(0)
 
   return (
-    <div>
+    <div className={styles.container}>
       <ShowBalance balance={ balance } setBalance={ setBalance } />
       <CreateCode balance={ balance } />
       <RecentWithdraws />

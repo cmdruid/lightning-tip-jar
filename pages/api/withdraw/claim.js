@@ -23,7 +23,7 @@ export default async function claimWithdraw(req, res) {
   */
 
   // Reject all methods other than GET.
-  if (req.method !== 'GET') res.status(405).end();
+  if (req.method !== 'GET') return res.status(405).end();
 
   // Grab our required params from host body.
   const { host } = req.headers;
@@ -32,69 +32,103 @@ export default async function claimWithdraw(req, res) {
   if (ref && k1 && pr) return processWithdraw(req, res);
 
   if (!s) {
-    return res.status(400).json({
-      'status': 'ERROR', 'reason': 'Missing parameters!'
+    return res.status(200).json({
+      'status': 'ERROR', 
+      'reason': 'Missing parameters!'
     })
   }
  
   try {
     // Fetches the collection, and checks if the slug exists.
 
-    const { slug, key, memo, amt = 10000 } = JSON.parse(await decrypt(s));
+    const { slug, apikey, memo, amt = 10 } = JSON.parse(await decrypt(s));
 
     const accounts = await getCollection(AccountModel),
           account  = await accounts.findOne({ slug });
     
     if (!account) {
       return res.status(200).json({ 
-        'status': 'ERROR', 'reason': 'Account does not exist!'
+        'status': 'ERROR', 
+        'reason': 'Account does not exist!'
       });
     }
 
-    const { adminKey, invoiceKey, walletKey } = account;
+    const { invoiceKey, walletKey } = account.keys;
 
-    if (adminKey !== key) {
+    if (walletKey !== apikey) {
       return res.status(200).json({ 
-        'status': 'ERROR', 'reason': 'You are not authorized to do that!'
+        'status': 'ERROR', 
+        'reason': 'You are not authorized to withdraw!'
       });
     }
-
-    const { balance } = await getBalance(invoiceKey);
+    
+    const decryptedKey = await decrypt(invoiceKey)
+    const { balance } = await getBalance(decryptedKey);
 
     if (!balance) {
-      return res.status(500).json({ 
-        'status': 'ERROR', 'reason': 'Failed to fetch a balance! Try again later.'
+      return res.status(200).json({ 
+        'status': 'ERROR', 
+        'reason': 'Failed to fetch a balance! Try again later.'
       });
     }
 
     const ref = Buffer.from(utils.randomBytes(5)).toString('base64url'),
           msg = utils.bytesToHex(utils.randomBytes(32)),
-          withdrawAmt = Math.min(amt, balance - 10000);
+          withdrawAmt = Math.min(amt, balance - 9000);
 
-    pending.set(ref, { msg, walletKey, minWithdraw, maxWithdraw })
+    pending.set(ref, { msg, walletKey, withdrawAmt })
+
+    console.log(ref, pending)
         
     return res.status(200).json({
       'tag': 'withdrawRequest',
       'callback': `https://${host}/api/withdraw/claim?ref=${ref}`,
       'k1': msg,
-      'defaultDescription': `s4t/${slug} withdraw: ${memo}`,
+      'defaultDescription': `(sats4tips) Withdraw from ${slug}: ${memo}`,
       'minWithdrawable': withdrawAmt,
       'maxWithdrawable': withdrawAmt
     });
 
-  } catch(err) { errorHandler(req, res, err) }
+  } catch(err) { 
+    console.error(err);
+    return res.status(200).json({ 
+      'status': 'ERROR', 
+      'reason': 'Server failed!. Please try again later.'
+    });
+  }
 }
 
 async function processWithdraw(req, res) {
   const { ref, k1, pr } = req.query;
 
-  const invoice = bolt11.decode(pr);
-  console.log(invoice)
+  console.log(ref, k1)
+
+  console.log(ref, pending)
 
   if (pending.has(ref)) {
-    const { msg, walletKey } = pending.get(ref)
+    const { msg, walletKey, withdrawAmt } = pending.get(ref);
+    const { millisatoshis } = bolt11.decode(pr);
+
+    console.log('msg', msg)
+
+    if (Number(withdrawAmt) !== Number(millisatoshis)) {
+      return res.status(200).json({
+        'status': 'ERROR', 
+        'reason': 'Unauthorized withdraw amount.'
+      })
+    }
+
     if (msg === k1) {
-      const { payment_hash } = await payInvoice(pr, walletKey);
+      const decryptedKey = await decrypt(walletKey)
+      const { payment_hash, err } = await payInvoice(pr, decryptedKey);
+
+      console.log(payment_hash)
+
+      if (err && !payment_hash) {
+        console.error(err)
+        return res.status(200).json({'status': 'ERROR', 'reason': err})
+      }
+
       if (payment_hash) {
         pending.delete(ref)
         return res.status(200).json({ 'status': 'OK' });
@@ -102,7 +136,8 @@ async function processWithdraw(req, res) {
     }
   }
 
-  return res.status(400).json({
-    'status': 'ERROR', 'reason': 'Failed to withdraw invoice!'
+  return res.status(200).json({
+    'status': 'ERROR', 
+    'reason': 'Withdraw expired! Generate a new invoice and try again.'
   })
 }
