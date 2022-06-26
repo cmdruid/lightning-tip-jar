@@ -48,18 +48,32 @@ export const contactFields = [
 
 export const stylesFields = [
   { 
-    key: 'fontColor',
-    label: 'Font Color', 
+    key: 'fontColor1',
+    label: 'Font Color 1', 
+    type: 'color', 
+    class: 'colors', 
+    default: '#ffffff'
+  },
+    { 
+    key: 'fontColor2',
+    label: 'Font Color 2', 
     type: 'color', 
     class: 'colors', 
     default: '#ffffff'
   },
   { 
-    key: 'fgColor',
-    label: 'Foreground Color', 
-    type: 'color', 
-    class: 'colors', 
-    default: '#373737'
+    key: 'fgColor1',
+    label: 'Foreground Color 1', 
+    type: 'color',
+    class: 'colors',
+    default: '#808080'
+  },
+  { 
+    key: 'fgColor2',
+    label: 'Foreground Color 2', 
+    type: 'color',
+    class: 'colors',
+    default: '#4f4f4f'
   },
   { 
     key: 'bgColor1',

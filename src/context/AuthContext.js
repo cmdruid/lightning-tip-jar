@@ -17,14 +17,16 @@ export function AuthWrapper({ children }) {
   const router = useRouter();
   const { query, asPath } = router;
   const { slug } = query
-  const [ isAuth, setAuth ] = useState();
+  const [ isAuth, setAuth ] = useState(false);
 
   useEffect(() => {
     if (slug) {
-      checkUserAccess(slug, res => setAuth(res))
-      if (!isAuth && restrictedPath(asPath)) {
-        router.push('/')
-      }
+      checkUserAccess(slug, res => {
+        if (res !== isAuth) setAuth(res)
+        if (!res && restrictedPath(asPath)) {
+          router.push('/')
+        }
+      })
     } else { if (isAuth) setAuth(false) }
   }, [ isAuth, asPath, slug, router ])
 

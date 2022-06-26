@@ -13,7 +13,6 @@ import { getCollection } from '@/lib/controller'
 import { AccountModel }  from '@/models/account'
 import { utils }         from '@noble/secp256k1'
 import { decrypt }       from '@/lib/crypto';
-import { errorHandler }  from '@/lib/error';
 import { getBalance, payInvoice } from '@/lib/api';
 
 const pending = new Map();
@@ -77,8 +76,6 @@ export default async function claimWithdraw(req, res) {
           withdrawAmt = Math.min(amt, balance - 9000);
 
     pending.set(ref, { msg, walletKey, withdrawAmt })
-
-    console.log(ref, pending)
         
     return res.status(200).json({
       'tag': 'withdrawRequest',
@@ -101,15 +98,9 @@ export default async function claimWithdraw(req, res) {
 async function processWithdraw(req, res) {
   const { ref, k1, pr } = req.query;
 
-  console.log(ref, k1)
-
-  console.log(ref, pending)
-
   if (pending.has(ref)) {
     const { msg, walletKey, withdrawAmt } = pending.get(ref);
     const { millisatoshis } = bolt11.decode(pr);
-
-    console.log('msg', msg)
 
     if (Number(withdrawAmt) !== Number(millisatoshis)) {
       return res.status(200).json({
@@ -120,19 +111,19 @@ async function processWithdraw(req, res) {
 
     if (msg === k1) {
       const decryptedKey = await decrypt(walletKey)
-      const { payment_hash, err } = await payInvoice(pr, decryptedKey);
+      const data = await payInvoice(pr, decryptedKey);
 
-      console.log(payment_hash)
-
-      if (err && !payment_hash) {
-        console.error(err)
-        return res.status(200).json({'status': 'ERROR', 'reason': err})
-      }
-
-      if (payment_hash) {
+      if (data?.payment_hash) {
         pending.delete(ref)
         return res.status(200).json({ 'status': 'OK' });
       }
+
+      console.error(data)
+      
+      return res.status(200).json({
+        'status': 'ERROR', 
+        'reason': data?.detail
+      })
     }
   }
 

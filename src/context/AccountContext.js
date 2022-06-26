@@ -8,21 +8,32 @@ import {
   useMemo
 } from 'react';
 
+import { useThemeContext } from './ThemeContext';
+
 const AccountContext  = createContext();
 
 export function AccountWrapper({ children }) {
   const router = useRouter();
   const { slug } = router.query;
-  const [ account, setAccount ] = useState();
+  const { setStyles, setTheme } = useThemeContext();
+  const [ account, setAccount ] = useState(null);
+
+  
 
   useEffect(() => {
+    function setAccountHandler(data) {
+      const { styles, err } = data
+      if (!err) setAccount(data)
+      if (styles) setStyles(styles, setTheme)
+    }
+
     if (slug) {
       if (slug !== account?.slug) {
         setAccount(null)
-        getAccount(slug, setAccount)
+        getAccount(slug, setAccountHandler)
       }
     }
-  }, [ slug, account?.slug ])
+  }, [ slug, account?.slug, setStyles, setTheme ])
 
   const contextValue = useMemo(() => {
     // Cache and serve custom account object.
@@ -50,8 +61,5 @@ async function getAccount(slug, callback) {
     const res  = await fetch(`/api/account/read?slug=${slug}`),
           json = await res.json();
     return callback(json)
-  } catch(error) {
-    console.error(error)
-    callback({ error })
-  }
+  } catch(err) { console.error(err); callback({ err }) }
 }

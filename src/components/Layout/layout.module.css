@@ -24,7 +24,7 @@
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  background-image: linear-gradient( 135deg, #F6D242 10%, #FF52E5 100%);
+  background-image: linear-gradient( 135deg, var(--bgColor1) 10%, var(--bgColor2) 100%);
 }
 
 .footer {

@@ -128,7 +128,7 @@ async function fetchEndpoint(endpoint, opt) {
     const res = await fetch(url, opt)
 
     if (!res.ok) {
-      return res.json({ err: `Server response: ${res.status}` })
+      return res.json({ status: res.status})
     }
 
     return res.json()

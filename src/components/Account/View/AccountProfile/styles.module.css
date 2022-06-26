@@ -6,9 +6,10 @@
   text-align: center;
   margin: 2rem 0;
   width: 25rem;
-  background-color: rgba(55, 55, 55, 0.85);
+  background-color: var(--fgColor2);
   padding: 1rem;
   border-radius: 10px;
+  color: var(--fontColor2);
 }
 
 .title {
@@ -17,8 +18,8 @@
   font-weight: bold;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-  color: white;
-  background-color: grey;
+  color: var(--fontColor1);
+  background-color: var(--fgColor1);
   padding: 1rem;
   border-radius: 5px;
   width: 100%;
@@ -28,7 +29,6 @@
   margin: 0;
   padding: 1rem;
   font-size: 1rem;
-  color: white;
 }
 
 .description {
@@ -37,7 +37,6 @@
 
 .location {
   padding-top: 1rem;
-  color: white;
 }
 
 @media (max-width: 500px) {
@@ -46,5 +45,8 @@
     padding: 0rem;
     border-radius: 0;
     width: 100vw;
+  }
+  .title {
+    border-radius: 0;
   }
 }

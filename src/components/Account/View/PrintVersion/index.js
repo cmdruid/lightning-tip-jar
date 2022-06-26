@@ -4,7 +4,6 @@ import wallets from './wallets'
 
 
 function PrintVersion({slug}) {
-    console.log(wallets)
     return (
         <>
         <div className={styles.printurlsection}>

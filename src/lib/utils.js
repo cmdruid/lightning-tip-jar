@@ -1,17 +1,5 @@
 import { bech32 } from 'bech32';
 
-export function sanitize(string) {
-  if (string instanceof String) {
-    throw new TypeError('Must be a string!')
-  }
-
-  return String(string)
-    .replace(/[^\w\- ]/g, '')
-    .trim()
-    .toLowerCase()
-    .replace(' ', '-')
-}
-
 export function encodeLnurl(string) {
   const words = bech32.toWords(Buffer.from(string, 'utf8'))
   return bech32.encode('lnurl', words, Number.MAX_SAFE_INTEGER)
@@ -22,11 +10,32 @@ export function decodeLnurl(string) {
   return bech32.decode('lnurl', words, Number.MAX_SAFE_INTEGER)
 }
 
-export function arrayOrString(data) {
-  if (!data) return ''
-  if (Array.isArray(data)) return data[0]
-  if (typeof(data) === 'string') return data
-  throw new Error('Unexpected data type:', typeof(data))
+export function convertToSlug(str) {
+  if (typeof(str) !== 'string') {
+    return false;
+  }
+  return str
+    .replace(/[^\w\s\-]/g, '')
+    .trim()
+    .replace(' ', '-')
+    .slice(0, 48)
+    .toLowerCase()
+}
+
+export function parseFormData(formEntries) {
+  const data = new Object();
+  const formData = Object.fromEntries(new FormData(formEntries));
+
+  Object.entries(formData).forEach(([ k,v ]) => {
+    if (v) {
+      if (k.includes('.')) {
+        let keys = k.split('.', 2);
+        data[keys[0]] = { ...data[keys[0]], [keys[1]]: v }
+      } else { data[k] = v }
+    }
+  })
+
+  return data;
 }
 
 export async function submitData(data, endpoint, callback) {

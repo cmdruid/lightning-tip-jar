@@ -15,8 +15,8 @@ export function useAccount(slug, fetch = true) {
   };
 }
 
-export function useLogin(slug, fetch = true) {
-  const fetchUrl = `/api/auth/login?slug=${slug}`;
+export function useLogin(fetch = true) {
+  const fetchUrl = '/api/auth/login';
   const { data, error } = useSWR(fetch ? fetchUrl : null, fetcher, { refreshInterval: 5000 })
 
   return {

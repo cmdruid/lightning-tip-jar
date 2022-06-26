@@ -17,7 +17,7 @@ async function updateAccount(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   // Grab the slug and url from the post body.
-  const { slug, email, phone, ...info } = req.body;
+  const { slug, info, styles, contact } = req.body;
   const { session } = req
 
   if (!session?.user?.key) {
@@ -42,9 +42,7 @@ async function updateAccount(req, res) {
     // const isValid = await schema.isValid({ slug, url });
     // if (!isValid) return res.status(400).end();
 
-    const contact = { email, phone }
-
-    info.logo = JSON.stringify(info.logo)
+    if (info?.logo) info.logo = JSON.stringify(info.logo)
 
     // // Insert new slug and URL into the collection.
     const { acknowledged } = await accounts.updateOne(

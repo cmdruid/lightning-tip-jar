@@ -16,12 +16,22 @@ export const siteTitle = 'sats4tips'
 export default function Layout({ children, home }) {
   const { slug } = useRouter().query
   const { account } = useAccountContext();
-  // const bgColor = account?.styles?.bgColor;
 
-  // console.log(account?.styles, bgColor)
+  const { 
+    bgColor1, bgColor2, fgColor1, fgColor2, fontColor 
+  } = account?.styles || {};
 
   return (
-    <div className={styles.container}>
+    <div 
+      className={styles.container}
+      // style={{
+      //   "--bgColor1"  : (slug && bgColor1) ? bgColor1 : '',
+      //   "--bgColor2"  : (slug && bgColor2) ? bgColor2 : '',
+      //   "--fgColor1"  : (slug && fgColor1) ? fgColor1 : '',
+      //   "--fgColor2"  : (slug && fgColor2) ? fgColor2 : '',
+      //   "--fontColor" : (slug && fontColor) ? fontColor : ''
+      //   }}
+    >
 
       <Head>
         <link rel="icon" href="/favicon.ico" />
@@ -36,10 +46,7 @@ export default function Layout({ children, home }) {
         <TopBar />
       </header>
 
-      <main 
-        className={styles.main}
-        // style={{backgroundColor: (slug && bgColor) ? bgColor : ''}}
-      >
+      <main className={styles.main}>
         {children}
       </main>
 

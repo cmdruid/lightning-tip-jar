@@ -5,13 +5,24 @@
   align-items: center;
   margin: 2rem;
   padding-top: 2rem;
-  max-width: 25rem;
   text-align: center;
+  color: var(--fontColor2);
+  max-width: 30rem;
+}
+
+.header {
+  background-color: var(--fgColor2);
+  border-radius: 5px;
+  padding: 1rem;
 }
 
 .title {
+  color: var(--fontColor1);
+  background-color: var(--fgColor1);
   margin: 0;
   font-size: 3rem;
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 
 .description {
@@ -20,10 +31,66 @@
 }
 
 .form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+.formfield {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  text-align: left;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  
+}
+
+.inputrow {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+.defaultBtn {
+  color: var(--fontColor1);
+  background-color: var(--fgColor1);
+  width: 100%;
+  max-width: 5rem;
+  padding: 0.25rem;
+  text-align: center;
+}
+
+.formfield label {
+  padding: 0.5rem;
+  color: var(--fontColor2);
+  font-family: monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--fgColor2);
+  text-transform: capitalize;
+}
+
+.formfield input,
+.formfield textarea {
+  width: 100%;
+  color: black;
+}
+
+.formfield.colors input {
+  padding: 0;
+}
+
+.btnRow {
+  display: flex;
 }
 
 .submitBtn {
+  color: white;
   background-color: #0abcf9;
   background-image: linear-gradient(315deg, #0abcf9 0%, #2c69d1 74%);
   transition: opacity 0.4s ease-in;
@@ -34,30 +101,8 @@
   opacity: 0.7;
 }
 
-.formfield {
-  display: flex;
-  flex-direction: column;
-  margin: 1rem;
-  text-align: left;
-}
-
-.formfield label {
-  padding: 0.5rem;
-  color: white;
-  font-family: monospace;
-  font-size: 1rem;
-  font-weight: bold;
-  background-color: rgba(55, 55, 55, 0.85);
-  border-radius: 10px 10px 0 0;
-  text-transform: capitalize;
-}
-
-.formfield input,
-.formfield textarea {
-  width: auto;
-  border-radius: 0 0 10px 10px;
-}
-
-.formfield.colors input {
-  padding: 0;
+.resetBtn {
+  margin-left: 1rem;
+  background-color: #e9e9e9;
+  transition: opacity 0.4s ease-in;
 }

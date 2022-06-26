@@ -11,7 +11,6 @@ import { useRecentPayments } from '@/hooks/useAPI'
 dayjs.extend(relativeTime)
 
 export default function RecentPayments({ viewKey }) {
-
   const { data, error } = useRecentPayments(viewKey)
 
   return (

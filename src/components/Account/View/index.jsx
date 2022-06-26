@@ -11,7 +11,7 @@ export default function AccountView({ account }) {
     <div className={styles.container}>
       <AccountProfile info={ info } />
       <QrCode data={ payRequest } />
-      <RecentPayments viewKey={ viewKey }/>
+      <RecentPayments viewKey={ viewKey } />
       <PrintVersion slug={ slug }/>
     </div>
   )

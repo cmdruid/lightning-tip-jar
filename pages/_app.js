@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import { StrictMode, useEffect } from 'react'
 
 import Layout             from '@/components/Layout'
+import { ThemeWrapper }   from '@/context/ThemeContext'
 import { UserWrapper }    from '@/context/UserContext'
 import { AccountWrapper } from '@/context/AccountContext'
 import { AuthWrapper }    from '@/context/AuthContext'
@@ -16,15 +17,17 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <StrictMode>
-        <UserWrapper>
-          <AccountWrapper>
-            <AuthWrapper>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </AuthWrapper>
-          </AccountWrapper>
-        </UserWrapper>
+        <ThemeWrapper>
+          <UserWrapper>
+            <AccountWrapper>
+              <AuthWrapper>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </AuthWrapper>
+            </AccountWrapper>
+          </UserWrapper>
+        </ThemeWrapper>
       </StrictMode>
     </>
   )

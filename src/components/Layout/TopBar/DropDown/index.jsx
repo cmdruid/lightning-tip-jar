@@ -1,36 +1,50 @@
 import Link          from 'next/link'
 import { useRouter } from 'next/router'
-import { useState }  from 'react'
 import { AiOutlineMenu } from 'react-icons/ai'
+import { useState, useRef } from 'react'
 
 import styles from './styles.module.css'
 import { useUserContext }  from '@/context/UserContext'
 import { useAuthContext }  from '@/context/AuthContext'
-import { useEffect } from 'react'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 export default function DropDown() {
-  const [ drop, setDrop ] = useState(null)
+  const menuRef = useRef(null);
+  const [ drop, setDrop ] = useState(null);
 
   return (
-    <div className={styles.dropdown}>
+    <div ref={ menuRef } className={styles.dropdown}>
       <AiOutlineMenu 
-        className={styles.menuIcon} 
-        size={50} 
-        onClick={() => { setDrop(!drop)} }
+        className={styles.menuIcon}
+        size={50}
+        
+        onClick={() => { setDrop(!drop) }}
       />
-      { drop !== null &&  <DropContent drop={ drop } setDrop={ setDrop } /> }
+      { drop !== null && 
+        <DropContent
+          drop={ drop } 
+          setDrop={ setDrop }
+          menuRef={ menuRef }
+        /> }
     </div>
   )
 }
 
-function DropContent({ drop, setDrop }) {
+function DropContent({ drop, setDrop, menuRef }) {
+  const dropRef    = useRef(null);
   const [ user ]   = useUserContext();
   const [ isAuth ] = useAuthContext();
+
+  useOutsideClick(
+    [ dropRef, menuRef ], 
+    () => { if (drop) setDrop(false) }
+  )
 
   return (
     <ul 
       className={`${drop ? styles.show : styles.hide}`}
       onClick={() => setDrop(false)}
+      ref={ dropRef }
     >
       { user?.key && <UserLinks user={ user } /> }
       { isAuth && <AdminLinks /> }

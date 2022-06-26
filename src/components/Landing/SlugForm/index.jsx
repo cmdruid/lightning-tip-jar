@@ -3,8 +3,8 @@ import { useRouter }  from 'next/router'
 import Typed          from "react-typed"
 
 import styles         from './styles.module.css'
-import { sanitize }   from '@/lib/utils'
 import Loading        from '@/components/Widgets/Loading'
+import { convertToSlug } from '@/lib/utils'
 
 export default function SlugForm() {
   const router = useRouter()
@@ -16,7 +16,10 @@ export default function SlugForm() {
 
     if (!input) return setStatus('You must enter a name!')
 
-    const slug = sanitize(input)
+    const slug = convertToSlug(input)
+
+    if (!slug) return setStatus('That name is invalid!')
+    
     setStatus('loading')
 
     const data = await fetch(`/api/account/check?slug=${slug}`)

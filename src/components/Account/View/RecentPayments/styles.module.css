@@ -1,7 +1,7 @@
 .container {
   justify-self: flex-end;
-  color: white;
-  background-color: rgba(55, 55, 55, 0.85);
+  color: var(--fontColor2);
+  background-color: var(--fgColor2);
   width: 100%;
   padding: 1rem;
   max-width: 500px;
@@ -14,7 +14,7 @@
   text-align: center;
   margin: 0;
   padding-bottom: 1rem;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--fontColor1);
 }
 
 .transactions {
@@ -30,7 +30,7 @@
 
 .transaction + .transaction {
   padding-top: 1rem;
-  border-top: 1px solid white;
+  border-top: 1px solid var(--fontColor1);
 }
 
 .notips {
@@ -41,7 +41,7 @@
 .msgBox {
   display: flex;
   background-color: white;
-  color: black;
+  color: #000000;
   padding: 1rem;
   margin-bottom: 0;
   border-radius: 10px 10px 0 0;
@@ -79,7 +79,8 @@
 .meta {
   display: flex;
   justify-content: space-evenly;
-  background-color: #777b81;
+  color: white;
+  background-color: #3D3D3D;
   border-radius: 0 0 10px 10px;
 }
 

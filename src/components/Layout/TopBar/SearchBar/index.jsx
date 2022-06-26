@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { AiOutlineSearch } from 'react-icons/ai'
 
 import styles from './styles.module.css'
+import { convertToSlug } from '@/lib/utils'
 
 export default function SearchBar() {
   const router = useRouter()
@@ -10,7 +11,8 @@ export default function SearchBar() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    router.push(`/${inputData}`)
+    let slug = convertToSlug(inputData)
+    window.location = (`/${slug}`)
     setInput('')
   }
 

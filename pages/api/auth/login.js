@@ -23,7 +23,7 @@ async function login(req, res) {
 
   if (session?.user?.key) {
     /* If client has a current user session, return error.*/
-    return res.status(200).json({ authorized: true })
+    return res.status(200).json({ session: true, slug })
   }
 
   if (!session.auth) {
@@ -49,7 +49,7 @@ async function login(req, res) {
       }
       await req.session.save();
       pending.delete(ref);
-      return res.redirect(`/${slug}`)
+      return res.status(200).json({ session: true, slug })
     }
 
   } else {
@@ -58,9 +58,9 @@ async function login(req, res) {
   }
   
   const fullUrl = `https://${host}/api/auth/login`,
-        lnurl   = generateLnurl(fullUrl, ref, msg, slug);
+        lnurl   = generateLnurl(fullUrl, ref, msg);
 
-  return res.status(200).json({ authorized: false, lnurl });
+  return res.status(200).json({ session: false, lnurl });
 }
 
 async function sign(req, res) {
@@ -85,10 +85,9 @@ async function sign(req, res) {
   })
 }
 
-function generateLnurl(url, ref, msg, red) {
-  const redirect = red ? `redirect=${red}&` : ''
+function generateLnurl(url, ref, msg) {
   return encodeLnurl(
-    `${url}?${redirect}ref=${ref}&tag=login&k1=${msg}&action=login`
+    `${url}?ref=${ref}&tag=login&k1=${msg}&action=login`
   )
 }
 

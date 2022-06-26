@@ -49,7 +49,12 @@ const schema = {
     styles: {
       bsonType: "object",
       properties: {
-        fgColor: {
+        fgColor1: {
+          bsonType: "string",
+          maxLength: 9,
+          description: "Must be a string and is required."
+        },
+        fgColor2: {
           bsonType: "string",
           maxLength: 9,
           description: "Must be a string and is required."
@@ -64,7 +69,12 @@ const schema = {
           maxLength: 9,
           description: "Must be a string and is required."
         },
-        fontColor: {
+        fontColor1: {
+          bsonType: "string",
+          maxLength: 9,
+          description: "Must be a string and is required."
+        },
+        fontColor2: {
           bsonType: "string",
           maxLength: 9,
           description: "Must be a string and is required."

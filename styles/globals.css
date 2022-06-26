@@ -52,7 +52,6 @@ button {
   outline: 0;
   background-color: initial;
   background-color: #fbb034;
-  background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 74%);
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
   cursor: pointer;
@@ -70,4 +69,13 @@ button {
 
 * {
   box-sizing: border-box;
+}
+
+:root {
+  --bgColor1: #f6D242;
+  --bgColor2: #FF52E5;
+  --fgColor1: #808080;
+  --fgColor2: #4F4F4F;
+  --fontColor1: #FFFFFF;
+  --fontColor2: #FFFFFF;
 }
