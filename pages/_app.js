@@ -15,21 +15,19 @@ export default function App({ Component, pageProps }) {
   })
 
   return (
-    <>
-      <StrictMode>
-        <ThemeWrapper>
-          <UserWrapper>
-            <AccountWrapper>
-              <AuthWrapper>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </AuthWrapper>
-            </AccountWrapper>
-          </UserWrapper>
-        </ThemeWrapper>
-      </StrictMode>
-    </>
+    <StrictMode>
+      <ThemeWrapper>
+        <UserWrapper>
+          <AccountWrapper>
+            <AuthWrapper>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </AuthWrapper>
+          </AccountWrapper>
+        </UserWrapper>
+      </ThemeWrapper>
+    </StrictMode>
   )
 }
 
