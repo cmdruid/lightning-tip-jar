@@ -6,11 +6,13 @@ import { AccountModel }     from '@/models/account'
 
 export default withSessionRoute(fakeLogin);
 
-if (process.env.VERCEL_ENV === 'production') throw 'Do not push this endpoint to production!'
-
 async function fakeLogin(req, res) {
   /* Fake login for testing. Do not push this to production.
    */
+
+  if (process.env.VERCEL_ENV === 'production') {
+    return res.status(404).end()
+  }
 
   const { slug } = req.query
 
@@ -38,5 +40,5 @@ async function fakeLogin(req, res) {
   req.session.user = { key }
   await req.session.save();
 
-  res.status(200).json(req.session);
+  return res.status(200).json(req.session);
 }
