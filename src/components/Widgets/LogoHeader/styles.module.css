@@ -1,0 +1,38 @@
+
+.container {
+  padding-top: 4rem;
+  text-align: center;
+}
+
+.logo {
+  color: #ff9d00;
+}
+
+.title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  margin: 1rem 0 0 0;
+  padding: 0.25rem 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.85);
+  height: 100%;
+}
+
+.sitename {
+  min-width: 12rem;
+}
+
+.slug::before {
+  color: rgba(0, 0, 0, 0.85);
+  padding-right: 0.25rem;
+  content: '/'
+}
+
+.slug {
+  color: white;
+  font-style: italic;
+}

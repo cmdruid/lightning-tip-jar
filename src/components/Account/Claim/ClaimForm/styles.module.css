@@ -1,0 +1,28 @@
+.container {
+  margin-bottom: 2rem;
+}
+
+.form .inputfield {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form label {
+  background-color: rgba(55, 55, 55, 0.85);
+  color: white;
+  border-radius: 10px 10px 0 0;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+}
+
+.form button {
+  width: 100%;
+  height: 40px;
+}

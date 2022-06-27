@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  height: 100%;
+  margin: 2rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.description {
+  font-family: monospace;
+  margin: 2rem auto;
+  text-align: center;
+  font-size: 1.5rem;
+}

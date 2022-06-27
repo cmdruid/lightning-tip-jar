@@ -1,0 +1,39 @@
+.qrcode {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 300px;
+  text-align: center;
+}
+
+.title {
+  color: white;
+  background-color: rgba(55, 55, 55, 0.85);
+  padding: 10px;
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+}
+
+.button {
+  background-color: #ffdd00;
+  cursor: pointer;
+  color: #373737ff;
+  padding: 10px;
+  border-radius: 0 0 10px 10px;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #ffec6e;
+}
+
+@media print {
+  .button {
+    display: none;
+  }
+}

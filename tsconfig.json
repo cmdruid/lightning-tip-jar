@@ -3,10 +3,12 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": [ "src/components/*" ],
-      "@/hooks/*": [ "src/components/*" ],
+      "@/reducers/*": [ "src/reducers/*" ],
+      "@/context/*": [ "src/context/*" ],
+      "@/hooks/*": [ "src/hooks/*" ],
+      "@/models/*": [ "src/models/*" ],
       "@/public/*": [ "public/*" ],
       "@/styles/*": [ "styles/*" ],
-      "@/models/*": [ "src/models/*" ],
       "@/lib/*": [ "src/lib/*" ]
     },
     "target": "es5",
@@ -28,9 +30,12 @@
     "jsx": "preserve"
   },
   "include": [
-    "./components/",
-    "./pages/",
-    "./lib/"
-, "src/components/Landing", "pages/api/withdraw/.js"  ],
+    // "./components/",
+    // "./pages/",
+    // "./lib/", 
+    // "src/components/Landing", 
+    // "pages/api/withdraw/.js", 
+    // "src/components/LoginWidget/login.jsx"  
+  ],
   "exclude": []
 }

@@ -1,54 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# sats4tips
+Your own personalized space for collecting tips in Bitcoin.
 
+This project aims to be a demonstration of utilizing the Lightning network within a web application. Feel free to re-use any code that you find!
+
+## Features
+
+* Lightning Login (Authentication).
+* Static Pay Requests.
+* Payment Withdraws.
+* Individual custodial accounts.
+* ~~Personal Payment Addresses (coming soon!)~~
+
+## Tech Stack
+```
+Lightning Server  : LND (github link)
+Account Managment : Lnbits (github link)
+Application Host  : Voltage (site link)
+Webserver Host    : Vercel (site link)
+Web Framework     : NextJS (site link)
+```
+## Packages
+```
+react        : React framework.
+next         : Next framework (uses React).
+iron-session : Encrypted client-side sessions.
+secp256k1    : For secp256k1 signatures.
+bech32       : For bech32 (lnurl) encoding.
+moment       : For extra time/date features.
+qrcode       : For generating QR codes.
+swr          : For managing fetch / caching responses.
+```
 ## Getting Started
 
-In order to experiment with offers, you will need to spin up two lightning nodes, open a channel, and balance the channel.
-
-To balance a new lightning channel, have the channel recipient generate an invoice for half the capacity, and then pay the invoice with the channel creater. For example:
+Before getting started, you will need to setup an `.env.local` file with the following:
 
 ```
-Alice opens a channel with Bob for 5,000,000,000 millisats.
-
-Bob generates an invoice for 2,500,000,000 millisats.
-bob:~# lightning-cli invoice 2500000000 "balance invoice"
-
-Alice uses the bolt11 string to pay the invoice.
-alice:~# lightning-cli pay bolt11string
-
-You will now have a balanced channel to use for testing payments!
+SECRET_KEY=<A random base64url encoded string. Encrypts server-side data.>
+SESSION_NAME=<Reference name of your site. For iron-session cookie.>
+SESSION_KEY=<A random base64url encoded string. Encrypts cookie data.>
+LNBITS_URL=<URL endpoint of your lnbits instance.>
+LNBITS_KEY=<Master user key of your lnbits instance.>
+MONGO_DBNAME=<Name of your project's mongo database.>
+MONGO_DBURI=<Full mongoURI pointing towards your MongoDB instance.>
 ```
 
-To generate an open offer, use the format **offer *amount description***.
+From there, you can start with `yarn` or `npm i` in order to install all package dependencies.
 
-Example: `lightning-cli offer any tip-jar`
+Once that is complete, you should be able to start a local instance of the project using `yarn dev` or `npm dev`.
 
-You will receive a bolt12 string for the offer. To fetch an invoice, use **fetchinvoice *offer=bolt12string msatoshi=amount payer_note=note***.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result!
 
-Example: `lightning-cli fetchinvoice offer=reallylongstring msatoshi=1500000 payer_note="Thanks for the cig!"`
-
-You will then receive a bolt12 string for an invoice with your terms. To pay the invoice, simply use **pay *bolt12invoicestring***.
-
-Example: `lightning-cli pay bolt12invoicestring`
-
-Once you have setup an offer and made payments to it, you should be ready to setup the rest of the demo.
-
-First, rename `.env.local.sample` to `.env.local`. Make sure that you have the correct port forwarded on your lightning node (the one which generated the offer), and that you have the correct API key listed (check the share folder for the sparko master key). You will also need to specify your offer id, so that the API will know which associated payments to lookup.
-
-Then run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+If you would like to deploy to vercel, you can install their client using `npm i -g vercel`, then follow the prompts to setup an account and launch a preview build of your project.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about the technology behind this project, take a look at the following resources:
+
+- LND documentation
+
+- LNBits documentation
+
+- Voltage documentation
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
@@ -57,6 +69,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy your app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Contribution
+
+Feel free to fork this project and contribute to the source code! We are currently still in the process of setting up tests for all the features, and could use some help!
+
+## Resources
+
+**LNUrl Reference Specification**  
+https://github.com/fiatjaf/lnurl-rfc
+
+**LNUrl Playground**  
+https://lnurl.fiatjaf.com
+
+**LNUrl Decoder** 
+https://lnurl.fiatjaf.com/codec
+
+**Lightning Invoice Decoder**  
+https://lightningdecoder.com
+
+
+

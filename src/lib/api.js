@@ -1,4 +1,4 @@
-import { resHandler, APIError } from '@/lib/error';
+import { APIError } from '@/lib/error';
 
 const hostURL = process.env.LNBITS_URL,
       hostKEY = process.env.LNBITS_KEY
@@ -23,12 +23,13 @@ export async function createWallet(walletName) {
 }
 
 export async function createPayRequest(name, walletKey, payTemplate) {
+  const memoText = `Tipped ${name} on sats4.tips`;
 
   const { 
-    memo = `Tipped ${name}`, 
+    memo = memoText, 
     min  = 10, 
-    max  = 21e15, 
-    successMsg = `You tipped ${name}!`
+    max  = 999999999, // If this is too high, LNBits gets mad.
+    successMsg = memoText
   } = payTemplate || {}
 
   const endpoint = '/lnurlp/api/v1/links'
@@ -85,11 +86,16 @@ export async function getBalance(invoiceKey) {
   return fetchEndpoint(endpoint, opt)
 }
 
-export async function payInvoice(bolt11, invoiceKey) {
+export async function createInvoice(name, amt, invoiceKey, memo) {
 
   const endpoint = '/api/v1/payments'
 
-  const body = { "out": true, "bolt11": bolt11 }
+  const body = {
+    'out': false,
+    'amount': amt,
+    'memo': memo || `Tipped ${name}@sats4.tips`,
+    'unit': 'sat'
+  }
 
   const opt = {
     method  : 'POST',
@@ -100,10 +106,31 @@ export async function payInvoice(bolt11, invoiceKey) {
   return fetchEndpoint(endpoint, opt)
 }
 
+export async function payInvoice(bolt11, walletKey) {
+
+  const endpoint = '/api/v1/payments'
+
+  const body = { "out": true, "bolt11": bolt11 }
+
+  const opt = {
+    method  : 'POST',
+    headers : { "Content-Type": "application/json", "X-Api-Key": walletKey },
+    body    : JSON.stringify(body)
+  };
+
+  return fetchEndpoint(endpoint, opt)
+}
+
 async function fetchEndpoint(endpoint, opt) {
   const url = `https://${hostURL + endpoint}`
-  return fetch(url, opt)
-    .then(resHandler)
-    .then(res => res.json())
-    .catch((err => { throw new APIError(endpoint, opt, err) }))
+  try {
+
+    const res = await fetch(url, opt)
+
+    if (!res.ok) {
+      return res.json({ status: res.status})
+    }
+
+    return res.json()
+  } catch(err) { throw new APIError(endpoint, opt, err) }
 }
