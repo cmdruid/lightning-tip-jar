@@ -16,6 +16,7 @@ async function login(req, res) {
 
   if (tag && tag === 'login') {
     /* If login tag is present, forward to signature resolver. */
+    console.log('Wallet request:', req.url)
     return sign(req, res)
   }
 
