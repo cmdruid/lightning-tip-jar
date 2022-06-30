@@ -73,6 +73,8 @@ async function sign(req, res) {
     /* If all params are present, fetch reference msg. */
     const data = pending.get(ref)
 
+    console.log('pending:', pending)
+
     if (data.msg && verifySig(sig, data.msg, key)) {
       /* Verify that the reference message has been signed. */
       pending.set(ref, { key, ...data })
