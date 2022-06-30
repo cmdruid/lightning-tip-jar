@@ -77,11 +77,16 @@ async function sign(req, res) {
       pending.set(ref, { key, ...data })
       return res.status(200).json({ 'status': 'ok' })
     }
+
+    return res.status(200).json({ 
+      'status': 'ERROR', 
+      'reason': 'Signature check failed!!'
+    })
   }
 
   return res.status(200).json({ 
-    'status': 'ERROR', 
-    'reason': 'Login process failed!' 
+    'status': 'ERROR',
+    'reason': 'Auth session expired!'
   })
 }
 
