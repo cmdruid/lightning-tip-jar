@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@noble/secp256k1": "^1.6.0",
+    "@supabase/supabase-js": "^1.35.4",
     "bech32": "^2.0.0",
     "bolt11": "^1.4.0",
     "dayjs": "^1.11.3",
