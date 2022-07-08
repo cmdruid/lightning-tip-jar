@@ -1,4 +1,4 @@
-import { encrypt }          from '@/lib/crypto'
+import { hash }             from '@/lib/crypto'
 import { encodeLnurl }      from '@/lib/utils'
 import { utils, verify }    from '@noble/secp256k1'
 import { withSessionRoute } from '@/lib/session'
@@ -45,7 +45,7 @@ async function login(req, res) {
     if (key) {
       /* If key has been provided, add to user data. */
       session.user = { 
-        key: await encrypt(key),
+        key: await hash(key),
         ...session.user 
       }
       await req.session.save();
