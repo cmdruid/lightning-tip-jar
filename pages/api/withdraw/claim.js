@@ -55,7 +55,7 @@ export default async function claimWithdraw(req, res) {
     }
     
     const decryptedKey = await decrypt(invoiceKey)
-    const { balance } = await getBalance(decryptedKey);
+    const { balance }  = await getBalance(decryptedKey);
 
     if (!balance) {
       return res.status(200).json({ 
@@ -64,9 +64,17 @@ export default async function claimWithdraw(req, res) {
       });
     }
 
+    if (balance && balance < 10000) {
+      return res.status(200).json({ 
+        'status': 'ERROR', 
+        'reason': 'Balance too low! Must keep a minumum balance of 10 sats.'
+      });
+    }
+
     const ref = Buffer.from(utils.randomBytes(5)).toString('base64url'),
           msg = utils.bytesToHex(utils.randomBytes(32)),
-          withdrawAmt = Math.min(amt, (balance / 1000 - 10));
+          maxWithdraw = balance - 10000,
+          withdrawAmt = Math.min(amt, maxWithdraw);
 
     pending.set(ref, { msg, walletKey, withdrawAmt })
         
