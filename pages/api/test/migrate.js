@@ -4,9 +4,9 @@ import { decrypt, hash } from '@/lib/crypto'
 
 export default async function migrate(req, res) {
   
-  // if (process.env.VERCEL_ENV === 'production') {
-  //   return res.status(404).end()
-  // }
+  if (process.env.VERCEL_ENV === 'production') {
+    return res.status(404).end()
+  }
 
   const { slug } = req.query
 
