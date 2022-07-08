@@ -40,8 +40,10 @@ async function getWithdraws(req, res) {
         .filter(t => !t.pending)
         .filter(t => t.amount < 0)
         .map(t => {
+          console.log(t)
           return {
             amt  : t.amount,
+            fee  : t.fee,
             msg  : t.memo,
             date : t.time
           }
