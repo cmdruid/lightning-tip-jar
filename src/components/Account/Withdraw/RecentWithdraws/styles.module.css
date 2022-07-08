@@ -87,11 +87,16 @@
 
 .amt {
   border-right: 1px solid white;
-  flex-grow: 1;
+  padding: 0 0.5rem;
+}
+
+.fee {
+  border-right: 1px solid white;
+  padding: 0 0.5rem;
 }
 
 .date {
-  flex-grow: 1;
+  padding: 0 0.5rem;
 }
 
 @media (max-width: 500px) {

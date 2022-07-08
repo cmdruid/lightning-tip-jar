@@ -38,6 +38,7 @@ function Transaction({ item }) {
       <div className={styles.meta}>
         <div className={styles.metaData}>
           <p className={styles.amt}>{item.amt / 1000} sats ⚡</p>
+          <p className={styles.fee}>-{item.fee / 1000} sat 🤌</p>
           <p className={styles.date}>{timeAgo}</p>
         </div>
       </div>

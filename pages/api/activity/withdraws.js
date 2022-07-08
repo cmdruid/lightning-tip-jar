@@ -42,6 +42,7 @@ async function getWithdraws(req, res) {
         .map(t => {
           return {
             amt  : t.amount,
+            fee  : t.fee,
             msg  : t.memo,
             date : t.time
           }

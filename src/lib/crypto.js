@@ -36,6 +36,13 @@ export async function decrypt(encodedtext, exportedKey) {
   return dec.decode(plaintext);
 }
 
+export async function hash(str) {
+  const ec   = new TextEncoder(),
+        data = ec.encode(str),
+        hash = await crypto.subtle.digest('SHA-256', data);
+  return Buffer.from(hash).toString('hex')
+}
+
 async function getKey(base64Str = SECRET_KEY) {
   /* Import a CryptoKey object, or fetch from cache. */
   if (!cryptoKey) {

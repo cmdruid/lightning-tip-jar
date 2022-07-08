@@ -1,11 +1,4 @@
 /** withdraw/claim.js
- * Receive a claim for withdraw that contains an encrypted json object.
- * The decrypted contents should contain the user key, plus the account name 
- * and timestamp. All information should be verified before processing the
- * withdraw request. A k1 challenge should be generated, then returned to wallet 
- * for a response. This challenge will also be stored with the account's wallet
- * key in order to make the payment. The wallet's response will contain an invoice 
- * that is decoded and verified, then sent for payment.
  */
 
 import bolt11            from 'bolt11'
@@ -62,7 +55,7 @@ export default async function claimWithdraw(req, res) {
     }
     
     const decryptedKey = await decrypt(invoiceKey)
-    const { balance } = await getBalance(decryptedKey);
+    const { balance }  = await getBalance(decryptedKey);
 
     if (!balance) {
       return res.status(200).json({ 
@@ -71,9 +64,17 @@ export default async function claimWithdraw(req, res) {
       });
     }
 
+    if (balance && balance < 10000) {
+      return res.status(200).json({ 
+        'status': 'ERROR', 
+        'reason': 'Balance too low! Must keep a minumum balance of 10 sats.'
+      });
+    }
+
     const ref = Buffer.from(utils.randomBytes(5)).toString('base64url'),
           msg = utils.bytesToHex(utils.randomBytes(32)),
-          withdrawAmt = Math.min(amt, balance - 9000);
+          maxWithdraw = balance - 10000,
+          withdrawAmt = Math.min(amt, maxWithdraw);
 
     pending.set(ref, { msg, walletKey, withdrawAmt })
         
@@ -81,7 +82,7 @@ export default async function claimWithdraw(req, res) {
       'tag': 'withdrawRequest',
       'callback': `https://${host}/api/withdraw/claim?ref=${ref}`,
       'k1': msg,
-      'defaultDescription': `(sats4tips) Withdraw from ${slug}: ${memo}`,
+      'defaultDescription': `Withdraw from sats4.tips/${slug}: ${memo}`,
       'minWithdrawable': withdrawAmt,
       'maxWithdrawable': withdrawAmt
     });

@@ -1,4 +1,4 @@
-import { encrypt }          from '@/lib/crypto'
+import { hash }             from '@/lib/crypto'
 import { encodeLnurl }      from '@/lib/utils'
 import { utils, verify }    from '@noble/secp256k1'
 import { withSessionRoute } from '@/lib/session'
@@ -16,6 +16,7 @@ async function login(req, res) {
 
   if (tag && tag === 'login') {
     /* If login tag is present, forward to signature resolver. */
+    console.log('Wallet request:', req.url)
     return sign(req, res)
   }
 
@@ -44,7 +45,7 @@ async function login(req, res) {
     if (key) {
       /* If key has been provided, add to user data. */
       session.user = { 
-        key: await encrypt(key),
+        key: await hash(key),
         ...session.user 
       }
       await req.session.save();
@@ -72,16 +73,23 @@ async function sign(req, res) {
     /* If all params are present, fetch reference msg. */
     const data = pending.get(ref)
 
+    console.log('pending:', pending)
+
     if (data.msg && verifySig(sig, data.msg, key)) {
       /* Verify that the reference message has been signed. */
       pending.set(ref, { key, ...data })
       return res.status(200).json({ 'status': 'ok' })
     }
+
+    return res.status(200).json({ 
+      'status': 'ERROR', 
+      'reason': 'Signature check failed!!'
+    })
   }
 
   return res.status(200).json({ 
-    'status': 'ERROR', 
-    'reason': 'Login process failed!' 
+    'status': 'ERROR',
+    'reason': 'Auth session expired!'
   })
 }
 
