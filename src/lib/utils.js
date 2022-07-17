@@ -17,7 +17,7 @@ export function convertToSlug(str) {
   return str
     .replace(/[^\w\s\-]/g, '')
     .trim()
-    .replace(' ', '-')
+    .replace(/[\s]/g, '-')
     .slice(0, 48)
     .toLowerCase()
 }
